@@ -13,7 +13,7 @@ export interface SocialLinkProps {
 
 export default function SocialLink({ url, icon }: SocialLinkProps) {
     return (
-        <motion.a target="_blank" href={url} style={{ height: '20px', width: '20px' }}>
+        <motion.a target="_blank" href={url} style={{ height: '20px', width: '20px' }} whileHover={{ scale: 2 }}>
             {icon}
         </motion.a>
     );

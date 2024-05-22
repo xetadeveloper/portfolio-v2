@@ -14,13 +14,23 @@ export interface SlantDivAnimationProps {}
 export default function SlantDivAnimation(props: SlantDivAnimationProps) {
     return (
         <motion.div
+            initial={{
+                height: '0px',
+                opacity: '0',
+                top: '0',
+                left: '0',
+            }}
+            animate={{
+                opacity: 1,
+                height: '400vh',
+                top: '50%',
+                left: '50%',
+            }}
+            transition={{ delay: 0.5, duration: 0.5 }}
             style={{
                 backgroundColor: '#464646',
                 width: '50%',
-                height: '400vh',
                 position: 'absolute',
-                top: '50%',
-                left: '50%',
                 transform: 'translate(-50%, -50%) rotate(-45deg)',
                 zIndex: '0',
             }}

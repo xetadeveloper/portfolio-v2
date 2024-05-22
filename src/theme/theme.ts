@@ -5,6 +5,9 @@ const theme: Partial<ChakraTheme> = {
         brand: {
             bg: '#FFFCF9',
         },
+        black: {
+            800: '#2c2c2c',
+        },
     },
 };
 
