@@ -1,10 +1,11 @@
 'use client';
 // Modules
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 
 // Styles
 import style from './SlantDivAnimation.module.css';
+import { chakra } from '@chakra-ui/react';
 
 // Components
 
@@ -13,7 +14,7 @@ export interface SlantDivAnimationProps {}
 
 export default function SlantDivAnimation(props: SlantDivAnimationProps) {
     return (
-        <motion.div
+        <motion.button
             initial={{
                 height: '0px',
                 opacity: '0',
@@ -26,14 +27,14 @@ export default function SlantDivAnimation(props: SlantDivAnimationProps) {
                 top: '50%',
                 left: '50%',
             }}
-            transition={{ delay: 0.5, duration: 0.5 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
             style={{
                 backgroundColor: '#464646',
-                width: '50%',
+                width: '60%',
                 position: 'absolute',
                 transform: 'translate(-50%, -50%) rotate(-45deg)',
                 zIndex: '0',
             }}
-        ></motion.div>
+        ></motion.button>
     );
 }

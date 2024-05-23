@@ -8,8 +8,8 @@ const hindSiliguri = Hind_Siliguri({
 
 const im_fell_french_cannon = IM_Fell_French_Canon({
     subsets: ['latin'],
-    weight: ['400'],
-    display: 'swap',
+    weight: ['400', ],
+    // display: 'swap',
 });
 
 export const fonts = {
