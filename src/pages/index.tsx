@@ -32,12 +32,12 @@ export default function Home(props: HomeProps) {
             padding="10px"
             overflow="hidden"
         >
-            {/* <SlantDivAnimation /> */}
+            <SlantDivAnimation />
 
             <Heading
                 style={{ userSelect: 'none' }}
                 draggable={false}
-                fontSize={{ base: '300px', md: '483px' }}
+                fontSize={{ base: '400px', md: '483px' }}
                 position="absolute"
                 left="50%"
                 transform="translate(-50%, -50%)"
@@ -46,7 +46,7 @@ export default function Home(props: HomeProps) {
             >
                 <motion.div
                     initial={{ color: '#F3F3F3' }}
-                    // animate={{ color: '#4B4B4B' }}
+                    animate={{ color: '#4B4B4B' }}
                     transition={{ delay: 0.5 }}
                 >
                     F
@@ -54,7 +54,7 @@ export default function Home(props: HomeProps) {
             </Heading>
 
             <motion.div
-                // animate={{ color: '#FFF' }}
+                animate={{ color: '#FFF' }}
                 initial={{ color: '#2c2c2c' }}
                 transition={{ delay: 0.5, duration: 1 }}
             >

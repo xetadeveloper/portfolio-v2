@@ -107,7 +107,7 @@ export default function NavSide(props: NavSideProps) {
                     <PopoverBody display="flex" flexDir="column" mt="0px" textAlign="right" gap="0px" minWidth="180px">
                         {menuList.map((item, index) => (
                             <>
-                                <Flex gap="10px" alignItems='center'>
+                                <Flex gap="10px" alignItems="center">
                                     <Box height="18px" width="18px">
                                         {item.icon}
                                     </Box>
@@ -121,11 +121,6 @@ export default function NavSide(props: NavSideProps) {
                                         bg="none"
                                         height="60px"
                                         fontWeight="300"
-                                        // border="1px solid #aeaeae"
-                                        // borderRight="none"
-                                        // borderLeft="none"
-                                        // borderTop={index === 0 ? 'none' : '1px solid #aeaeae'}
-                                        // borderBottom={index === menuList.length - 1 ? 'none' : '1px solid #aeaeae'}
                                         _hover={{}}
                                     >
                                         {item.title}
@@ -143,11 +138,11 @@ export default function NavSide(props: NavSideProps) {
                     <Tooltip
                         key={index}
                         label={
-                            <Box>
-                                <Heading fontWeight="600" mb="3px">
+                            <Box color="#2c2c2c" >
+                                <Heading fontWeight="500" fontSize="16px" mb="5px">
                                     {item.title}
                                 </Heading>
-                                <Heading fontSize="14px">{item.description}</Heading>
+                                <Heading fontWeight='300' fontSize="14px">{item.description}</Heading>
                             </Box>
                         }
                         placement="left"
