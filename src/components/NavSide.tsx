@@ -79,7 +79,7 @@ export default function NavSide(props: NavSideProps) {
             initial={{ y: 600 }}
             animate={{ y: 0 }}
             transition={{ delay: 0.2 }}
-            style={{ position: 'absolute', zIndex: '2', bottom: '20px', right: isBase ? '10px' : '20px' }}
+            style={{ position: 'absolute', zIndex: '2', bottom: '20px', right: isBase ? '20px' : '20px' }}
         >
             <Flex flexDir="column" gap="15px">
                 <Popover placement="left-start" isOpen={isOpen} defaultIsOpen={false} strategy="absolute">
