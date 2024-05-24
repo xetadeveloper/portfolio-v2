@@ -19,6 +19,7 @@ import {
     PopoverHeader,
     PopoverTrigger,
     Tooltip,
+    useBreakpointValue,
 } from '@chakra-ui/react';
 import { BiSolidHome, BiSolidUser } from 'react-icons/bi';
 import { GoHomeFill } from 'react-icons/go';
@@ -71,138 +72,136 @@ const menuList = [
 export default function NavSide(props: NavSideProps) {
     const [isOpen, setisOpen] = useState(false);
     const router = useRouter();
+    const isBase = useBreakpointValue({ base: true, md: false });
 
     return (
-        <Flex
-            as={motion.div}
+        <motion.div
             initial={{ y: 600 }}
             animate={{ y: 0 }}
-            flexDir="column"
-            gap="15px"
-            bottom="20px"
-            right={{ base: '10px', md: '20px' }}
-            position="absolute"
-            zIndex="2"
+            transition={{ delay: 0.2 }}
+            style={{ position: 'absolute', zIndex: '2', bottom: '20px', right: isBase ? '10px' : '20px' }}
         >
-            <Popover placement="left-start" isOpen={isOpen} defaultIsOpen={false} strategy="absolute">
-                <PopoverTrigger>
-                    <Button
-                        display={{ base: 'flex', lg: 'none' }}
-                        onClick={() => setisOpen((prev) => !prev)}
-                        borderRadius="50%"
-                        as={motion.button}
-                        justifyContent="center"
-                        padding="10px"
-                        width="50px"
-                        height="50px"
-                        border="none"
-                        boxShadow="0 1px 1px 1px #edebeb"
-                        bg="#F1F1F1"
-                        whileHover={{ scale: 1.2, backgroundColor: '#464646', color: 'white' }}
-                        sx={{ ...fonts.hindSiliguri }}
-                        fontWeight="600"
-                    >
-                        <BsMenuButtonFill />
-                    </Button>
-                </PopoverTrigger>
-                <PopoverContent
-                    position="relative"
-                    zIndex="1"
-                    height="100%"
-                    bg="#F1f1f1"
-                    borderRadius="5px"
-                    padding="10px 0px 10px"
-                    minWidth="0"
-                    width="auto"
-                    rootProps={{ style: { transform: 'scale(0)' } }}
-                >
-                    <PopoverHeader textAlign="left" fontWeight="600">
-                        Looking for?
-                    </PopoverHeader>
-                    <PopoverBody
-                        display="flex"
-                        padding="0"
-                        flexDir="column"
-                        mt="0px"
-                        textAlign="right"
-                        gap="0px"
-                        minWidth="180px"
-                    >
-                        {menuList.map((item, index) => (
-                            <>
-                                <Flex
-                                    as={Link}
-                                    href={item.url}
-                                    gap="10px"
-                                    alignItems="center"
-                                    padding="0 10px"
-                                    _hover={{ bg: 'black.700', color: 'white' }}
-                                >
-                                    <Box height="18px" width="18px">
-                                        {item.icon}
-                                    </Box>
-                                    <Button
-                                        key={index}
-                                        as={motion.button}
-                                        justifyContent="flex-end"
-                                        padding="5px 10px"
-                                        borderRadius="none"
-                                        minWidth="0"
-                                        bg="none"
-                                        border="none"
-                                        height="60px"
-                                        fontWeight="300"
-                                        color="inherit"
-                                        _hover={{}}
-                                    >
-                                        {item.title}
-                                    </Button>
-                                </Flex>
-                                <Divider bg="#aeaeae" />
-                            </>
-                        ))}
-                    </PopoverBody>
-                </PopoverContent>
-            </Popover>
-
-            <Flex flexDir="column" gap="15px" display={{ base: 'none', lg: 'flex' }}>
-                {menuList.map((item, index) => (
-                    <Tooltip
-                        key={index}
-                        label={
-                            <Box color="#2c2c2c">
-                                <Heading fontWeight="500" fontSize="16px" mb="5px">
-                                    {item.title}
-                                </Heading>
-                                <Heading fontWeight="300" fontSize="14px">
-                                    {item.description}
-                                </Heading>
-                            </Box>
-                        }
-                        placement="left"
-                        right="20px"
-                        bg="#F1F1F1"
-                        padding="10px 15px"
-                        borderRadius="5px"
-                        maxWidth="400px"
-                    >
+            <Flex flexDir="column" gap="15px">
+                <Popover placement="left-start" isOpen={isOpen} defaultIsOpen={false} strategy="absolute">
+                    <PopoverTrigger>
                         <Button
+                            display={{ base: 'flex', lg: 'none' }}
+                            onClick={() => setisOpen((prev) => !prev)}
                             borderRadius="50%"
                             as={motion.button}
+                            justifyContent="center"
                             padding="10px"
-                            height="40px"
+                            width="50px"
+                            height="50px"
                             border="none"
                             boxShadow="0 1px 1px 1px #edebeb"
-                            width="40px"
                             bg="#F1F1F1"
                             whileHover={{ scale: 1.2, backgroundColor: '#464646', color: 'white' }}
-                            onClick={() => router.push(item.url)}
+                            sx={{ ...fonts.hindSiliguri }}
+                            fontWeight="600"
                         >
-                            {item.icon}
+                            <BsMenuButtonFill />
                         </Button>
-                    </Tooltip>
-                ))}
+                    </PopoverTrigger>
+                    <PopoverContent
+                        position="relative"
+                        zIndex="1"
+                        height="100%"
+                        bg="#F1f1f1"
+                        borderRadius="5px"
+                        padding="10px 0px 10px"
+                        minWidth="0"
+                        width="auto"
+                        rootProps={{ style: { transform: 'scale(0)' } }}
+                    >
+                        <PopoverHeader textAlign="left" fontWeight="600">
+                            Looking for?
+                        </PopoverHeader>
+                        <PopoverBody
+                            display="flex"
+                            padding="0"
+                            flexDir="column"
+                            mt="0px"
+                            textAlign="right"
+                            gap="0px"
+                            minWidth="180px"
+                        >
+                            {menuList.map((item, index) => (
+                                <>
+                                    <Flex
+                                        as={Link}
+                                        href={item.url}
+                                        gap="10px"
+                                        alignItems="center"
+                                        padding="0 10px"
+                                        _hover={{ bg: 'black.700', color: 'white' }}
+                                    >
+                                        <Box height="18px" width="18px">
+                                            {item.icon}
+                                        </Box>
+                                        <Button
+                                            key={index}
+                                            as={motion.button}
+                                            justifyContent="flex-end"
+                                            padding="5px 10px"
+                                            borderRadius="none"
+                                            minWidth="0"
+                                            bg="none"
+                                            border="none"
+                                            height="60px"
+                                            fontWeight="300"
+                                            color="inherit"
+                                            _hover={{}}
+                                        >
+                                            {item.title}
+                                        </Button>
+                                    </Flex>
+                                    <Divider bg="#aeaeae" />
+                                </>
+                            ))}
+                        </PopoverBody>
+                    </PopoverContent>
+                </Popover>
+
+                <Flex flexDir="column" gap="15px" display={{ base: 'none', lg: 'flex' }}>
+                    {menuList.map((item, index) => (
+                        <Tooltip
+                            key={index}
+                            label={
+                                <Box color="#2c2c2c">
+                                    <Heading fontWeight="500" fontSize="16px" mb="5px">
+                                        {item.title}
+                                    </Heading>
+                                    <Heading fontWeight="300" fontSize="14px">
+                                        {item.description}
+                                    </Heading>
+                                </Box>
+                            }
+                            placement="left"
+                            right="20px"
+                            bg="#F1F1F1"
+                            padding="10px 15px"
+                            borderRadius="5px"
+                            maxWidth="400px"
+                        >
+                            <Button
+                                borderRadius="50%"
+                                as={motion.button}
+                                padding="10px"
+                                height="40px"
+                                border="none"
+                                boxShadow="0 1px 1px 1px #edebeb"
+                                width="40px"
+                                bg="#F1F1F1"
+                                whileHover={{ scale: 1.2, backgroundColor: '#464646', color: 'white' }}
+                                onClick={() => router.push(item.url)}
+                            >
+                                {item.icon}
+                            </Button>
+                        </Tooltip>
+                    ))}
+                </Flex>
             </Flex>
-        </Flex>
+        </motion.div>
     );
 }

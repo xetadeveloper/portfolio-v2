@@ -29,7 +29,7 @@ function Layout({ children, key }: { children: ReactElement; key: string }) {
 export default function App({ Component, pageProps, router }: AppProps) {
     return (
         <ChakraProvider theme={theme} resetCSS={true}>
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" >
                 <Layout key={router.route}>
                     <Component key={router.route} {...pageProps} />
                 </Layout>
