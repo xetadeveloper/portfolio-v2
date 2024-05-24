@@ -1,6 +1,5 @@
 import { ChakraTheme, extendTheme } from '@chakra-ui/react';
-
-
+import Button from './components/Button';
 
 const theme: Partial<ChakraTheme> = {
     colors: {
@@ -9,6 +8,8 @@ const theme: Partial<ChakraTheme> = {
         },
         black: {
             800: '#2c2c2c',
+            700: '#333333',
+            600: '#464646',
         },
     },
     breakpoints: {
@@ -19,9 +20,9 @@ const theme: Partial<ChakraTheme> = {
         xl: '1440px',
     },
 
-    components:{
-        
-    }
+    components: {
+        Button,
+    },
 };
 
 export default extendTheme(theme);

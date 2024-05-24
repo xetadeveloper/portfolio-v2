@@ -28,6 +28,7 @@ import { PiNotepadFill } from 'react-icons/pi';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { fonts } from '~/assets/fonts';
+import Link from 'next/link';
 
 // Components
 
@@ -72,17 +73,30 @@ export default function NavSide(props: NavSideProps) {
     const router = useRouter();
 
     return (
-        <Flex flexDir="column" gap="15px" bottom="20px" right="10px" position="absolute">
-            <Popover placement="left-start">
+        <Flex
+            as={motion.div}
+            initial={{ y: 600 }}
+            animate={{ y: 0 }}
+            flexDir="column"
+            gap="15px"
+            bottom="20px"
+            right={{ base: '10px', md: '20px' }}
+            position="absolute"
+            zIndex="2"
+        >
+            {/* <Popover placement="left-start" isOpen={isOpen} defaultIsOpen={false} strategy="absolute">
                 <PopoverTrigger>
                     <Button
                         display={{ base: 'flex', lg: 'none' }}
                         onClick={() => setisOpen((prev) => !prev)}
                         borderRadius="50%"
                         as={motion.button}
+                        justifyContent="center"
                         padding="10px"
-                        height="60px"
-                        width="60px"
+                        width="50px"
+                        height="50px"
+                        border="none"
+                        boxShadow="0 1px 1px 1px #edebeb"
                         bg="#F1F1F1"
                         whileHover={{ scale: 1.2, backgroundColor: '#464646', color: 'white' }}
                         sx={{ ...fonts.hindSiliguri }}
@@ -100,14 +114,30 @@ export default function NavSide(props: NavSideProps) {
                     padding="10px 0px 10px"
                     minWidth="0"
                     width="auto"
+                    rootProps={{ style: { transform: 'scale(0)' } }}
                 >
                     <PopoverHeader textAlign="left" fontWeight="600">
                         Looking for?
                     </PopoverHeader>
-                    <PopoverBody display="flex" flexDir="column" mt="0px" textAlign="right" gap="0px" minWidth="180px">
+                    <PopoverBody
+                        display="flex"
+                        padding="0"
+                        flexDir="column"
+                        mt="0px"
+                        textAlign="right"
+                        gap="0px"
+                        minWidth="180px"
+                    >
                         {menuList.map((item, index) => (
                             <>
-                                <Flex gap="10px" alignItems="center">
+                                <Flex
+                                    as={Link}
+                                    href={item.url}
+                                    gap="10px"
+                                    alignItems="center"
+                                    padding="0 10px"
+                                    _hover={{ bg: 'black.700', color: 'white' }}
+                                >
                                     <Box height="18px" width="18px">
                                         {item.icon}
                                     </Box>
@@ -119,8 +149,10 @@ export default function NavSide(props: NavSideProps) {
                                         borderRadius="none"
                                         minWidth="0"
                                         bg="none"
+                                        border="none"
                                         height="60px"
                                         fontWeight="300"
+                                        color="inherit"
                                         _hover={{}}
                                     >
                                         {item.title}
@@ -131,18 +163,20 @@ export default function NavSide(props: NavSideProps) {
                         ))}
                     </PopoverBody>
                 </PopoverContent>
-            </Popover>
+            </Popover> */}
 
             <Flex flexDir="column" gap="15px" display={{ base: 'none', lg: 'flex' }}>
                 {menuList.map((item, index) => (
                     <Tooltip
                         key={index}
                         label={
-                            <Box color="#2c2c2c" >
+                            <Box color="#2c2c2c">
                                 <Heading fontWeight="500" fontSize="16px" mb="5px">
                                     {item.title}
                                 </Heading>
-                                <Heading fontWeight='300' fontSize="14px">{item.description}</Heading>
+                                <Heading fontWeight="300" fontSize="14px">
+                                    {item.description}
+                                </Heading>
                             </Box>
                         }
                         placement="left"
@@ -157,6 +191,8 @@ export default function NavSide(props: NavSideProps) {
                             as={motion.button}
                             padding="10px"
                             height="40px"
+                            border="none"
+                            boxShadow="0 1px 1px 1px #edebeb"
                             width="40px"
                             bg="#F1F1F1"
                             whileHover={{ scale: 1.2, backgroundColor: '#464646', color: 'white' }}

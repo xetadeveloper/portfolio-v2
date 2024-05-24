@@ -1,5 +1,5 @@
 'use client';
-import { Center, Flex, Heading } from '@chakra-ui/react';
+import { Button, Center, Flex, Heading } from '@chakra-ui/react';
 import { fonts } from '../assets/fonts';
 import { techStack } from '~/config';
 import { BsLinkedin, BsTwitterX } from 'react-icons/bs';
@@ -10,6 +10,9 @@ import SlantDivAnimation from '~/components/SlantDivAnimation';
 import { motion } from 'framer-motion';
 import NavSide from '~/components/NavSide';
 import { GetStaticPropsResult } from 'next';
+import { BiChevronRight } from 'react-icons/bi';
+import { GoChevronRight } from 'react-icons/go';
+import Link from 'next/link';
 
 const socials = [
     { icon: <BsTwitterX style={{ height: '100%', width: '100%' }} />, url: 'https://google.com' },
@@ -19,7 +22,7 @@ const socials = [
 ];
 
 interface HomeProps {}
-
+const delay = 1;
 export default function Home(props: HomeProps) {
     return (
         <Center
@@ -32,8 +35,6 @@ export default function Home(props: HomeProps) {
             padding="10px"
             overflow="hidden"
         >
-            <SlantDivAnimation />
-
             <Heading
                 style={{ userSelect: 'none' }}
                 draggable={false}
@@ -46,17 +47,17 @@ export default function Home(props: HomeProps) {
             >
                 <motion.div
                     initial={{ color: '#F3F3F3' }}
-                    animate={{ color: '#4B4B4B' }}
-                    transition={{ delay: 0.5 }}
+                    // animate={{ color: '#4B4B4B' }}
+                    transition={{ delay }}
                 >
                     F
                 </motion.div>
             </Heading>
 
             <motion.div
-                animate={{ color: '#FFF' }}
+                // animate={{ color: '#FFF' }}
                 initial={{ color: '#2c2c2c' }}
-                transition={{ delay: 0.5, duration: 1 }}
+                transition={{ delay, duration: 1 }}
             >
                 <Flex
                     style={{ userSelect: 'none' }}
@@ -66,7 +67,7 @@ export default function Home(props: HomeProps) {
                     zIndex="1"
                     textAlign="center"
                 >
-                    <Flex flexDir="column" mb="100px">
+                    <Flex flexDir="column" mb={{ base: '70px', md: '100px' }}>
                         <Heading fontSize={{ base: '25px', md: '36px' }} mb="40px" fontWeight="300">
                             Hi!
                         </Heading>
@@ -80,24 +81,59 @@ export default function Home(props: HomeProps) {
                             I love creating clean and beautiful websites with focus on user experience!
                         </Heading>
                     </Flex>
-                    <Flex flexDir="column">
-                        <Heading fontWeight="600" fontSize="18px">
-                            My Stack
-                        </Heading>
-                        <Heading fontSize="20px" fontWeight="300">
-                            {techStack.join(' | ')}
-                        </Heading>
-                    </Flex>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 120 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1, duration: 0.5, type: 'spring' }}
+                    >
+                        <Flex flexDir="column">
+                            <Heading fontWeight="600" fontSize={{ base: '16px', md: '18px' }}>
+                                My Stack
+                            </Heading>
+                            <Heading fontSize={{ base: '16px', md: '20px' }} fontWeight="300">
+                                {techStack.join(' | ')}
+                            </Heading>
+                        </Flex>
+                    </motion.div>
                 </Flex>
             </motion.div>
 
-            <Flex position="absolute" bottom="20px" left="30px" gap="15px">
+            <motion.div
+                whileTap={{ scale: 1, transition: { delay: 0, duration: 0.3, type: 'tween' } }}
+                whileHover={{ scale: 1.1, transition: { delay: 0, duration: 0.3, type: 'tween' } }}
+                initial={{ y: 400 }}
+                animate={{ y: 0, transition: { delay: 1, duration: 0.5, type: 'spring' } }}
+                style={{ marginTop: '40px' }}
+            >
+                <Button
+                    as={Link}
+                    href="/works"
+                    width="200px"
+                    height="50px"
+                    fontSize="16px"
+                    fontWeight="300"
+                    rightIcon={<GoChevronRight style={{ height: '20px', width: '20px', right: '5px' }} />}
+                    justifyContent="space-between"
+                    alignItems="center"
+                >
+                    Check out my work
+                </Button>
+            </motion.div>
+
+            <Flex
+                as={motion.div}
+                initial={{ x: -200 }}
+                animate={{ x: 0 }}
+                position="absolute"
+                bottom="20px"
+                left={{ base: '20px', md: '30px' }}
+                gap="18px"
+            >
                 {socials.map(({ icon, url }, index) => (
                     <SocialLink icon={icon} url={url} key={index} />
                 ))}
             </Flex>
-
-            <NavSide />
         </Center>
     );
 }
