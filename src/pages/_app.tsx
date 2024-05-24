@@ -9,14 +9,14 @@ import NavSide from '~/components/NavSide';
 function Layout({ children, key }: { children: ReactElement; key: string }) {
     return (
         <motion.div
-            initial={{ x: -300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -300, opacity: 0 }}
+            initial={{ y: -300, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -300, opacity: 0 }}
             transition={{
                 type: 'tween',
                 stiffness: 160,
                 damping: 20,
-                duration: 0.2,
+                duration: 0.4,
             }}
             style={{ height: '100vh', position: 'relative', width: 'auto', overflow: 'hidden' }}
         >
