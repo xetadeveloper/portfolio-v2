@@ -84,7 +84,7 @@ export default function NavSide(props: NavSideProps) {
             position="absolute"
             zIndex="2"
         >
-            {/* <Popover placement="left-start" isOpen={isOpen} defaultIsOpen={false} strategy="absolute">
+            <Popover placement="left-start" isOpen={isOpen} defaultIsOpen={false} strategy="absolute">
                 <PopoverTrigger>
                     <Button
                         display={{ base: 'flex', lg: 'none' }}
@@ -163,7 +163,7 @@ export default function NavSide(props: NavSideProps) {
                         ))}
                     </PopoverBody>
                 </PopoverContent>
-            </Popover> */}
+            </Popover>
 
             <Flex flexDir="column" gap="15px" display={{ base: 'none', lg: 'flex' }}>
                 {menuList.map((item, index) => (
