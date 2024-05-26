@@ -45,12 +45,11 @@ export default function Contact(props: ContactProps) {
 
             <VStack gap="30px">
                 {contactItems.map(({ icon, description, url }, index) => (
-                    <a href={url}>
+                    <a href={url} key={index}>
                         <SimpleGrid
                             as={motion.div}
                             borderRadius="5px"
                             gridTemplateColumns="minmax(auto, 300px) auto"
-                            key={index}
                             alignItems="center"
                             gap="30px"
                             whileHover={{ scale: 1.2, backgroundColor: '#434343', color: 'white', padding: '10px' }}
