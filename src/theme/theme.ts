@@ -1,5 +1,6 @@
 import { ChakraTheme, extendTheme } from '@chakra-ui/react';
 import Button from './components/Button';
+import { Heading } from './components/Heading';
 
 const theme: Partial<ChakraTheme> = {
     colors: {
@@ -22,6 +23,7 @@ const theme: Partial<ChakraTheme> = {
 
     components: {
         Button,
+        Heading,
     },
 };
 
