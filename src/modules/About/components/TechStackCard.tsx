@@ -33,7 +33,7 @@ export default function TechStackCard({ title, subtitle, techStack }: TechStackC
             <SimpleGrid border="1px solid gree" gridTemplateColumns="1fr 1fr" gap="20px" rowGap="20px">
                 {techStack.map(({ icon, title }, index) => (
                     <Flex key={index} alignItems="center" gap="10px">
-                        <Box height="40px" width="40px">
+                        <Box height="40px" width="40px" color="#383838">
                             {icon}
                         </Box>
                         <Heading fontWeight="400">{title}</Heading>

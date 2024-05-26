@@ -151,10 +151,6 @@ export default function About(props: aboutProps) {
                             />
                         </Flex>
                     </Flex>
-
-                    {/* <Button mt="30px" width="fit-content" leftIcon={<BiDownload />}>
-                        Download a copy of my resume
-                    </Button> */}
                 </Flex>
             </Flex>
         </Flex>
