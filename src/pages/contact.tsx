@@ -2,18 +2,16 @@
 import React from 'react';
 
 // Styles
-import style from './contact.module.css';
-import { Box, Center, Flex, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { Box, Center, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 import { MdEmail } from 'react-icons/md';
-import { BsTwitterX } from 'react-icons/bs';
 import { RiTwitterXLine } from 'react-icons/ri';
 import { motion } from 'framer-motion';
 
 // Components
 
 // Types
-export interface contactProps {}
+export interface ContactProps {}
 
 const contactItems = [
     {
@@ -38,7 +36,7 @@ const contactItems = [
     },
 ];
 
-export default function Contact(props: contactProps) {
+export default function Contact(props: ContactProps) {
     return (
         <Center bg="brand.bg" minHeight="100%" flexDir="column" gap="60px">
             <Heading fontWeight="500" fontSize="34px">
