@@ -8,6 +8,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 import { MdEmail } from 'react-icons/md';
 import { BsTwitterX } from 'react-icons/bs';
 import { RiTwitterXLine } from 'react-icons/ri';
+import { motion } from 'framer-motion';
 
 // Components
 
@@ -46,17 +47,22 @@ export default function Contact(props: contactProps) {
 
             <VStack gap="30px">
                 {contactItems.map(({ icon, description, url }, index) => (
-                    <SimpleGrid
-                        gridTemplateColumns="minmax(auto, 300px) auto"
-                        key={index}
-                        alignItems="center"
-                        gap="30px"
-                    >
-                        <Text>{description}</Text>
-                        <a href={url} style={{ height: '60px', width: '60px' }}>
-                            {icon}
-                        </a>
-                    </SimpleGrid>
+                    <a href={url}>
+                        <SimpleGrid
+                            as={motion.div}
+                            borderRadius="5px"
+                            gridTemplateColumns="minmax(auto, 300px) auto"
+                            key={index}
+                            alignItems="center"
+                            gap="30px"
+                            whileHover={{ scale: 1.2, backgroundColor: '#434343', color: 'white', padding: '10px' }}
+                        >
+                            <Text>{description}</Text>
+                            <Box height="60px" width="60px">
+                                {icon}
+                            </Box>
+                        </SimpleGrid>
+                    </a>
                 ))}
             </VStack>
         </Center>
