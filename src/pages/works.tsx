@@ -37,7 +37,7 @@ export default function Works(props: worksProps) {
     const [selectedTab, setSelectedTab] = useState(0);
 
     return (
-        <Flex flexDir="column" bg="brand.bg" minHeight="100%" padding="30px 0 20px">
+        <Flex flexDir="column" bg="brand.bg" minHeight="100%" padding="30px 0 20px" height='100%' overflow='auto'>
             <Flex padding="0 30px" gap="10px" justifyContent="space-between" alignItems="center" flexWrap="wrap">
                 <Flex flexDir="column" gap="20px">
                     <Heading fontSize="34px">My Work</Heading>
