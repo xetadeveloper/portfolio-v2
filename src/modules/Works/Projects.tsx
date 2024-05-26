@@ -2,9 +2,7 @@
 import React from 'react';
 
 // Styles
-import style from './Projects.module.css';
-import { Box, Button, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
-import Image from 'next/image';
+import { Flex, Heading } from '@chakra-ui/react';
 import WorkItem from './components/WorkItem';
 import { projects } from './constants';
 
@@ -18,12 +16,19 @@ export default function Projects(props: ProjectsProps) {
         <Flex flexDir="column" gap="40px" height="100%">
             <Heading>
                 During my spare time I like to learn new things and dabble into other technologies different from what I
-                use daily. Here are some of the projects I have worked on.{' '}
+                use daily. Here are some of the projects I have worked on.
             </Heading>
 
             <Flex flexDir="column" height="100%" gap="40px">
-                {projects.map(({ title, description, imgAlt, imgUrl }, index) => (
-                    <WorkItem key={index} title={title} description={description} imgAlt={imgAlt} imgUrl={imgUrl} />
+                {projects.map(({ title, description, imgAlt, imgUrl, techStack }, index) => (
+                    <WorkItem
+                        key={index}
+                        title={title}
+                        description={description}
+                        imgAlt={imgAlt}
+                        imgUrl={imgUrl}
+                        techStack={techStack}
+                    />
                 ))}
             </Flex>
         </Flex>

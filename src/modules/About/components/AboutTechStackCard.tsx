@@ -1,13 +1,13 @@
 import { Box, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 
-interface TechStackCardProps {
+interface AboutTechStackCardProps {
     title: string;
     subtitle: string;
     techStack: { icon: ReactElement; title: string }[];
 }
 
-export default function TechStackCard({ title, subtitle, techStack }: TechStackCardProps) {
+export default function AboutTechStackCard({ title, subtitle, techStack }: AboutTechStackCardProps) {
     return (
         <Flex
             bg="#fff"

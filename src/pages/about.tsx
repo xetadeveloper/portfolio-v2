@@ -6,7 +6,7 @@ import { Avatar, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import AboutTitle from '~/modules/About/components/AboutTitle';
 import AboutBody from '~/modules/About/components/AboutBody';
 import { specializeTechStack } from '~/modules/About/constants';
-import TechStackCard from '~/modules/About/components/TechStackCard';
+import AboutTechStackCard from '~/modules/About/components/AboutTechStackCard';
 
 // Components
 
@@ -133,18 +133,18 @@ export default function About(props: aboutProps) {
                         </Heading>
 
                         <Flex flexDir="column" gap="40px">
-                            <TechStackCard
+                            <AboutTechStackCard
                                 title="Specailize in"
                                 subtitle="These are technologies and tools I am most comfortable with, specialize in
                                         and make use of daily."
                                 techStack={specializeTechStack}
                             />
-                            <TechStackCard
+                            <AboutTechStackCard
                                 title="Familiar with"
                                 subtitle="These are technologies and tools I have used in personal projects or in the past and I understand them but I don't currently use them daily."
                                 techStack={specializeTechStack}
                             />
-                            <TechStackCard
+                            <AboutTechStackCard
                                 title="Experimented with"
                                 subtitle="These are technologies and tools I have and probably still experimenting with and have used them in demo projects but have not spent a lot of time with."
                                 techStack={specializeTechStack}
