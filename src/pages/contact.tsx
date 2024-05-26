@@ -45,7 +45,7 @@ export default function Contact(props: ContactProps) {
 
             <VStack gap="30px">
                 {contactItems.map(({ icon, description, url }, index) => (
-                    <a href={url} key={index}>
+                    <a href={url} key={index} target="_blank">
                         <SimpleGrid
                             as={motion.div}
                             borderRadius="5px"
