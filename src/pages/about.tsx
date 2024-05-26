@@ -1,11 +1,8 @@
 // Modules
-import React, { ReactElement } from 'react';
+import React from 'react';
 
 // Styles
-import style from './about.module.css';
-import { Avatar, Box, Button, Center, Divider, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
-import NavSide from '~/components/NavSide';
-import { BiDownload } from 'react-icons/bi';
+import { Avatar, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import AboutTitle from '~/modules/About/components/AboutTitle';
 import AboutBody from '~/modules/About/components/AboutBody';
 import { specializeTechStack } from '~/modules/About/constants';
@@ -60,10 +57,6 @@ export default function About(props: aboutProps) {
                     <Text fontSize="16px">Verbal and written communication skills</Text>
                     <Text>Collaboration with teams</Text>
                 </Flex>
-
-                {/* <Button mt="30px" width="180px" leftIcon={<BiDownload />}>
-                    Resume
-                </Button> */}
             </Flex>
 
             <Flex as="section" flexGrow="1" flexDir="column" padding="20px 0" overflow="auto">
@@ -158,6 +151,10 @@ export default function About(props: aboutProps) {
                             />
                         </Flex>
                     </Flex>
+
+                    {/* <Button mt="30px" width="fit-content" leftIcon={<BiDownload />}>
+                        Download a copy of my resume
+                    </Button> */}
                 </Flex>
             </Flex>
         </Flex>
