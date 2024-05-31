@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 
 // Styles
 import style from './TitleLayout.module.css';
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Flex, Heading, Spinner } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
 // Components
@@ -12,6 +12,7 @@ import { motion } from 'framer-motion';
 export interface TitleLayoutProps {
     children: ReactElement;
     pageTitle: string;
+    isFetching?: boolean;
 }
 
 /**
@@ -19,16 +20,17 @@ export interface TitleLayoutProps {
  * before revealing its children. The animatoin has to be perfect.
  */
 
-export default function TitleLayout({ children, pageTitle }: TitleLayoutProps) {
+export default function TitleLayout({ children, pageTitle, isFetching }: TitleLayoutProps) {
     return (
         <Flex height="100%" width="100%" position="relative">
             <motion.div
                 style={{
                     position: 'absolute',
                     inset: '0',
+                    zIndex: '1',
                 }}
                 initial={{ left: '0' }}
-                animate={{ left: '200%' }}
+                animate={{ left: '200%', transition: { delay: 1.5, duration: 1 } }}
                 transition={{ delay: 1, duration: 1 }}
             >
                 <Heading
@@ -40,19 +42,21 @@ export default function TitleLayout({ children, pageTitle }: TitleLayoutProps) {
                     alignItems="center"
                     fontSize="34px"
                     height="100%"
+                    flexDir="column"
+                    gap="40px"
                 >
                     {pageTitle}
+
+                    <Spinner
+                        as={motion.div}
+                        animate={{ opacity: 0, transition: { delay: 1.2 } }}
+                        width="20px"
+                        height="20px"
+                    />
                 </Heading>
             </motion.div>
 
-            <motion.div
-                // initial={{ scale: 0.2 }}
-                // animate={{ scale: 1 }}
-                style={{ height: '100%', width: '100%' }}
-                // transition={{ delay: 1 }}
-            >
-                {children}
-            </motion.div>
+            <motion.div style={{ height: '100%', width: '100%' }}>{children}</motion.div>
         </Flex>
     );
 }
