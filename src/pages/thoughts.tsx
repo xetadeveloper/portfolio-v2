@@ -2,11 +2,8 @@
 import React, { useState } from 'react';
 
 // Styles
-import { Button, Divider, Flex, Heading, Stack, Text } from '@chakra-ui/react';
+import { Divider, Flex, Heading, Input, Stack, Text } from '@chakra-ui/react';
 import TitleLayout from '~/layouts/TitleLayout';
-import dayjs from 'dayjs';
-import { BsChevronRight } from 'react-icons/bs';
-import { motion } from 'framer-motion';
 import ThoughtsSection, { ArticleItem } from '~/modules/Thoughts/components/ThoughtsSection';
 
 // Components
@@ -17,18 +14,21 @@ const articlesList: ArticleItem[] = [
         imageUrl: '/article-demo.jpg',
         author: 'Fego Etese',
         createdOn: '2024-05-06',
+        articleUrl: '/create-portfolio',
     },
     {
         title: 'How to create a portfolio that stands out',
         imageUrl: '/article-demo.jpg',
         author: 'Fego Etese',
         createdOn: '2024-05-06',
+        articleUrl: '/create-portfolio',
     },
     {
         title: 'How to create a portfolio that stands out',
         imageUrl: '/article-demo.jpg',
         author: 'Fego Etese',
         createdOn: '2024-02-06',
+        articleUrl: '/create-portfolio',
     },
 ];
 
@@ -72,9 +72,17 @@ export default function Thoughts(props: ThoughtsProps) {
 
                 <Divider borderColor="#DEDEDE" />
 
-                <Flex flexDir="column" padding="20px 30px">
+                <Flex flexDir="column" padding="20px 30px" gap="30px">
                     {/* Search and filters  */}
-                    <Flex flexDir="column"></Flex>
+                    <Flex flexDir="column" ml="10px">
+                        <Input
+                            placeholder="Search"
+                            maxWidth="400px"
+                            border="1px solid transparent"
+                            borderColor="#9b9b9b"
+                            _hover={{ borderColor: '#9b9b9b' }}
+                        />
+                    </Flex>
 
                     {/* Articles listing */}
                     <Flex flexDir="column" gap="40px" overflow="visible">

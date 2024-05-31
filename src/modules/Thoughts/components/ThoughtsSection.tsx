@@ -17,6 +17,7 @@ export type ArticleItem = {
     imageUrl: string;
     author: string;
     createdOn: string;
+    articleUrl: string;
 };
 
 export interface ThoughtsSectionProps {
@@ -50,7 +51,8 @@ export default function ThoughtsSection({ articles, articleDateGroup, isDefaultO
                 <Flex gap="20px" flexWrap="wrap" padding="10px 10px">
                     {[...articles, ...articles, ...articles, ...articles].map((item) => (
                         <Button
-                            as={motion.button}
+                            as={motion.a}
+                            href={item.articleUrl}
                             flexDir="column"
                             bg="#fff"
                             borderRadius="5px"
