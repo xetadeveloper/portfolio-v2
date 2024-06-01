@@ -4,33 +4,11 @@ import React, { useState } from 'react';
 // Styles
 import { Divider, Flex, Heading, Input, Stack, Text } from '@chakra-ui/react';
 import TitleLayout from '~/layouts/TitleLayout';
-import ThoughtsSection, { ArticleItem } from '~/modules/Thoughts/components/ThoughtsSection';
+import ThoughtsSection from '~/modules/Thoughts/components/ThoughtsSection';
+import { ArticleItem } from '~/types';
+import { articlesList } from '~/utils/dummyArticles';
 
 // Components
-
-const articlesList: ArticleItem[] = [
-    {
-        title: 'How to create a portfolio that stands out',
-        imageUrl: '/article-demo.jpg',
-        author: 'Fego Etese',
-        createdOn: '2024-05-06',
-        articleUrl: '/create-portfolio',
-    },
-    {
-        title: 'How to create a portfolio that stands out',
-        imageUrl: '/article-demo.jpg',
-        author: 'Fego Etese',
-        createdOn: '2024-05-06',
-        articleUrl: '/create-portfolio',
-    },
-    {
-        title: 'How to create a portfolio that stands out',
-        imageUrl: '/article-demo.jpg',
-        author: 'Fego Etese',
-        createdOn: '2024-02-06',
-        articleUrl: '/create-portfolio',
-    },
-];
 
 // Types
 export interface ThoughtsProps {}
@@ -61,7 +39,7 @@ export default function Thoughts(props: ThoughtsProps) {
     return (
         <TitleLayout pageTitle="My Thoughts">
             <Flex bg="brand.bg" height="100%" overflow="auto" flexDir="column">
-                <Stack padding="20px 30px" gap="20px">
+                <Stack padding="30px 30px 20px" gap="20px">
                     <Heading fontSize="34px">My Thoughts</Heading>
                     <Text maxWidth="800px">
                         Welcome to my world and everything in it. Here I share my opinions on technology, daily life,

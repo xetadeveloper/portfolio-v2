@@ -1,24 +1,14 @@
 // Modules
 import React, { useState } from 'react';
-
-// Styles
-import style from './ThoughtsSection.module.css';
-import { Box, Button, Collapse, Flex, Heading, Stack } from '@chakra-ui/react';
-import { BsChevronRight } from 'react-icons/bs';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 
 // Components
+import { Box, Button, Collapse, Flex, Heading, Stack } from '@chakra-ui/react';
+import { BsChevronRight } from 'react-icons/bs';
+import { ArticleItem } from '~/types';
 
 // Types
-
-export type ArticleItem = {
-    title: string;
-    imageUrl: string;
-    author: string;
-    createdOn: string;
-    articleUrl: string;
-};
 
 export interface ThoughtsSectionProps {
     articles: ArticleItem[];
