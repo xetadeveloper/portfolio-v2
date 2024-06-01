@@ -39,8 +39,9 @@ export default function ThoughtsSection({ articles, articleDateGroup, isDefaultO
 
             <Collapse in={isOpen}>
                 <Flex gap="20px" flexWrap="wrap" padding="10px 10px">
-                    {[...articles, ...articles, ...articles, ...articles].map((item) => (
+                    {[...articles, ...articles, ...articles, ...articles].map((item, index) => (
                         <Button
+                            key={index}
                             as={motion.a}
                             href={item.articleUrl}
                             flexDir="column"
