@@ -1,32 +1,30 @@
-import { FaGit, FaGithub, FaNodeJs, FaReact } from 'react-icons/fa6';
-import { RiNextjsLine } from 'react-icons/ri';
-import { SiExpress, SiTypescript } from 'react-icons/si';
+import getTechIcon from '~/utils/techStackIcons';
 
 export const specializeTechStack = [
-    { title: 'React', icon: <FaReact style={{ height: '100%', width: '100%' }} /> },
-    { title: 'NodeJS', icon: <FaNodeJs style={{ height: '100%', width: '100%' }} /> },
-    { title: 'Typescript', icon: <SiTypescript style={{ height: '100%', width: '100%' }} /> },
-    { title: 'NextJS', icon: <RiNextjsLine style={{ height: '100%', width: '100%' }} /> },
-    { title: 'Git', icon: <FaGit style={{ height: '100%', width: '100%' }} /> },
-    { title: 'GitHub', icon: <FaGithub style={{ height: '100%', width: '100%' }} /> },
+    { title: 'React', icon: getTechIcon({ icon: 'react' }) },
+    { title: 'NodeJS', icon: getTechIcon({ icon: 'nodejs' }) },
+    { title: 'Typescript', icon: getTechIcon({ icon: 'typescript' }) },
+    { title: 'NextJS', icon: getTechIcon({ icon: 'nextjs' }) },
+    { title: 'Git', icon: getTechIcon({ icon: 'git' }) },
+    { title: 'GitHub', icon: getTechIcon({ icon: 'github' }) },
 ];
 
 export const familiarTechStack = [
-    { title: 'React', icon: <FaReact style={{ height: '100%', width: '100%' }} /> },
-    { title: 'NodeJS', icon: <FaNodeJs style={{ height: '100%', width: '100%' }} /> },
-    { title: 'Typescript', icon: <SiTypescript style={{ height: '100%', width: '100%' }} /> },
-    { title: 'NextJS', icon: <RiNextjsLine style={{ height: '100%', width: '100%' }} /> },
-    { title: 'ExpressJS', icon: <SiExpress style={{ height: '100%', width: '100%' }} /> },
-    { title: 'Git', icon: <FaGit style={{ height: '100%', width: '100%' }} /> },
-    { title: 'GitHub', icon: <FaGithub style={{ height: '100%', width: '100%' }} /> },
+    { title: 'React', icon: getTechIcon({ icon: 'react' }) },
+    { title: 'NodeJS', icon: getTechIcon({ icon: 'nodejs' }) },
+    { title: 'Typescript', icon: getTechIcon({ icon: 'typescript' }) },
+    { title: 'NextJS', icon: getTechIcon({ icon: 'nextjs' }) },
+    { title: 'Git', icon: getTechIcon({ icon: 'git' }) },
+    { title: 'GitHub', icon: getTechIcon({ icon: 'github' }) },
+    { title: 'ExpressJS', icon: getTechIcon({ icon: 'expressjs' }) },
 ];
 
 export const experimentalTechStack = [
-    { title: 'React', icon: <FaReact style={{ height: '100%', width: '100%' }} /> },
-    { title: 'NodeJS', icon: <FaNodeJs style={{ height: '100%', width: '100%' }} /> },
-    { title: 'Typescript', icon: <SiTypescript style={{ height: '100%', width: '100%' }} /> },
-    { title: 'NextJS', icon: <RiNextjsLine style={{ height: '100%', width: '100%' }} /> },
-    { title: 'ExpressJS', icon: <SiExpress style={{ height: '100%', width: '100%' }} /> },
-    { title: 'Git', icon: <FaGit style={{ height: '100%', width: '100%' }} /> },
-    { title: 'GitHub', icon: <FaGithub style={{ height: '100%', width: '100%' }} /> },
+    { title: 'React', icon: getTechIcon({ icon: 'react' }) },
+    { title: 'NodeJS', icon: getTechIcon({ icon: 'nodejs' }) },
+    { title: 'Typescript', icon: getTechIcon({ icon: 'typescript' }) },
+    { title: 'NextJS', icon: getTechIcon({ icon: 'nextjs' }) },
+    { title: 'Git', icon: getTechIcon({ icon: 'git' }) },
+    { title: 'GitHub', icon: getTechIcon({ icon: 'github' }) },
+    { title: 'ExpressJS', icon: getTechIcon({ icon: 'expressjs' }) },
 ];

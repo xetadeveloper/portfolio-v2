@@ -66,8 +66,9 @@ export default function Thoughts(props: ThoughtsProps) {
                     <Flex flexDir="column" gap="40px" overflow="visible">
                         {Object.entries(groupArticles(articlesList))
                             .sort((a, b) => Date.parse(b[0]) - Date.parse(a[0]))
-                            .map((group) => (
+                            .map((group, index) => (
                                 <ThoughtsSection
+                                    key={index}
                                     isDefaultOpen={isAllOpen}
                                     articleDateGroup={group[0]}
                                     articles={group[1]}
