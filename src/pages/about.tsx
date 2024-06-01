@@ -27,7 +27,7 @@ export default function About(props: aboutProps) {
                 overflowY="auto"
             >
                 <Flex flexDir="column" alignItems="center" gap="50px" padding="0 20px">
-                    <Avatar height="150px" width="150px" />
+                    <Avatar height="150px" width="150px" src="/profile-pic.jpg" />
 
                     <Flex flexDir="column" gap="5px">
                         <Heading fontSize="16px" fontWeight="600" mb="10px">

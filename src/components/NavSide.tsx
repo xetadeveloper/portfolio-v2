@@ -56,16 +56,16 @@ const menuList = [
         url: '/works',
     },
     {
-        icon: <BsEnvelopeFill style={{ height: '100%', width: '100%' }} />,
-        title: 'Contact me',
-        description: "I'm excited to hear from you!",
-        url: '/contact',
-    },
-    {
         icon: <PiNotepadFill style={{ height: '100%', width: '100%' }} />,
         title: 'Thoughts',
         description: 'These are my thoughts based on my experience as a web developer and a human being.',
         url: '/thoughts',
+    },
+    {
+        icon: <BsEnvelopeFill style={{ height: '100%', width: '100%' }} />,
+        title: 'Contact me',
+        description: "I'm excited to hear from you!",
+        url: '/contact',
     },
 ];
 
