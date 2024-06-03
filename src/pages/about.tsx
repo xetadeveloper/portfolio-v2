@@ -10,6 +10,7 @@ import AboutTechStackCard from '~/modules/About/components/AboutTechStackCard';
 import { GetStaticPropsResult } from 'next';
 import { RiMenuFold3Fill } from 'react-icons/ri';
 import { BiX } from 'react-icons/bi';
+import { useMediaQuery } from 'usehooks-ts';
 
 // Components
 
@@ -18,7 +19,7 @@ export interface AboutProps {}
 
 export default function About(props: AboutProps) {
     const [showSidebar, setShowSidebar] = useState(false);
-    const isLargeScreen = useBreakpointValue({ base: false, lg: true });
+    const isLargeScreen = useMediaQuery('(min-width: 1024px)');
     const theme = useTheme();
 
     console.log('IsLargeSCreen: ', isLargeScreen);
