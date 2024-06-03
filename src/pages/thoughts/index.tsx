@@ -39,7 +39,7 @@ export default function Thoughts(props: ThoughtsProps) {
     return (
         <TitleLayout pageTitle="My Thoughts">
             <Flex bg="brand.bg" height="100%" overflow="auto" flexDir="column">
-                <Stack padding="30px 30px 20px" gap="20px">
+                <Stack padding={{ base: '30px 20px 20px', md: '30px 30px 20px' }} gap="20px">
                     <Heading fontSize="34px">My Thoughts</Heading>
                     <Text maxWidth="800px">
                         Welcome to my world and everything in it. Here I share my opinions on technology, daily life,
@@ -50,7 +50,7 @@ export default function Thoughts(props: ThoughtsProps) {
 
                 <Divider borderColor="#DEDEDE" />
 
-                <Flex flexDir="column" padding="20px 30px" gap="30px">
+                <Flex flexDir="column" padding={{ base: '30px 20px', md: '30px' }} gap="30px">
                     {/* Search and filters  */}
                     <Flex flexDir="column" ml="10px">
                         <Input

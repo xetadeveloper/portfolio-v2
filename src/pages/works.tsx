@@ -2,20 +2,7 @@
 import React, { useState } from 'react';
 
 // Styles
-import {
-    Button,
-    Center,
-    Divider,
-    Flex,
-    Heading,
-    Tab,
-    TabList,
-    TabPanel,
-    TabPanels,
-    Tabs,
-    Text,
-    VStack,
-} from '@chakra-ui/react';
+import { Box, Button, Divider, Flex, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react';
 import Products from '~/modules/Works/Products';
 import Projects from '~/modules/Works/Projects';
 import Testimonials from '~/modules/Works/Testimonials';
@@ -53,6 +40,7 @@ export default function Works(props: WorksProps) {
                     whileTap={{ scale: 1 }}
                     mt="30px"
                     width="fit-content"
+                    gap={{ base: '0px', sm_large: '10px' }}
                     leftIcon={<BiDownload />}
                 >
                     Download a copy of my resume
@@ -81,7 +69,18 @@ export default function Works(props: WorksProps) {
                         </Tab>
                     ))}
                 </TabList>
-
+                <Flex mt="20px" gap="20px" justifyContent="center" display={{ base: 'flex', md: 'none' }}>
+                    {tabs.map((_, index) => (
+                        <Box
+                            borderRadius="50%"
+                            border="1px solid transparent"
+                            borderColor="#929292"
+                            height="10px"
+                            width="10px"
+                            bg={index === selectedTab ? 'black.600' : 'transparent'}
+                        ></Box>
+                    ))}
+                </Flex>
                 <TabPanels padding="30px 30px">
                     {tabs.map(({ component }, index) => (
                         <TabPanel padding="0" key={index}>

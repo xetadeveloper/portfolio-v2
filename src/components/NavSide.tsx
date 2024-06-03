@@ -1,10 +1,8 @@
 'use client';
 
 // Modules
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
-// Styles
-import style from './NavSide.module.css';
 import {
     Box,
     Button,
@@ -12,19 +10,18 @@ import {
     Flex,
     Heading,
     Popover,
-    PopoverArrow,
     PopoverBody,
-    PopoverCloseButton,
     PopoverContent,
     PopoverHeader,
     PopoverTrigger,
     Tooltip,
     useBreakpointValue,
+    useOutsideClick,
 } from '@chakra-ui/react';
-import { BiSolidHome, BiSolidUser } from 'react-icons/bi';
+import { BiSolidUser } from 'react-icons/bi';
 import { GoHomeFill } from 'react-icons/go';
 import { FaBriefcase } from 'react-icons/fa6';
-import { BsEnvelopeFill, BsMenuButton, BsMenuButtonFill } from 'react-icons/bs';
+import { BsEnvelopeFill, BsMenuButtonFill } from 'react-icons/bs';
 import { PiNotepadFill } from 'react-icons/pi';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
@@ -82,7 +79,12 @@ export default function NavSide(props: NavSideProps) {
             style={{ position: 'absolute', zIndex: '2', bottom: '20px', right: isBase ? '10px' : '20px' }}
         >
             <Flex flexDir="column" gap="15px">
-                <Popover placement="top-end" isOpen={isOpen} defaultIsOpen={false} strategy="absolute">
+                <Popover
+                    placement="top-end"
+                    isOpen={isOpen}
+                    defaultIsOpen={false}
+                    strategy="absolute"
+                >
                     <PopoverTrigger>
                         <Button
                             display={{ base: 'flex', lg: 'none' }}
