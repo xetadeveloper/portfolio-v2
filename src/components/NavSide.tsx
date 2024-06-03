@@ -79,10 +79,10 @@ export default function NavSide(props: NavSideProps) {
             initial={{ y: 600 }}
             animate={{ y: 0 }}
             transition={{ delay: 0.2 }}
-            style={{ position: 'absolute', zIndex: '2', bottom: '20px', right: isBase ? '20px' : '20px' }}
+            style={{ position: 'absolute', zIndex: '2', bottom: '20px', right: isBase ? '10px' : '20px' }}
         >
             <Flex flexDir="column" gap="15px">
-                <Popover placement="left-start" isOpen={isOpen} defaultIsOpen={false} strategy="absolute">
+                <Popover placement="top-end" isOpen={isOpen} defaultIsOpen={false} strategy="absolute">
                     <PopoverTrigger>
                         <Button
                             display={{ base: 'flex', lg: 'none' }}
@@ -109,14 +109,16 @@ export default function NavSide(props: NavSideProps) {
                         height="100%"
                         bg="#F1f1f1"
                         borderRadius="5px"
-                        padding="10px 0px 10px"
+                        padding="10px 0px 0px"
                         minWidth="0"
                         width="auto"
                         rootProps={{ style: { transform: 'scale(0)' } }}
                     >
-                        <PopoverHeader textAlign="left" fontWeight="600">
+                        <PopoverHeader textAlign="left" fontWeight="600" border="none">
                             Looking for?
                         </PopoverHeader>
+                        <Divider bg="#aeaeae" />
+
                         <PopoverBody
                             display="flex"
                             padding="0"
@@ -133,7 +135,7 @@ export default function NavSide(props: NavSideProps) {
                                         href={item.url}
                                         gap="10px"
                                         alignItems="center"
-                                        padding="0 10px"
+                                        padding="0 15px"
                                         _hover={{ bg: 'black.700', color: 'white' }}
                                     >
                                         <Box height="18px" width="18px">
@@ -156,7 +158,7 @@ export default function NavSide(props: NavSideProps) {
                                             {item.title}
                                         </Button>
                                     </Flex>
-                                    <Divider bg="#aeaeae" />
+                                    <Divider bg="#aeaeae" hidden={index === menuList.length - 1} />
                                 </>
                             ))}
                         </PopoverBody>
