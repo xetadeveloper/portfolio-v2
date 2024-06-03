@@ -11,7 +11,7 @@ export interface AboutBodyProps {
 
 export default function AboutBody({ children, ...props }: AboutBodyProps & Omit<TextProps, 'children'>) {
     return (
-        <Text fontWeight="300" width="100%" whiteSpace="none" maxWidth="80%" {...props}>
+        <Text fontWeight="300" width="100%" whiteSpace="none" maxWidth={{ base: '100%', lg: '80%' }} {...props}>
             {children}
         </Text>
     );

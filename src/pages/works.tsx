@@ -21,11 +21,12 @@ import Projects from '~/modules/Works/Projects';
 import Testimonials from '~/modules/Works/Testimonials';
 import { BiDownload } from 'react-icons/bi';
 import { AnimatePresence, motion } from 'framer-motion';
+import { GetStaticPropsResult } from 'next';
 
 // Components
 
 // Types
-export interface worksProps {}
+export interface WorksProps {}
 
 const tabs = [
     { title: "Products I've worked on", component: <Products /> },
@@ -33,11 +34,11 @@ const tabs = [
     { title: 'Testimonials', component: <Testimonials /> },
 ];
 
-export default function Works(props: worksProps) {
+export default function Works(props: WorksProps) {
     const [selectedTab, setSelectedTab] = useState(0);
 
     return (
-        <Flex flexDir="column" bg="brand.bg" minHeight="100%" padding="30px 0 20px" height='100%' overflow='auto'>
+        <Flex flexDir="column" bg="brand.bg" minHeight="100%" padding="30px 0 20px" height="100%" overflow="auto">
             <Flex padding="0 30px" gap="10px" justifyContent="space-between" alignItems="center" flexWrap="wrap">
                 <Flex flexDir="column" gap="20px">
                     <Heading fontSize="34px">My Work</Heading>
@@ -61,13 +62,7 @@ export default function Works(props: worksProps) {
             <Divider borderColor="#DEDEDE" borderWidth="1px" margin="30px 0 20px" />
 
             <Tabs isLazy padding="0" onChange={(index) => setSelectedTab(index)}>
-                <TabList
-                    borderBottom="none"
-                    padding="0 20px"
-                    gap="20px"
-                    overflowX="auto"
-                    minHeight="50px"
-                >
+                <TabList borderBottom="none" padding="0 20px" gap="20px" overflowX="auto" minHeight="50px">
                     {tabs.map((tab, index) => (
                         <Tab
                             minWidth="fit-content"
@@ -111,4 +106,10 @@ export default function Works(props: worksProps) {
             </Tabs>
         </Flex>
     );
+}
+
+export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<WorksProps>>> {
+    return {
+        props: {},
+    };
 }

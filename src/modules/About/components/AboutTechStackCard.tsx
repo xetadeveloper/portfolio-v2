@@ -11,15 +11,15 @@ export default function AboutTechStackCard({ title, subtitle, techStack }: About
     return (
         <Flex
             bg="#fff"
-            padding="40px 40px"
+            padding={{ base: '20px', md: '40px' }}
             borderRadius="5px"
-            // border="1px solid red"
             justifyContent="center"
             alignItems="center"
             maxWidth="800px"
             width="fit-content"
             gap="40px"
             boxShadow="0 2px 4px 0px #C6C6C6"
+            flexDirection={{ base: 'column', md: 'row' }}
         >
             <Box border="1px solid blu">
                 <Heading fontSize="20px" fontWeight="400" mb="15px">
