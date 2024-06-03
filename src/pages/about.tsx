@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 // Styles
-import { Avatar, Button, Divider, Flex, Heading, Slide, Text, useBreakpointValue, useTheme } from '@chakra-ui/react';
+import { Avatar, Button, Divider, Flex, Heading, Slide, Text, useTheme } from '@chakra-ui/react';
 import AboutTitle from '~/modules/About/components/AboutTitle';
 import AboutBody from '~/modules/About/components/AboutBody';
 import { specializeTechStack } from '~/modules/About/constants';
@@ -19,7 +19,7 @@ export interface AboutProps {}
 
 export default function About(props: AboutProps) {
     const [showSidebar, setShowSidebar] = useState(false);
-    const isLargeScreen = useMediaQuery('(min-width: 1024px)');
+    const isLargeScreen = useMediaQuery('(min-width: 960px)');
     const theme = useTheme();
 
     console.log('IsLargeSCreen: ', isLargeScreen);
