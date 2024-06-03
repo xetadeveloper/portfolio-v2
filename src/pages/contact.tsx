@@ -39,8 +39,8 @@ const contactItems = [
 
 export default function Contact(props: ContactProps) {
     return (
-        <Center bg="brand.bg" minHeight="100%" flexDir="column" gap="60px">
-            <Heading fontWeight="500" fontSize="34px">
+        <Center bg="brand.bg" minHeight="100%" flexDir="column" gap={{ base: '40px', md: '60px' }} padding="30px">
+            <Heading fontWeight="500" fontSize={{ base: '30px', md: '34px' }} textAlign="center">
                 Hey I'd love to get in touch!
             </Heading>
 
@@ -52,8 +52,9 @@ export default function Contact(props: ContactProps) {
                             borderRadius="5px"
                             gridTemplateColumns="minmax(auto, 300px) auto"
                             alignItems="center"
-                            gap="30px"
-                            whileHover={{ scale: 1.2, backgroundColor: '#434343', color: 'white', padding: '10px' }}
+                            gap={{ base: '20px', md: '30px' }}
+                            padding="10px 20px"
+                            whileHover={{ scale: 1.05, backgroundColor: '#434343', color: 'white' }}
                         >
                             <Text>{description}</Text>
                             <Box height="60px" width="60px">
