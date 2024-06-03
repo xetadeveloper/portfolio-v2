@@ -18,7 +18,7 @@ export interface AboutProps {}
 
 export default function About(props: AboutProps) {
     const [showSidebar, setShowSidebar] = useState(false);
-    const isLargeScreen = useBreakpointValue({ base: false, md: true });
+    const isLargeScreen = useBreakpointValue({ base: false, lg: true });
     const theme = useTheme();
 
     console.log('IsLargeSCreen: ', isLargeScreen);
