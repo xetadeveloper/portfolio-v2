@@ -4,7 +4,6 @@ import {
     Flex,
     Heading,
     Link,
-    LinkBox,
     Popover,
     PopoverArrow,
     PopoverBody,
@@ -18,7 +17,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import React from 'react';
-import { GiHamburger } from 'react-icons/gi';
 import { RiMenuFold3Fill } from 'react-icons/ri';
 import { articlesList } from '~/utils/dummyArticles';
 
@@ -37,11 +35,12 @@ const article = {
 
 export default function Article(props: ArticleProps) {
     return (
-        <Stack bg="brand.bg" height="100%" padding="20px" gap="20px">
-            <Flex justifyContent="space-between">
-                <Heading fontSize="28px" fontWeight="400">
+        <Stack bg="brand.bg" height="100%" gap="20px" padding="20px 0">
+            <Flex padding=" 0 20px" justifyContent="space-between" gap="18px">
+                <Heading fontSize={{ base: '18px', md: '24px', lg: '28px' }} fontWeight="400">
                     {article.title}
                 </Heading>
+
                 <Popover placement="left-start">
                     <PopoverTrigger>
                         <Button
@@ -49,11 +48,12 @@ export default function Article(props: ArticleProps) {
                             whileTap={{ scale: 0.95 }}
                             border="none"
                             borderRadius="50%"
-                            width="50px"
-                            height="50px"
+                            width="40px"
+                            height="40px"
                             justifyContent="center"
+                            padding="0"
                         >
-                            <RiMenuFold3Fill style={{ height: '30px', width: '30px' }} />
+                            <RiMenuFold3Fill style={{ height: '20px', width: '20px' }} />
                         </Button>
                     </PopoverTrigger>
 
@@ -91,14 +91,16 @@ export default function Article(props: ArticleProps) {
             </Flex>
 
             <Stack
+                margin={{ base: '0 10px', md: '0 20px' }}
+                padding={{ base: '20px 15px', md: '20px 30px' }}
                 overflow="auto"
                 flexGrow="1"
                 bg="#fff"
-                maxW="90%"
+                maxW={{ base: '100%', md: '90%' }}
                 borderRadius="5px"
                 boxShadow="0 2px 4px 0px #C6C6C6"
             >
-                <Text padding="20px 30px" as="pre" whiteSpace="wrap" fontFamily="inherit">
+                <Text as="pre" whiteSpace="wrap" fontFamily="inherit">
                     Whether you’re an individual showcasing your work or a design agency, a well-crafted portfolio site
                     can make a significant impact. Here’s a concise guide to get you started: What is a Portfolio
                     Website? A portfolio website serves as a professional platform to present information about an
