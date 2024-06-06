@@ -20,7 +20,7 @@ export default function Projects(props: ProjectsProps) {
             </Heading>
 
             <Flex flexDir="column" height="100%" gap="40px">
-                {projects.map(({ title, description, imgAlt, imgUrl, techStack }, index) => (
+                {projects.map(({ title, description, imgAlt, imgUrl, techStack, details }, index) => (
                     <WorkItem
                         key={index}
                         title={title}
@@ -28,6 +28,7 @@ export default function Projects(props: ProjectsProps) {
                         imgAlt={imgAlt}
                         imgUrl={imgUrl}
                         techStack={techStack}
+                        details={details}
                     />
                 ))}
             </Flex>

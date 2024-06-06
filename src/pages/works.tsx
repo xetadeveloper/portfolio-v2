@@ -3,23 +3,15 @@ import React, { useState } from 'react';
 
 // Styles
 import { Box, Button, Divider, Flex, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react';
-import Products from '~/modules/Works/Products';
-import Projects from '~/modules/Works/Projects';
-import Testimonials from '~/modules/Works/Testimonials';
 import { BiDownload } from 'react-icons/bi';
 import { AnimatePresence, motion } from 'framer-motion';
 import { GetStaticPropsResult } from 'next';
+import { tabs } from '~/modules/Works/constants';
 
 // Components
 
 // Types
 export interface WorksProps {}
-
-const tabs = [
-    { title: "Products I've worked on", component: <Products /> },
-    { title: 'Personal projects', component: <Projects /> },
-    { title: 'Testimonials', component: <Testimonials /> },
-];
 
 export default function Works(props: WorksProps) {
     const [selectedTab, setSelectedTab] = useState(0);
@@ -47,7 +39,7 @@ export default function Works(props: WorksProps) {
                 </Button>
             </Flex>
 
-            <Divider borderColor="#DEDEDE" borderWidth="1px" margin="30px 0 20px" />
+            <Divider margin="30px 0 20px" />
 
             <Tabs isLazy padding="0" onChange={(index) => setSelectedTab(index)}>
                 <TabList borderBottom="none" padding="0 20px" gap="20px" overflowX="auto" minHeight="50px">
@@ -72,7 +64,7 @@ export default function Works(props: WorksProps) {
                 <Flex mt="20px" gap="20px" justifyContent="center" display={{ base: 'flex', md: 'none' }}>
                     {tabs.map((_, index) => (
                         <Box
-                            // key={index}
+                            key={index}
                             borderRadius="50%"
                             border="1px solid transparent"
                             borderColor="#929292"

@@ -79,12 +79,7 @@ export default function NavSide(props: NavSideProps) {
             style={{ position: 'absolute', zIndex: '2', bottom: '20px', right: isBase ? '10px' : '20px' }}
         >
             <Flex flexDir="column" gap="15px">
-                <Popover
-                    placement="top-end"
-                    isOpen={isOpen}
-                    defaultIsOpen={false}
-                    strategy="absolute"
-                >
+                <Popover placement="top-end" isOpen={isOpen} defaultIsOpen={false} strategy="absolute">
                     <PopoverTrigger>
                         <Button
                             display={{ base: 'flex', lg: 'none' }}
