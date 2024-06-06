@@ -45,6 +45,7 @@ export default function About(props: AboutProps) {
                     borderRight="1px solid #dedede"
                     padding="20px 0px 10px"
                     alignItems="center"
+                    height="100%"
                 >
                     <Flex flexDir="column" alignItems="center" gap="50px" padding="0 20px" position="relative">
                         <Button
