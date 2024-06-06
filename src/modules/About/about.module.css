@@ -1,0 +1,9 @@
+.sidebar {
+    position: absolute !important;
+}
+
+@media screen and (min-width: 960px) {
+    .sidebar {
+        position: relative !important;
+    }
+}

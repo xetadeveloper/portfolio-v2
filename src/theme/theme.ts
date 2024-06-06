@@ -18,6 +18,7 @@ const theme: Partial<ChakraTheme> = {
         sm: '320px',
         sm_large: '425px',
         md: '768px',
+        md_large: '960px',
         lg: '1024px',
         xl: '1440px',
     },

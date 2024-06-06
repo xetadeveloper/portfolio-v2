@@ -1,7 +1,7 @@
 'use client';
 
 // Modules
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import {
     Box,
@@ -15,8 +15,6 @@ import {
     PopoverHeader,
     PopoverTrigger,
     Tooltip,
-    useBreakpointValue,
-    useOutsideClick,
 } from '@chakra-ui/react';
 import { BiSolidUser } from 'react-icons/bi';
 import { GoHomeFill } from 'react-icons/go';
@@ -27,6 +25,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { fonts } from '~/assets/fonts';
 import Link from 'next/link';
+import styles from './NavSide.module.css';
 
 // Components
 
@@ -67,23 +66,23 @@ const menuList = [
 ];
 
 export default function NavSide(props: NavSideProps) {
-    const [isOpen, setisOpen] = useState(false);
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
     const router = useRouter();
-    const isBase = useBreakpointValue({ base: true, md: false });
 
     return (
         <motion.div
             initial={{ y: 600 }}
             animate={{ y: 0 }}
             transition={{ delay: 0.2 }}
-            style={{ position: 'absolute', zIndex: '2', bottom: '20px', right: isBase ? '10px' : '20px' }}
+            style={{ position: 'absolute', zIndex: '2', bottom: '20px' }}
+            className={`${styles.container}`}
         >
             <Flex flexDir="column" gap="15px">
-                <Popover placement="top-end" isOpen={isOpen} defaultIsOpen={false} strategy="absolute">
+                <Popover placement="top-end" isOpen={isPopoverOpen} defaultIsOpen={false} strategy="absolute">
                     <PopoverTrigger>
                         <Button
                             display={{ base: 'flex', lg: 'none' }}
-                            onClick={() => setisOpen((prev) => !prev)}
+                            onClick={() => setIsPopoverOpen((prev) => !prev)}
                             borderRadius="50%"
                             as={motion.button}
                             justifyContent="center"

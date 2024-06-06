@@ -11,7 +11,7 @@ import { GetStaticPropsResult } from 'next';
 import { RiMenuFold3Fill } from 'react-icons/ri';
 import { BiX } from 'react-icons/bi';
 import { useMediaQuery } from 'usehooks-ts';
-
+import styles from '~/modules/About/about.module.css';
 // Components
 
 // Types
@@ -22,15 +22,13 @@ export default function About(props: AboutProps) {
     const isLargeScreen = useMediaQuery('(min-width: 960px)');
     const theme = useTheme();
 
-    console.log('IsLargeSCreen: ', isLargeScreen);
-
     return (
         <Flex bg="brand.bg" height="100%" width="100%">
             <Slide
+                className={`${styles.sidebar}`}
                 in={isLargeScreen ? true : showSidebar}
                 direction="left"
                 style={{
-                    position: isLargeScreen ? 'relative' : 'absolute',
                     zIndex: '1',
                     backgroundColor: theme.colors.brand.bg,
                     height: '100%',
@@ -57,7 +55,7 @@ export default function About(props: AboutProps) {
                             minWidth="0"
                             border="none"
                             onClick={() => setShowSidebar(false)}
-                            hidden={isLargeScreen}
+                            display={{ base: 'flex', md_large: 'none' }}
                         >
                             <BiX style={{ height: '25px', width: '25px' }} />
                         </Button>
@@ -95,6 +93,7 @@ export default function About(props: AboutProps) {
                 </Flex>
             </Slide>
 
+            {/* Main body */}
             <Flex as="section" flexGrow="1" flexDir="column" padding="20px 0" overflow="auto">
                 <Flex
                     justifyContent={{ base: 'flex-start', md: 'space-between' }}
@@ -111,7 +110,7 @@ export default function About(props: AboutProps) {
                             padding="0"
                             justifyContent="center"
                             onClick={() => setShowSidebar(true)}
-                            hidden={isLargeScreen}
+                            display={{ base: 'flex', md_large: 'none' }}
                         >
                             <RiMenuFold3Fill
                                 style={{

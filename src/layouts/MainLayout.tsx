@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { ReactElement } from 'react';
-import NavSide from '~/components/NavSide';
+import NavSide from '~/components/NavSide/NavSide';
 
 export default function MainLayout({ children, key }: { children: ReactElement; key: string }) {
     return (
