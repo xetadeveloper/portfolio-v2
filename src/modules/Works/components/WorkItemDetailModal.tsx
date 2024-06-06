@@ -17,7 +17,7 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { WorkItemDetail } from '~/types';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
 // Types
@@ -210,58 +210,32 @@ export default function WorkItemDetailModal({
                         </Flex>
 
                         {/* Description */}
-                        <AnimatePresence>
-                            {!isGalleryMode ? (
-                                <Stack
-                                    as={motion.div}
-                                    key="work-item-description"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    flexGrow="1"
-                                    gap="40px"
-                                    initial={{ x: 0 }}
-                                    exit={{ x: 1000 }}
-                                >
-                                    <Box margin="0 auto" border="1px solid re">
-                                        <Heading fontSize="14px" fontWeight="500" mb="10px">
-                                            Description
-                                        </Heading>
-                                        <Heading
-                                            fontWeight="300"
-                                            fontSize={{ base: '18px', md: '24px' }}
-                                            maxWidth="400px"
-                                        >
-                                            {shortDescription}
-                                        </Heading>
-                                    </Box>
+                        {!isGalleryMode ? (
+                            <Stack justifyContent="center" alignItems="center" flexGrow="1" gap="40px">
+                                <Box margin="0 auto" border="1px solid re">
+                                    <Heading fontSize="14px" fontWeight="500" mb="10px">
+                                        Description
+                                    </Heading>
+                                    <Heading fontWeight="300" fontSize={{ base: '18px', md: '24px' }} maxWidth="400px">
+                                        {shortDescription}
+                                    </Heading>
+                                </Box>
 
-                                    <Flex gap="20px" flexWrap="wrap" border="1px solid rd" margin="0 auto">
-                                        {stack.map(({ icon, title }, index) => (
-                                            <Flex key={index} alignItems="center" gap="10px">
-                                                <Box height="40px" width="40px" color="#383838">
-                                                    {icon}
-                                                </Box>
-                                                <Heading fontWeight="400">{title}</Heading>
-                                            </Flex>
-                                        ))}
-                                    </Flex>
-                                </Stack>
-                            ) : null}
-                        </AnimatePresence>
+                                <Flex gap="20px" flexWrap="wrap" border="1px solid rd" margin="0 auto">
+                                    {stack.map(({ icon, title }, index) => (
+                                        <Flex key={index} alignItems="center" gap="10px">
+                                            <Box height="40px" width="40px" color="#383838">
+                                                {icon}
+                                            </Box>
+                                            <Heading fontWeight="400">{title}</Heading>
+                                        </Flex>
+                                    ))}
+                                </Flex>
+                            </Stack>
+                        ) : null}
                     </Flex>
 
-                    <AnimatePresence initial={false}>
-                        {!isGalleryMode ? (
-                            <Text
-                                key="work-item-post"
-                                as={motion.p}
-                                exit={{ y: 1000 }}
-                                mt={{ base: '30px', md: '10px' }}
-                            >
-                                {post}
-                            </Text>
-                        ) : null}
-                    </AnimatePresence>
+                    {!isGalleryMode ? <Text mt={{ base: '30px', md: '10px' }}>{post}</Text> : null}
                 </ModalBody>
             </ModalContent>
         </Modal>
