@@ -13,6 +13,7 @@ const Button = defineStyleConfig({
             height: 'auto',
             bg: 'transparent',
             cursor: 'pointer',
+            WebkitTapHighlightColor: 'transparent',
             _disabled: {
                 cursor: 'default',
             },
