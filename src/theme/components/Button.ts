@@ -15,7 +15,6 @@ const Button = defineStyleConfig({
             cursor: 'pointer',
             _disabled: {
                 cursor: 'default',
-                opacity: '0.7',
             },
             _hover: {
                 backgroundColor: 'black.600',

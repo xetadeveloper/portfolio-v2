@@ -9,7 +9,7 @@ const dummyModal: WorkItemDetail = {
     title: 'JournalMe',
     shortDescription: '  A forex journaling application for ease of use and clean UI',
     previewImage: '/images/journalme/home.png',
-    galleryImages: [],
+    galleryImages: ['/images/journalme/home.png', '/images/journalme/dashboard.png', '/images/journalme/trades.png'],
     repoLink: '',
     stack: [
         { icon: getTechIcon({ icon: 'react' }), title: 'React' },
@@ -17,7 +17,7 @@ const dummyModal: WorkItemDetail = {
         { icon: getTechIcon({ icon: 'react' }), title: 'React' },
         { icon: getTechIcon({ icon: 'react' }), title: 'React' },
     ],
-    liveLink: '',
+    liveLink: 'imagelinp-',
     post: ` Lorem Ipsum is simply dummy text of the printing and typesetting
     industry. Lorem Ipsum has been the industry's standard dummy text
     ever since the 1500s, when an unknown printer took a galley of type
