@@ -70,9 +70,6 @@ export default function Thoughts({ articles }: ThoughtsProps) {
                         <Input
                             placeholder="Search"
                             maxWidth="400px"
-                            border="1px solid transparent"
-                            borderColor="#9b9b9b"
-                            _hover={{ borderColor: '#9b9b9b' }}
                             onChange={(ev) => {
                                 handleSearchFilter(ev.target.value);
                             }}

@@ -2,6 +2,7 @@ import { ChakraTheme, extendTheme } from '@chakra-ui/react';
 import Button from './components/Button';
 import { Heading } from './components/Heading';
 import Divider from './components/Divider';
+import Input from './components/Input';
 
 const theme: Partial<ChakraTheme> = {
     colors: {
@@ -27,6 +28,7 @@ const theme: Partial<ChakraTheme> = {
         Button,
         Heading,
         Divider,
+        Input,
     },
 };
 

@@ -24,6 +24,9 @@ const Button = defineStyleConfig({
             _active: {
                 backgroundColor: 'black.600',
             },
+            _focusVisible: {
+                boxShadow: '0 0 1px 2px #c6c6c6',
+            },
         },
     },
 
