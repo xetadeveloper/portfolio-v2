@@ -8,9 +8,6 @@ import { FaGithub } from 'react-icons/fa6';
 import SocialLink from '~/components/SocialLink';
 import SlantDivAnimation from '~/components/SlantDivAnimation';
 import { motion } from 'framer-motion';
-import NavSide from '~/components/NavSide/NavSide';
-import { GetStaticPropsResult } from 'next';
-import { BiChevronRight } from 'react-icons/bi';
 import { GoChevronRight } from 'react-icons/go';
 import Link from 'next/link';
 
@@ -136,10 +133,4 @@ export default function Home(props: HomeProps) {
             </Flex>
         </Center>
     );
-}
-
-export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<HomeProps>>> {
-    return {
-        props: {},
-    };
 }

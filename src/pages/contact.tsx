@@ -7,7 +7,6 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 import { MdEmail } from 'react-icons/md';
 import { RiTwitterXLine } from 'react-icons/ri';
 import { motion } from 'framer-motion';
-import { GetStaticPropsResult } from 'next';
 
 // Components
 
@@ -66,10 +65,4 @@ export default function Contact(props: ContactProps) {
             </VStack>
         </Center>
     );
-}
-
-export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<ContactProps>>> {
-    return {
-        props: {},
-    };
 }
