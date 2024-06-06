@@ -7,14 +7,18 @@ import TitleLayout from '~/layouts/TitleLayout';
 import ThoughtsSection from '~/modules/Thoughts/components/ThoughtsSection';
 import { ArticleItem } from '~/types';
 import { articlesList } from '~/utils/dummyArticles';
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 
 // Components
 
 // Types
-export interface ThoughtsProps {}
+export interface ThoughtsProps {
+    articles: ArticleItem[];
+}
 
-export default function Thoughts(props: ThoughtsProps) {
+export default function Thoughts({ articles }: ThoughtsProps) {
     const [isAllOpen, setIsAllOpen] = useState<boolean | null>(null);
+    const [filteredArticles, setFilteredArticles] = useState<ArticleItem[] | null>(null);
 
     function getArticleYearAndMonth(dateString: string) {
         const index = dateString.lastIndexOf('-');
@@ -34,6 +38,16 @@ export default function Thoughts(props: ThoughtsProps) {
         });
 
         return group;
+    }
+
+    function handleSearchFilter(searchTerm: string) {
+        if (!searchTerm.trim()) {
+            setFilteredArticles(null);
+            return;
+        }
+
+        const filtered = articles.filter((article) => article.title.includes(searchTerm));
+        setFilteredArticles(filtered);
     }
 
     return (
@@ -59,12 +73,21 @@ export default function Thoughts(props: ThoughtsProps) {
                             border="1px solid transparent"
                             borderColor="#9b9b9b"
                             _hover={{ borderColor: '#9b9b9b' }}
+                            onChange={(ev) => {
+                                handleSearchFilter(ev.target.value);
+                            }}
                         />
                     </Flex>
 
                     {/* Articles listing */}
                     <Flex flexDir="column" gap="40px" overflow="visible">
-                        {Object.entries(groupArticles(articlesList))
+                        {filteredArticles && !filteredArticles.length ? (
+                            <Heading ml="10px" fontSize="14px" fontWeight="400" color="#797979">
+                                No items found
+                            </Heading>
+                        ) : null}
+
+                        {Object.entries(groupArticles(filteredArticles ?? articles))
                             .sort((a, b) => Date.parse(b[0]) - Date.parse(a[0]))
                             .map((group, index) => (
                                 <ThoughtsSection
@@ -79,4 +102,12 @@ export default function Thoughts(props: ThoughtsProps) {
             </Flex>
         </TitleLayout>
     );
+}
+
+export async function getStaticProps(): Promise<GetStaticPropsResult<ThoughtsProps>> {
+    return {
+        props: {
+            articles: articlesList,
+        },
+    };
 }
