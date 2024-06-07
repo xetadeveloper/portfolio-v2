@@ -41,53 +41,59 @@ export default function Article(props: ArticleProps) {
                     {article.title}
                 </Heading>
 
-                <Popover placement="left-start">
-                    <PopoverTrigger>
-                        <Button
-                            as={motion.button}
-                            whileTap={{ scale: 0.95 }}
-                            border="none"
-                            borderRadius="50%"
-                            width="40px"
-                            height="40px"
-                            justifyContent="center"
-                            padding="0"
-                        >
-                            <RiMenuFold3Fill style={{ height: '20px', width: '20px' }} />
-                        </Button>
-                    </PopoverTrigger>
+                <Flex alignItems="center" gap="10px">
+                    <Heading fontWeight="400" display={{ base: 'none', md: 'initial' }}>
+                        More Articles
+                    </Heading>
+                    <Popover placement="left-start">
+                        <PopoverTrigger>
+                            <Button
+                                as={motion.button}
+                                whileTap={{ scale: 0.95 }}
+                                border="none"
+                                borderRadius="50%"
+                                width="40px"
+                                height="40px"
+                                justifyContent="center"
+                                padding="0"
+                            >
+                                <RiMenuFold3Fill style={{ height: '20px', width: '20px' }} />
+                            </Button>
+                        </PopoverTrigger>
 
-                    <PopoverContent padding="20px 20px 20px" width="auto">
-                        <PopoverArrow />
-                        <PopoverCloseButton border="none" as={Button} height="30px" width="30px" minWidth="auto" />
+                        <PopoverContent padding="20px 20px 20px" width="auto">
+                            <PopoverArrow />
+                            <PopoverCloseButton border="none" as={Button} height="30px" width="30px" minWidth="auto" />
 
-                        <PopoverBody as={Stack} bg="#fff" gap="20px" padding="0">
-                            <Heading fontWeight="400">Other articles</Heading>
-                            <Stack gap="20px" height="450px" overflow="auto">
-                                {articlesList.slice(0, 5).map((article, index) => (
-                                    <Link
-                                        as={NextLink}
-                                        key={index}
-                                        href={article.articleUrl}
-                                        width="200px"
-                                        gap="10px"
-                                        display="flex"
-                                        flexDir="column"
-                                    >
-                                        <Image
-                                            height={200}
-                                            width={200}
-                                            src={article.imageUrl}
-                                            alt="image for article"
-                                            style={{ borderRadius: '5px' }}
-                                        />
-                                        <Heading fontWeight="400">{article.title}</Heading>
-                                    </Link>
-                                ))}
-                            </Stack>
-                        </PopoverBody>
-                    </PopoverContent>
-                </Popover>
+                            <PopoverBody as={Stack} bg="#fff" gap="20px" padding="0">
+                                <Heading fontWeight="400">More Articles</Heading>
+
+                                <Stack gap="20px" height="450px" overflow="auto">
+                                    {articlesList.slice(0, 5).map((article, index) => (
+                                        <Link
+                                            as={NextLink}
+                                            key={index}
+                                            href={article.articleUrl}
+                                            width="200px"
+                                            gap="10px"
+                                            display="flex"
+                                            flexDir="column"
+                                        >
+                                            <Image
+                                                height={200}
+                                                width={200}
+                                                src={article.imageUrl}
+                                                alt="image for article"
+                                                style={{ borderRadius: '5px' }}
+                                            />
+                                            <Heading fontWeight="400">{article.title}</Heading>
+                                        </Link>
+                                    ))}
+                                </Stack>
+                            </PopoverBody>
+                        </PopoverContent>
+                    </Popover>
+                </Flex>
             </Flex>
 
             <Stack
