@@ -9,8 +9,6 @@ import SlantDivAnimation from '~/components/SlantDivAnimation';
 import { motion } from 'framer-motion';
 import { GoChevronRight } from 'react-icons/go';
 import Link from 'next/link';
-import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
-import { contentfulClient } from '~/utils/contentful';
 
 const socials = [
     { icon: <BsTwitterX style={{ height: '100%', width: '100%' }} />, url: 'https://google.com' },
@@ -76,7 +74,7 @@ export default function Home({ developerName }: HomeProps) {
                             Hi!
                         </Heading>
                         <Heading fontSize={{ base: '40px', md: '60px' }} fontWeight="500" mb="30px">
-                            I'm {developerName}
+                            I'm Fego Etese
                         </Heading>
                         <Heading fontSize={{ base: '25px', md: '32px' }} fontWeight="100" mb="10px">
                             Web Developer
@@ -140,12 +138,4 @@ export default function Home({ developerName }: HomeProps) {
             </Flex>
         </Center>
     );
-}
-
-export async function getStaticProps(context: GetStaticPropsContext): Promise<GetStaticPropsResult<HomeProps>> {
-    const content = await contentfulClient.getEntries({ content_type: 'home' });
-    console.log('Content fetched from contenful: ', JSON.stringify(content, null, 2));
-    const devName = content.items[0].fields.name as string;
-
-    return { props: { developerName: devName ?? 'Author' } };
 }
