@@ -1,4 +1,3 @@
-'use client';
 import { Button, Center, Flex, Heading } from '@chakra-ui/react';
 import { fonts } from '../assets/fonts';
 import { techStack } from '~/config';
@@ -10,6 +9,8 @@ import SlantDivAnimation from '~/components/SlantDivAnimation';
 import { motion } from 'framer-motion';
 import { GoChevronRight } from 'react-icons/go';
 import Link from 'next/link';
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { contentfulClient } from '~/utils/contentful';
 
 const socials = [
     { icon: <BsTwitterX style={{ height: '100%', width: '100%' }} />, url: 'https://google.com' },
@@ -18,9 +19,15 @@ const socials = [
     { icon: <FaGithub style={{ height: '100%', width: '100%' }} />, url: 'https://google.com' },
 ];
 
-interface HomeProps {}
+interface HomeProps {
+    developerName: string;
+}
+
 const delay = 1;
-export default function Home(props: HomeProps) {
+
+export default function Home({ developerName }: HomeProps) {
+    console.log('Developer name gotten: ', developerName);
+
     return (
         <Center
             as="main"
@@ -69,7 +76,7 @@ export default function Home(props: HomeProps) {
                             Hi!
                         </Heading>
                         <Heading fontSize={{ base: '40px', md: '60px' }} fontWeight="500" mb="30px">
-                            I'm Fego Etese
+                            I'm {developerName}
                         </Heading>
                         <Heading fontSize={{ base: '25px', md: '32px' }} fontWeight="100" mb="10px">
                             Web Developer
@@ -133,4 +140,12 @@ export default function Home(props: HomeProps) {
             </Flex>
         </Center>
     );
+}
+
+export async function getStaticProps(context: GetStaticPropsContext): Promise<GetStaticPropsResult<HomeProps>> {
+    const content = await contentfulClient.getEntries({ content_type: 'home' });
+    console.log('Content fetched from contenful: ', JSON.stringify(content, null, 2));
+    const devName = content.items[0].fields.name as string;
+
+    return { props: { developerName: devName ?? 'Author' } };
 }
