@@ -4,14 +4,17 @@ import React from 'react';
 // Styles
 import { Flex, Heading } from '@chakra-ui/react';
 import WorkItem from './components/WorkItem';
-import { projects } from './constants';
+import { TWorkItem } from './types';
 
 // Components
 
 // Types
-export interface ProjectsProps {}
+export interface ProjectsProps {
+    works: TWorkItem[];
+}
 
-export default function Projects(props: ProjectsProps) {
+export default function PersonalProjects({ works }: ProjectsProps) {
+    console.log('Personal projects : ', works);
     return (
         <Flex flexDir="column" gap="40px" height="100%">
             <Heading>
@@ -20,15 +23,16 @@ export default function Projects(props: ProjectsProps) {
             </Heading>
 
             <Flex flexDir="column" height="100%" gap="40px">
-                {projects.map(({ title, description, imgAlt, imgUrl, techStack, details }, index) => (
+                {works.map((work, index) => (
                     <WorkItem
                         key={index}
-                        title={title}
-                        description={description}
-                        imgAlt={imgAlt}
-                        imgUrl={imgUrl}
-                        techStack={techStack}
-                        details={details}
+                        {...work}
+                        imgAlt={work.previewImage.fields.description}
+                        imgUrl={
+                            ''
+                            // work.imgUrl.fields.file.url
+                        }
+                        previewDescription={work.previewDescription}
                     />
                 ))}
             </Flex>

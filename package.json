@@ -3,36 +3,47 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "dev": "set port=3001 && next dev",
         "build": "next build",
         "analyze-bundle": "export ANALYZE=true yarn build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "cf-export": "node contentful-export.js",
+        "cf-types": "cf-content-types-generator ./src/contentful/export.json --out ./src/contentful/__generated__",
+        "cf-codegen": "yarn cf-export && yarn cf-types"
     },
     "dependencies": {
         "@chakra-ui/next-js": "^2.2.0",
         "@chakra-ui/react": "^2.8.2",
+        "@contentful/rich-text-html-renderer": "^16.5.2",
         "@emotion/react": "^11.11.4",
         "@emotion/styled": "^11.11.5",
         "@gocontento/client": "^0.0.10",
         "@gocontento/next": "^0.0.14",
         "@next/bundle-analyzer": "^14.2.3",
         "contentful": "^10.11.8",
+        "contentful-cli": "^3.3.2",
         "dayjs": "^1.11.11",
         "framer-motion": "^11.2.5",
         "next": "14.2.3",
         "react": "^18",
         "react-dom": "^18",
         "react-icons": "^5.2.1",
+        "react-markdown": "^9.0.1",
         "usehooks-ts": "^3.1.0"
     },
     "devDependencies": {
         "@types/node": "^20",
         "@types/react": "^18",
         "@types/react-dom": "^18",
+        "cf-content-types-generator": "^2.15.3",
+        "contentful-management": "^11.27.2",
+        "cross-spawn": "^7.0.3",
+        "dotenv": "^16.4.5",
         "eslint": "^8",
         "eslint-config-next": "14.2.3",
         "eslint-config-prettier": "^9.1.0",
+        "prettier": "^3.3.2",
         "typescript": "^5"
     }
 }

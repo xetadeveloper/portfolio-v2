@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { TWorkItem } from '~/types';
 import WorkItemDetailModal from './WorkItemDetailModal';
+import { TWorkItem } from '../types';
 
 // Types
 export interface WorkItemProps {
@@ -14,17 +14,9 @@ export interface WorkItemProps {
     showDetails?: boolean;
 }
 
-export default function WorkItem({
-    title,
-    description,
-    imgAlt,
-    imgUrl,
-    techStack,
-    onClick,
-    details,
-    showDetails = true,
-}: WorkItemProps & TWorkItem) {
+export default function WorkItem(props: WorkItemProps & TWorkItem) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { title, shortDescription: description, imgAlt, imgUrl, stack, onClick, showDetails = true } = props;
 
     return (
         <Flex
@@ -80,12 +72,12 @@ export default function WorkItem({
                     gap="20px"
                     flexWrap="wrap"
                 >
-                    {techStack.map(({ icon, stackTitle }, index) => (
+                    {stack.map(({ icon, title }, index) => (
                         <Flex key={index} alignItems="center" gap="10px">
                             <Box height="40px" width="40px" color="#383838">
                                 {icon}
                             </Box>
-                            <Heading fontWeight="400">{stackTitle}</Heading>
+                            <Heading fontWeight="400">{title}</Heading>
                         </Flex>
                     ))}
                 </Flex>
@@ -118,7 +110,7 @@ export default function WorkItem({
                 />
             </Box>
 
-            <WorkItemDetailModal onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} {...details} />
+            <WorkItemDetailModal onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} {...props} />
         </Flex>
     );
 }

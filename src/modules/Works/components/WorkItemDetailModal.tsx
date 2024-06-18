@@ -16,9 +16,10 @@ import {
     Stack,
     Text,
 } from '@chakra-ui/react';
-import { WorkItemDetail } from '~/types';
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import { TWorkItem } from '../types';
+import Markdown from 'react-markdown';
 
 // Types
 export interface WorkItemDetailModalProps {
@@ -27,17 +28,10 @@ export interface WorkItemDetailModalProps {
 }
 
 export default function WorkItemDetailModal({
-    shortDescription,
-    previewImage,
-    title,
-    galleryImages,
-    repoLink,
-    stack,
-    liveLink,
-    post,
     isOpen = false,
     onClose,
-}: WorkItemDetailModalProps & WorkItemDetail) {
+    ...props
+}: WorkItemDetailModalProps & TWorkItem) {
     const [isGalleryMode, setIsGalleryMode] = useState(false);
     const [selectedGalleryPic, setSelectedGalleryPic] = useState(-1);
 
@@ -70,7 +64,7 @@ export default function WorkItemDetailModal({
                     mt="20px"
                 >
                     <Flex justifyContent="space-between" alignItems="center">
-                        <Heading fontSize={{ base: '24px', md: '26px' }}>{title}</Heading>
+                        <Heading fontSize={{ base: '24px', md: '26px' }}>{props.title}</Heading>
 
                         {isGalleryMode ? (
                             <Button
@@ -87,7 +81,7 @@ export default function WorkItemDetailModal({
                         ) : (
                             <Button
                                 as="a"
-                                href={repoLink}
+                                href={props.repoLink}
                                 target="_blank"
                                 mr="10px"
                                 color="gray.600"
@@ -112,7 +106,7 @@ export default function WorkItemDetailModal({
                         >
                             <Image
                                 as={motion.img}
-                                src={isGalleryMode ? galleryImages[selectedGalleryPic] : previewImage}
+                                src={isGalleryMode ? props.galleryImages[selectedGalleryPic] : props.previewImage}
                                 width={300}
                                 alt={`image for ${'journalme'}`}
                                 borderRadius="5px"
@@ -140,8 +134,8 @@ export default function WorkItemDetailModal({
                                         justifyContent="center"
                                         borderRadius="5px"
                                         onClick={() => setSelectedGalleryPic(selectedGalleryPic + 1)}
-                                        isDisabled={selectedGalleryPic === galleryImages.length - 1}
-                                        hidden={selectedGalleryPic === galleryImages.length - 1}
+                                        isDisabled={selectedGalleryPic === props.galleryImages.length - 1}
+                                        hidden={selectedGalleryPic === props.galleryImages.length - 1}
                                     >
                                         Next
                                     </Button>
@@ -163,9 +157,9 @@ export default function WorkItemDetailModal({
                                         left="50%"
                                         transform="translate(-50%, -50%)"
                                     >
-                                        {liveLink ? (
+                                        {props.liveLink ? (
                                             <Button
-                                                href={liveLink}
+                                                href={props.liveLink}
                                                 as={motion.a}
                                                 border="1px solid transparent"
                                                 justifyContent="center"
@@ -217,12 +211,12 @@ export default function WorkItemDetailModal({
                                         Description
                                     </Heading>
                                     <Heading fontWeight="300" fontSize={{ base: '18px', md: '24px' }} maxWidth="400px">
-                                        {shortDescription}
+                                        {props.previewDescription}
                                     </Heading>
                                 </Box>
 
                                 <Flex gap="20px" flexWrap="wrap" border="1px solid rd" margin="0 auto">
-                                    {stack.map(({ icon, title }, index) => (
+                                    {props.stack.map(({ icon, title }, index) => (
                                         <Flex key={index} alignItems="center" gap="10px">
                                             <Box height="40px" width="40px" color="#383838">
                                                 {icon}
@@ -235,7 +229,12 @@ export default function WorkItemDetailModal({
                         ) : null}
                     </Flex>
 
-                    {!isGalleryMode ? <Text mt={{ base: '30px', md: '10px' }}>{post}</Text> : null}
+                    {!isGalleryMode ? (
+                        <Markdown>
+                            {/* <Text mt={{ base: '30px', md: '10px' }}>{props.longDescription}</Text> */}
+                            {props.longDescription}
+                        </Markdown>
+                    ) : null}
                 </ModalBody>
             </ModalContent>
         </Modal>
