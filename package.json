@@ -4,7 +4,8 @@
     "private": true,
     "scripts": {
         "dev": "set port=3001 && next dev",
-        "build": "next build",
+        "build": "yarn cf-codegen && next build",
+        "build:dev": "next build",
         "analyze-bundle": "export ANALYZE=true yarn build",
         "start": "next start",
         "lint": "next lint",
