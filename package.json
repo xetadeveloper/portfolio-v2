@@ -9,7 +9,7 @@
         "start": "next start",
         "lint": "next lint",
         "cf-export": "node contentful-export.js",
-        "cf-types": "cf-content-types-generator ./src/contentful/export.json --out ./src/contentful/__generated__",
+        "cf-types": "cf-content-types-generator --v10 --response ./src/contentful/export.json --out ./src/contentful/__generated__",
         "cf-codegen": "yarn cf-export && yarn cf-types"
     },
     "dependencies": {
