@@ -7,6 +7,7 @@ import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import WorkItemDetailModal from './WorkItemDetailModal';
 import { TWorkItem } from '../types';
+import { getTechIcon, getTechDisplayTitle } from '~/utils/techStackIcons';
 
 // Types
 export interface WorkItemProps {
@@ -16,7 +17,15 @@ export interface WorkItemProps {
 
 export default function WorkItem(props: WorkItemProps & TWorkItem) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { title, shortDescription: description, imgAlt, imgUrl, stack, onClick, showDetails = true } = props;
+    const {
+        title,
+        shortDescription: description,
+        previewImgAlt: imgAlt,
+        previewImageUrl,
+        stack,
+        onClick,
+        showDetails = true,
+    } = props;
 
     return (
         <Flex
@@ -54,7 +63,7 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                         padding="2px"
                     >
                         <Image
-                            src={imgUrl}
+                            src={previewImageUrl}
                             alt={imgAlt}
                             width={1920}
                             height={1080}
@@ -72,14 +81,18 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                     gap="20px"
                     flexWrap="wrap"
                 >
-                    {stack.map(({ icon, title }, index) => (
-                        <Flex key={index} alignItems="center" gap="10px">
-                            <Box height="40px" width="40px" color="#383838">
-                                {icon}
-                            </Box>
-                            <Heading fontWeight="400">{title}</Heading>
-                        </Flex>
-                    ))}
+                    {stack.map((item, index) => {
+                        const icon = getTechIcon({ icon: item });
+
+                        return (
+                            <Flex key={index} alignItems="center" gap="10px">
+                                <Box height="40px" width="40px" color="#383838">
+                                    {icon}
+                                </Box>
+                                <Heading fontWeight="400">{getTechDisplayTitle(item)}</Heading>
+                            </Flex>
+                        );
+                    })}
                 </Flex>
 
                 <Button
@@ -102,7 +115,7 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                 flexGrow="1"
             >
                 <Image
-                    src={imgUrl}
+                    src={previewImageUrl }
                     alt={imgAlt}
                     width={600}
                     height={320}

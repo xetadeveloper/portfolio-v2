@@ -10,8 +10,9 @@ import { contentfulClient } from '~/contentful/client';
 import Products from '~/modules/Works/Products';
 import PersonalProjects from '~/modules/Works/PersonalProjects';
 import Testimonials from '~/modules/Works/Testimonials';
-import { ProjectType } from '~/contentful/types/ProjectType';
 import { TWorkItem } from '~/modules/Works/types';
+import { TypeProjectSkeleton } from '~/contentful/__generated__';
+import { Asset } from 'contentful';
 
 // Components
 
@@ -31,11 +32,11 @@ export default function Works({ works }: WorksProps) {
     const tabs: WorkTab[] = [
         {
             title: "Products I've worked on",
-            component: <Products works={works.filter((project) => project.type === 'commercial')} />,
+            component: <Products works={works.filter((project) => project.type.includes('commercial'))} />,
         },
         {
             title: 'Personal projects',
-            component: <PersonalProjects works={works.filter((project) => project.type === 'personal')} />,
+            component: <PersonalProjects works={works.filter((project) => project.type.includes('personal'))} />,
         },
         {
             title: 'Testimonials',
@@ -128,24 +129,41 @@ export default function Works({ works }: WorksProps) {
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<WorksProps>>> {
-    const content = await contentfulClient.getEntries<ProjectType>({ content_type: 'project' });
-    // console.log('Content fetched from contenful: ', JSON.stringify(content, null, 2));
+    const content = await contentfulClient.getEntries<TypeProjectSkeleton>({ content_type: 'project' });
 
     const works = content.items.map((work) => {
+        const previewImage = work.fields.previewImage as Asset<'WITHOUT_LINK_RESOLUTION', string>;
+        const galleryImagesUrls: string[] = [];
+
+        if (previewImage.fields.file?.url) {
+            galleryImagesUrls.push('https:' + previewImage.fields.file.url);
+        }
+
+        const galleryImages = work.fields.galleryImages;
+        if (galleryImages) {
+            galleryImages.forEach((image) => {
+                const imageItem = image as Asset<undefined, string>;
+                if (imageItem.fields.file?.url) {
+                    galleryImagesUrls.push('https:' + imageItem.fields.file.url);
+                }
+            });
+        }
+
+        console.log('Gallery images after: ', galleryImagesUrls);
+
         const converted: TWorkItem = {
-            type: work.fields.type[0],
+            type: work.fields.type,
             title: work.fields.title,
             shortDescription: work.fields.shortDescription,
-            imgAlt: `Preview image of ${work.fields.title}`,
-            imgUrl: work.fields.previewImage,
-            stack: work.fields.stack,
-            status: work.fields.status,
             longDescription: work.fields.details,
-            galleryImages: work.fields.galleryImages ?? [],
+            galleryImagesUrl: galleryImagesUrls,
             liveLink: work.fields.liveLink,
             repoLink: work.fields.repositoryLink,
             previewDescription: work.fields.previewDescription,
-            previewImage: work.fields.previewImage,
+            previewImageUrl: 'https:' + previewImage.fields.file?.url ?? '',
+            previewImgAlt: previewImage.fields.description ?? `Preview image of ${work.fields.title}`,
+            stack: work.fields.stack,
+            status: work.fields.status,
         };
 
         return converted;

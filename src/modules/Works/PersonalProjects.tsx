@@ -27,12 +27,7 @@ export default function PersonalProjects({ works }: ProjectsProps) {
                     <WorkItem
                         key={index}
                         {...work}
-                        imgAlt={work.previewImage.fields.description}
-                        imgUrl={
-                            ''
-                            // work.imgUrl.fields.file.url
-                        }
-                        previewDescription={work.previewDescription}
+                        // previewDescription={work.previewDescription}
                     />
                 ))}
             </Flex>

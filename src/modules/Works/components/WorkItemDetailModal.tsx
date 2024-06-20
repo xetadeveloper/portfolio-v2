@@ -106,7 +106,7 @@ export default function WorkItemDetailModal({
                         >
                             <Image
                                 as={motion.img}
-                                src={isGalleryMode ? props.galleryImages[selectedGalleryPic] : props.previewImage}
+                                src={isGalleryMode ? props.galleryImagesUrl[selectedGalleryPic] : props.previewImageUrl}
                                 width={300}
                                 alt={`image for ${'journalme'}`}
                                 borderRadius="5px"
@@ -134,8 +134,8 @@ export default function WorkItemDetailModal({
                                         justifyContent="center"
                                         borderRadius="5px"
                                         onClick={() => setSelectedGalleryPic(selectedGalleryPic + 1)}
-                                        isDisabled={selectedGalleryPic === props.galleryImages.length - 1}
-                                        hidden={selectedGalleryPic === props.galleryImages.length - 1}
+                                        isDisabled={selectedGalleryPic === props.galleryImagesUrl.length - 1}
+                                        hidden={selectedGalleryPic === props.galleryImagesUrl.length - 1}
                                     >
                                         Next
                                     </Button>

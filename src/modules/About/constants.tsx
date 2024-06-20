@@ -1,7 +1,7 @@
-import getTechIcon from '~/utils/techStackIcons';
+import { getTechDisplayTitle, getTechIcon } from '~/utils/techStackIcons';
 
 export const specializeTechStack = [
-    { title: 'React', icon: getTechIcon({ icon: 'react' }) },
+    { title: getTechDisplayTitle('react'), icon: getTechIcon({ icon: 'react' }) },
     { title: 'NodeJS', icon: getTechIcon({ icon: 'nodejs' }) },
     { title: 'Typescript', icon: getTechIcon({ icon: 'typescript' }) },
     { title: 'NextJS', icon: getTechIcon({ icon: 'nextjs' }) },
