@@ -20,6 +20,7 @@ import { motion } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { TWorkItem } from '../types';
 import Markdown from 'react-markdown';
+import { getTechDisplayTitle, getTechIcon } from '~/utils/techStackIcons';
 
 // Types
 export interface WorkItemDetailModalProps {
@@ -216,14 +217,18 @@ export default function WorkItemDetailModal({
                                 </Box>
 
                                 <Flex gap="20px" flexWrap="wrap" border="1px solid rd" margin="0 auto">
-                                    {props.stack.map(({ icon, title }, index) => (
-                                        <Flex key={index} alignItems="center" gap="10px">
-                                            <Box height="40px" width="40px" color="#383838">
-                                                {icon}
-                                            </Box>
-                                            <Heading fontWeight="400">{title}</Heading>
-                                        </Flex>
-                                    ))}
+                                    {props.stack.map((item, index) => {
+                                        const icon = getTechIcon({ icon: item });
+
+                                        return (
+                                            <Flex key={index} alignItems="center" gap="10px">
+                                                <Box height="40px" width="40px" color="#383838">
+                                                    {icon}
+                                                </Box>
+                                                <Heading fontWeight="400">{getTechDisplayTitle(item)}</Heading>
+                                            </Flex>
+                                        );
+                                    })}
                                 </Flex>
                             </Stack>
                         ) : null}
