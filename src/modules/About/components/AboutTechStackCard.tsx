@@ -13,10 +13,10 @@ export default function AboutTechStackCard({ title, subtitle, techStack }: About
             bg="#fff"
             padding={{ base: '20px', md: '40px' }}
             borderRadius="5px"
-            justifyContent="center"
+            justifyContent="space-between"
             alignItems="center"
             maxWidth="800px"
-            width="fit-content"
+            minWidth={{ base: '100%', md: '700px' }}
             gap="40px"
             boxShadow="0 2px 4px 0px #C6C6C6"
             flexDirection={{ base: 'column', md: 'row' }}
@@ -30,7 +30,16 @@ export default function AboutTechStackCard({ title, subtitle, techStack }: About
                 </Text>
             </Box>
 
-            <SimpleGrid border="1px solid gree" gridTemplateColumns="1fr 1fr" gap="20px" rowGap="20px">
+            <SimpleGrid
+                flexGrow="1"
+                border="1px solid gree"
+                gridTemplateColumns={{ base: '1fr', sm_large: '200px 200px' }}
+                gap="20px"
+                maxHeight="400px"
+                overflow="auto"
+                rowGap="20px"
+                width={{ base: '100%', sm_large: '100%' }}
+            >
                 {techStack.map(({ icon, title }, index) => (
                     <Flex key={index} alignItems="center" gap="10px">
                         <Box height="40px" width="40px" color="#383838">

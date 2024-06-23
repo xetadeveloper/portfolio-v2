@@ -3,6 +3,7 @@ import { BsGitlab } from 'react-icons/bs';
 import { FaQuestionCircle } from 'react-icons/fa';
 import { FaDocker, FaGit, FaGithub, FaNode, FaPython, FaReact } from 'react-icons/fa6';
 import { IoLogoPwa } from 'react-icons/io5';
+import { PiPlugsFill } from 'react-icons/pi';
 import { RiJavascriptFill, RiNextjsFill, RiTailwindCssFill } from 'react-icons/ri';
 import {
     SiChakraui,
@@ -60,7 +61,7 @@ export function getTechIcon({ icon, styles }: { icon: stackName | string; styles
         case 'jekyll':
             return <SiJekyll style={{ height: '100%', width: '100%', ...styles }} />;
         case 'websocket':
-            return <SiMongodb style={{ height: '100%', width: '100%', ...styles }} />;
+            return <PiPlugsFill style={{ height: '100%', width: '100%', ...styles }} />;
         case 'docker':
             return <FaDocker style={{ height: '100%', width: '100%', ...styles }} />;
         case 'materialui':
