@@ -1,6 +1,5 @@
 import { Button, Center, Flex, Heading } from '@chakra-ui/react';
 import { fonts } from '../assets/fonts';
-import { techStack } from '~/config';
 import { BsLinkedin, BsTwitterX } from 'react-icons/bs';
 import { IoMail } from 'react-icons/io5';
 import { FaGithub } from 'react-icons/fa6';
@@ -22,6 +21,8 @@ interface HomeProps {
 }
 
 const delay = 1;
+
+const techStack = ['MongoDB', 'React', 'NextJS', 'NodeJS'];
 
 export default function Home({ developerName }: HomeProps) {
     console.log('Developer name gotten: ', developerName);
