@@ -3,6 +3,7 @@ import React from 'react';
 
 // Styles
 import style from './Testimonials.module.css';
+import { Heading } from '@chakra-ui/react';
 
 // Components
 
@@ -10,5 +11,5 @@ import style from './Testimonials.module.css';
 export interface TestimonialsProps {}
 
 export default function Testimonials(props: TestimonialsProps) {
-    return <div>Testimonials Component</div>;
+    return <Heading>Testimonials coming soon!</Heading>;
 }

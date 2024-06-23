@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 
 // Components
 import Image from 'next/image';
-import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Heading, Link, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import WorkItemDetailModal from './WorkItemDetailModal';
 import { TWorkItem } from '../types';
 import { getTechIcon, getTechDisplayTitle } from '~/utils/techStackIcons';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 // Types
 export interface WorkItemProps {
@@ -22,10 +23,37 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
         shortDescription: description,
         previewImgAlt: imgAlt,
         previewImageUrl,
+        status,
         stack,
+        liveLink,
         onClick,
         showDetails = true,
     } = props;
+
+    function getStatusIcon(status: 'live' | 'in-progress') {
+        return (
+            <Center
+                as={status === 'live' ? Link : 'div'}
+                color="#fff"
+                // @ts-expect-error
+                href={liveLink}
+                target="_blank"
+                borderRadius="10px"
+                padding="3px 10px"
+                bg={status === 'live' ? '#09c905' : '#061ea5'}
+                gap="5px"
+                cursor={status === 'live' ? 'pointer' : 'default'}
+                _hover={{
+                    boxShadow: '0 1px 2px 1px #089e05',
+                }}
+            >
+                {status === 'live' ? <FaExternalLinkAlt style={{ stroke: 'CurrentColor', width: '10px' }} /> : null}
+                <Heading fontWeight="500" fontSize="12px">
+                    {status === 'live' ? 'Live' : 'In progress'}
+                </Heading>
+            </Center>
+        );
+    }
 
     return (
         <Flex
@@ -49,9 +77,13 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                 width="100%"
             >
                 <Flex flexDir="column" gap="20px">
-                    <Heading fontWeight="500" fontSize="18px">
-                        {title}
-                    </Heading>
+                    <Flex gap="10px" flexWrap="wrap">
+                        <Heading fontWeight="500" fontSize="18px">
+                            {title}
+                        </Heading>
+
+                        <Flex gap="10px">{status.map((status) => getStatusIcon(status))}</Flex>
+                    </Flex>
                     <Box
                         display={{ base: 'block', md: 'none' }}
                         height="200px"
@@ -115,7 +147,7 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                 flexGrow="1"
             >
                 <Image
-                    src={previewImageUrl }
+                    src={previewImageUrl}
                     alt={imgAlt}
                     width={600}
                     height={320}

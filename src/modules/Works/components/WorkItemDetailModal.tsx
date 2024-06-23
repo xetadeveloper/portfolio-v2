@@ -235,10 +235,12 @@ export default function WorkItemDetailModal({
                     </Flex>
 
                     {!isGalleryMode ? (
-                        <Markdown>
-                            {/* <Text mt={{ base: '30px', md: '10px' }}>{props.longDescription}</Text> */}
-                            {props.longDescription}
-                        </Markdown>
+                        <Box mt="20px">
+                            <Markdown>
+                                {/* <Text mt={{ base: '30px', md: '10px' }}>{props.longDescription}</Text> */}
+                                {props.longDescription}
+                            </Markdown>
+                        </Box>
                     ) : null}
                 </ModalBody>
             </ModalContent>

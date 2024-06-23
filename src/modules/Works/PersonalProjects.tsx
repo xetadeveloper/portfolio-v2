@@ -19,7 +19,7 @@ export default function PersonalProjects({ works }: ProjectsProps) {
         <Flex flexDir="column" gap="40px" height="100%">
             <Heading>
                 During my spare time I like to learn new things and dabble into other technologies different from what I
-                use daily. Here are some of the projects I have worked on.
+                use daily. These are some of personal projects I have worked on.
             </Heading>
 
             <Flex flexDir="column" height="100%" gap="40px">
@@ -27,7 +27,6 @@ export default function PersonalProjects({ works }: ProjectsProps) {
                     <WorkItem
                         key={index}
                         {...work}
-                        // previewDescription={work.previewDescription}
                     />
                 ))}
             </Flex>
