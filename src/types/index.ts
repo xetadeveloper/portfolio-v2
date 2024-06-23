@@ -5,3 +5,7 @@ export type ArticleItem = {
     createdOn: string;
     articleUrl: string;
 };
+
+export interface AboutPageData{
+
+}

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 // Styles
-import { Avatar, Button, Divider, Flex, Heading, Slide, Text, useTheme } from '@chakra-ui/react';
+import { Avatar, Button, Divider, Flex, Heading, Slide, Stack, Text, useTheme } from '@chakra-ui/react';
 import AboutTitle from '~/modules/About/components/AboutTitle';
 import AboutBody from '~/modules/About/components/AboutBody';
 import { specializeTechStack } from '~/modules/About/constants';
@@ -12,12 +12,27 @@ import { RiMenuFold3Fill } from 'react-icons/ri';
 import { BiX } from 'react-icons/bi';
 import { useMediaQuery } from 'usehooks-ts';
 import styles from '~/modules/About/about.module.css';
+import { contentfulClient } from '~/contentful/client';
+import {
+    TypeAbout,
+    TypeAboutFields,
+    TypeAboutSkeleton,
+    TypeCertfication,
+    TypeEducation,
+    TypeEducationSkeleton,
+    TypeEducationWithoutLinkResolutionResponse,
+    TypeTechStack,
+} from '~/contentful/__generated__';
+import { Entry } from 'contentful';
+import { getTechDisplayTitle, getTechIcon } from '~/utils/techStackIcons';
 // Components
 
 // Types
-export interface AboutProps {}
+export interface AboutProps {
+    content: Entry<TypeAboutSkeleton, undefined, string>;
+}
 
-export default function About(props: AboutProps) {
+export default function About({ content }: AboutProps) {
     const [showSidebar, setShowSidebar] = useState(false);
     const isLargeScreen = useMediaQuery('(min-width: 960px)');
     const theme = useTheme();
@@ -45,7 +60,14 @@ export default function About(props: AboutProps) {
                     alignItems="center"
                     height="100%"
                 >
-                    <Flex flexDir="column" alignItems="center" gap="50px" padding="0 20px" position="relative">
+                    <Flex
+                        flexDir="column"
+                        alignItems="center"
+                        gap="50px"
+                        padding="0 20px"
+                        position="relative"
+                        width="100%"
+                    >
                         <Button
                             position="absolute"
                             zIndex="1"
@@ -62,12 +84,23 @@ export default function About(props: AboutProps) {
 
                         <Avatar height="150px" width="150px" src="/profile-pic.jpg" />
 
-                        <Flex flexDir="column" gap="5px">
+                        <Flex flexDir="column" gap="5px" width="100%">
                             <Heading fontSize="16px" fontWeight="600" mb="10px">
                                 Education
                             </Heading>
-                            <Text fontWeight="400">BSc. Computer Science</Text>
-                            <Text fontWeight="300">McPherson University, Ogun State, Nigeria.</Text>
+
+                            {content.fields.education.map((edu) => {
+                                const item = edu as TypeEducation<'WITHOUT_LINK_RESOLUTION'>;
+
+                                return (
+                                    <Stack>
+                                        <Text fontWeight="300">{item.fields.institution}</Text>
+                                        <Text fontWeight="400" fontSize="14px">
+                                            {item.fields.degreeAwarded}
+                                        </Text>
+                                    </Stack>
+                                );
+                            })}
                         </Flex>
                     </Flex>
 
@@ -77,8 +110,12 @@ export default function About(props: AboutProps) {
                         <Text fontSize="16px" fontWeight="600" textAlign="start" mb="10px">
                             Professional Certifications
                         </Text>
-                        <Text fontSize="16px">Oracle Certified Associate Java Programmer (OCAJP)</Text>
-                        <Text>Oracle Certified Professional Java Programmer (OCPJP)</Text>
+
+                        {content.fields.certifications.map((cert) => {
+                            const item = cert as TypeCertfication<'WITHOUT_LINK_RESOLUTION'>;
+
+                            return <Text fontSize="16px">{item.fields.certificateAwarded}</Text>;
+                        })}
                     </Flex>
 
                     <Divider mt="20px" mb="20px" borderWidth="1px" />
@@ -87,8 +124,9 @@ export default function About(props: AboutProps) {
                         <Text fontSize="16px" fontWeight="600" textAlign="start" mb="10px">
                             Soft Skills
                         </Text>
-                        <Text fontSize="16px">Verbal and written communication skills</Text>
-                        <Text>Collaboration with teams</Text>
+                        {content.fields.softSkills.map((skill) => {
+                            return <Text fontSize="16px">{skill}</Text>;
+                        })}
                     </Flex>
                 </Flex>
             </Slide>
@@ -124,7 +162,7 @@ export default function About(props: AboutProps) {
                         </Heading>
                     </Flex>
                     <Text fontWeight="300" fontSize={{ base: '14px', md: '16px' }} maxWidth={{ md: '400px' }}>
-                        I am a web developer with a passion for creating only the best products and making an impact.
+                        {content.fields.personalQuote}
                     </Text>
                 </Flex>
 
@@ -135,50 +173,22 @@ export default function About(props: AboutProps) {
                         <AboutTitle fontWeight="500" fontSize="26px">
                             About Me
                         </AboutTitle>
-
-                        <AboutBody>
-                            I'm a multidisciplined developer concerned with adhering to established standards but also
-                            not afraid to think out of the box to implement creative and performant solutions. I'm very
-                            enthusiastic about any opportunity to learn technology that will further my ability to
-                            create better performant and usable applications. I create responsive web applications
-                            because I love giving the end users a flexible platform to be productive.
-                        </AboutBody>
+                        <AboutBody>{content.fields.description}</AboutBody>
                     </Flex>
 
                     <Flex as="section" flexDir="column" gap="20px">
                         <AboutTitle>Frontend Development</AboutTitle>
-
-                        <AboutBody>
-                            I'm a multidisciplined developer concerned with adhering to established standards but also
-                            not afraid to think out of the box to implement creative and performant solutions. I'm very
-                            enthusiastic about any opportunity to learn technology that will further my ability to
-                            create better performant and usable applications. I create responsive web applications
-                            because I love giving the end users a flexible platform to be productive.
-                        </AboutBody>
+                        <AboutBody>{content.fields.frontendDescription}</AboutBody>
                     </Flex>
 
                     <Flex as="section" flexDir="column" gap="20px">
                         <AboutTitle>Backend Development</AboutTitle>
-
-                        <AboutBody>
-                            I'm a multidisciplined developer concerned with adhering to established standards but also
-                            not afraid to think out of the box to implement creative and performant solutions. I'm very
-                            enthusiastic about any opportunity to learn technology that will further my ability to
-                            create better performant and usable applications. I create responsive web applications
-                            because I love giving the end users a flexible platform to be productive.
-                        </AboutBody>
+                        <AboutBody>{content.fields.backendDescription}</AboutBody>
                     </Flex>
 
                     <Flex as="section" flexDir="column" gap="20px">
                         <AboutTitle>User Interaction and Experience</AboutTitle>
-
-                        <AboutBody>
-                            I work mainly with the MERN stack both front and back end, and here’s the complicated part,
-                            I am more stable with front end but I have always preferred backend more, but I am flexible
-                            to work on both sides. I work with Jekyll, bundling and transpiling tools such as Webpack
-                            and Babel. This site was also built with Jekyll. I have the knowledge of Java SE of which I
-                            obtained the Java SE 8 OCP certification in 2017.
-                        </AboutBody>
+                        <AboutBody>{content.fields.uxDescription}</AboutBody>
                     </Flex>
 
                     <Flex as="section" flexDir="column" gap="40px">
@@ -188,20 +198,52 @@ export default function About(props: AboutProps) {
 
                         <Flex flexDir="column" gap="40px">
                             <AboutTechStackCard
-                                title="Specailize in"
-                                subtitle="These are technologies and tools I am most comfortable with, specialize in
-                                        and make use of daily."
-                                techStack={specializeTechStack}
+                                title={
+                                    (content.fields.specializationStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>)
+                                        .fields.title
+                                }
+                                subtitle={
+                                    (content.fields.specializationStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>)
+                                        .fields.description ?? ''
+                                }
+                                techStack={(
+                                    content.fields.specializationStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>
+                                ).fields.stack.map((item) => ({
+                                    icon: getTechIcon({ icon: item }),
+                                    title: getTechDisplayTitle(item),
+                                }))}
                             />
                             <AboutTechStackCard
-                                title="Familiar with"
-                                subtitle="These are technologies and tools I have used in personal projects or in the past and I understand them but I don't currently use them daily."
-                                techStack={specializeTechStack}
+                                title={
+                                    (content.fields.familiarStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>).fields
+                                        .title
+                                }
+                                subtitle={
+                                    (content.fields.familiarStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>).fields
+                                        .description ?? ''
+                                }
+                                techStack={(
+                                    content.fields.familiarStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>
+                                ).fields.stack.map((item) => ({
+                                    icon: getTechIcon({ icon: item }),
+                                    title: getTechDisplayTitle(item),
+                                }))}
                             />
                             <AboutTechStackCard
-                                title="Experimented with"
-                                subtitle="These are technologies and tools I have and probably still experimenting with and have used them in demo projects but have not spent a lot of time with."
-                                techStack={specializeTechStack}
+                                title={
+                                    (content.fields.experimentalStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>)
+                                        .fields.title
+                                }
+                                subtitle={
+                                    (content.fields.experimentalStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>)
+                                        .fields.description ?? ''
+                                }
+                                techStack={(
+                                    content.fields.experimentalStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>
+                                ).fields.stack.map((item) => ({
+                                    icon: getTechIcon({ icon: item }),
+                                    title: getTechDisplayTitle(item),
+                                }))}
                             />
                         </Flex>
                     </Flex>
@@ -211,8 +253,12 @@ export default function About(props: AboutProps) {
     );
 }
 
-export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<AboutProps>>> {
+export async function getStaticProps(): Promise<GetStaticPropsResult<AboutProps>> {
+    const data = await contentfulClient.getEntry<TypeAboutSkeleton>('3fkKjBYsCa2lfPcyBuW0mV');
+
     return {
-        props: {},
+        props: {
+            content: data,
+        },
     };
 }
