@@ -3,15 +3,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
-import { techStack } from '~/config';
 import { fonts } from '~/assets/fonts';
 
 // Components
 
 // Types
-export interface SlantDivAnimationProps {}
+export interface SlantDivAnimationProps {
+    techStack: string[];
+}
 
-export default function SlantDivAnimation(props: SlantDivAnimationProps) {
+export default function SlantDivAnimation({ techStack }: SlantDivAnimationProps) {
     return (
         <motion.div
             // initial={{
