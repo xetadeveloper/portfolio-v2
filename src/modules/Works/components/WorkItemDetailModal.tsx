@@ -13,6 +13,7 @@ import {
     ModalCloseButton,
     ModalContent,
     ModalOverlay,
+    SimpleGrid,
     Stack,
     Text,
 } from '@chakra-ui/react';
@@ -21,6 +22,7 @@ import { FaExternalLinkAlt } from 'react-icons/fa';
 import { TWorkItem } from '../types';
 import Markdown from 'react-markdown';
 import { getTechDisplayTitle, getTechIcon } from '~/utils/techStackIcons';
+import { getStatusIcon } from '~/utils';
 
 // Types
 export interface WorkItemDetailModalProps {
@@ -65,7 +67,12 @@ export default function WorkItemDetailModal({
                     mt="20px"
                 >
                     <Flex justifyContent="space-between" alignItems="center">
-                        <Heading fontSize={{ base: '24px', md: '26px' }}>{props.title}</Heading>
+                        <Box>
+                            <Heading fontSize={{ base: '24px', md: '26px' }}>{props.title}</Heading>
+                            <Flex mt="10px" gap="10px">
+                                {props.status.map((item) => getStatusIcon(item, props.liveLink))}
+                            </Flex>
+                        </Box>
 
                         {isGalleryMode ? (
                             <Button
@@ -90,7 +97,7 @@ export default function WorkItemDetailModal({
                                 borderColor="gray.600"
                                 rightIcon={<FaExternalLinkAlt style={{ width: '13px', height: '13px' }} />}
                             >
-                                View Repo
+                                View Repository
                             </Button>
                         )}
                     </Flex>
@@ -216,20 +223,27 @@ export default function WorkItemDetailModal({
                                     </Heading>
                                 </Box>
 
-                                <Flex gap="20px" flexWrap="wrap" border="1px solid rd" margin="0 auto">
+                                <SimpleGrid
+                                    gap="20px"
+                                    flexWrap="wrap"
+                                    maxWidth="400px"
+                                    // border="1px solid red"
+                                    margin="0 auto"
+                                    gridTemplateColumns="repeat(auto-fill, 100px)"
+                                >
                                     {props.stack.map((item, index) => {
                                         const icon = getTechIcon({ icon: item });
 
                                         return (
                                             <Flex key={index} alignItems="center" gap="10px">
-                                                <Box height="40px" width="40px" color="#383838">
+                                                <Box height="30px" width="30px" color="#383838">
                                                     {icon}
                                                 </Box>
                                                 <Heading fontWeight="400">{getTechDisplayTitle(item)}</Heading>
                                             </Flex>
                                         );
                                     })}
-                                </Flex>
+                                </SimpleGrid>
                             </Stack>
                         ) : null}
                     </Flex>

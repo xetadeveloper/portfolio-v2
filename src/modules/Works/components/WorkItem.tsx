@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 
 // Components
 import Image from 'next/image';
-import { Box, Button, Center, Flex, Heading, Link, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import WorkItemDetailModal from './WorkItemDetailModal';
 import { TWorkItem } from '../types';
 import { getTechIcon, getTechDisplayTitle } from '~/utils/techStackIcons';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { getStatusIcon } from '~/utils';
 
 // Types
 export interface WorkItemProps {
@@ -26,34 +26,8 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
         status,
         stack,
         liveLink,
-        onClick,
         showDetails = true,
     } = props;
-
-    function getStatusIcon(status: 'live' | 'in-progress') {
-        return (
-            <Center
-                as={status === 'live' ? Link : 'div'}
-                color="#fff"
-                // @ts-expect-error
-                href={liveLink}
-                target="_blank"
-                borderRadius="10px"
-                padding="3px 10px"
-                bg={status === 'live' ? '#09c905' : '#061ea5'}
-                gap="5px"
-                cursor={status === 'live' ? 'pointer' : 'default'}
-                _hover={{
-                    boxShadow: '0 1px 2px 1px #089e05',
-                }}
-            >
-                {status === 'live' ? <FaExternalLinkAlt style={{ stroke: 'CurrentColor', width: '10px' }} /> : null}
-                <Heading fontWeight="500" fontSize="12px">
-                    {status === 'live' ? 'Live' : 'In progress'}
-                </Heading>
-            </Center>
-        );
-    }
 
     return (
         <Flex
@@ -82,7 +56,7 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                             {title}
                         </Heading>
 
-                        <Flex gap="10px">{status.map((status) => getStatusIcon(status))}</Flex>
+                        <Flex gap="10px">{status.map((status) => getStatusIcon(status, liveLink))}</Flex>
                     </Flex>
                     <Box
                         display={{ base: 'block', md: 'none' }}
@@ -107,25 +81,20 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                     </Text>
                 </Flex>
 
-                <Flex
-                    alignSelf={{ base: 'center', md: 'flex-start' }}
-                    justifyContent={{ base: 'center', md: 'flex-start' }}
-                    gap="20px"
-                    flexWrap="wrap"
-                >
+                <SimpleGrid gap="20px" flexWrap="wrap" gridTemplateColumns="repeat(auto-fill, 100px)">
                     {stack.map((item, index) => {
                         const icon = getTechIcon({ icon: item });
 
                         return (
                             <Flex key={index} alignItems="center" gap="10px">
-                                <Box height="40px" width="40px" color="#383838">
+                                <Box height="30px" width="30px" color="#383838">
                                     {icon}
                                 </Box>
                                 <Heading fontWeight="400">{getTechDisplayTitle(item)}</Heading>
                             </Flex>
                         );
                     })}
-                </Flex>
+                </SimpleGrid>
 
                 <Button
                     alignSelf={{ base: '', md: 'flex-start' }}
