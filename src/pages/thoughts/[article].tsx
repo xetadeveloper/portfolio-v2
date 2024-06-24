@@ -18,12 +18,15 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 import React from 'react';
 import { RiMenuFold3Fill } from 'react-icons/ri';
+import Markdown from 'react-markdown';
 import { articlesList } from '~/utils/dummyArticles';
 
 // Components
 
 // Types
-export interface ArticleProps {}
+export interface ArticleProps {
+    data: any;
+}
 
 const article = {
     title: 'How to create a portfolio that stands out',
@@ -33,7 +36,7 @@ const article = {
     articleUrl: '/thoughts/create-portfolio',
 };
 
-export default function Article(props: ArticleProps) {
+export default function Article({ data }: ArticleProps) {
     return (
         <Stack bg="brand.bg" height="100%" gap="20px" padding="20px 0">
             <Flex padding=" 0 20px" justifyContent="space-between" gap="18px">
@@ -106,9 +109,9 @@ export default function Article(props: ArticleProps) {
                 borderRadius="5px"
                 boxShadow="0 2px 4px 0px #C6C6C6"
             >
-                <Text as="pre" whiteSpace="wrap" fontFamily="inherit">
-                    Whether you’re an individual showcasing your work or a design agency, a well-crafted portfolio site
-                    can make a significant impact. Here’s a concise guide to get you started: What is a Portfolio
+                <Markdown>
+                    __Whether__ you’re an individual showcasing your work or a design agency, a well-crafted portfolio
+                    site can make a significant impact. Here’s a concise guide to get you started: What is a Portfolio
                     Website? A portfolio website serves as a professional platform to present information about an
                     individual or a company and showcase their work. Whether you’re a freelance designer, photographer,
                     developer, or part of a creative agency, your portfolio website is your digital business card.
@@ -273,7 +276,7 @@ export default function Article(props: ArticleProps) {
                     creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
                     received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
                     clean, visually appealing, and easy to navigate. Happy designing! 🚀
-                </Text>
+                </Markdown>
             </Stack>
         </Stack>
     );

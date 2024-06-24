@@ -129,13 +129,15 @@ export default function Works({ works }: WorksProps) {
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<WorksProps>>> {
-    const content = await contentfulClient.getEntries<TypeProjectSkeleton>({ content_type: 'project' });
+    const content = await contentfulClient.withoutUnresolvableLinks.getEntries<TypeProjectSkeleton>({
+        content_type: 'project',
+    });
 
     const works = content.items.map((work) => {
-        const previewImage = work.fields.previewImage as Asset<'WITHOUT_LINK_RESOLUTION', string>;
+        const previewImage = work.fields.previewImage;
         const galleryImagesUrls: string[] = [];
 
-        if (previewImage.fields.file?.url) {
+        if (previewImage?.fields.file?.url) {
             galleryImagesUrls.push('https:' + previewImage.fields.file.url);
         }
 
@@ -149,8 +151,7 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<Wor
             });
         }
 
-        console.log('Gallery images after: ', galleryImagesUrls);
-        const techStack = work.fields.stack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>;
+        const techStack = work.fields.stack as TypeTechStack<'WITHOUT_UNRESOLVABLE_LINKS'>;
 
         const converted: TWorkItem = {
             type: work.fields.type,
@@ -161,8 +162,8 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<Wor
             liveLink: work.fields.liveLink,
             repoLink: work.fields.repositoryLink,
             previewDescription: work.fields.previewDescription,
-            previewImageUrl: 'https:' + previewImage.fields.file?.url ?? '',
-            previewImgAlt: previewImage.fields.description ?? `Preview image of ${work.fields.title}`,
+            previewImageUrl: previewImage ? 'https:' + previewImage.fields.file?.url : '',
+            previewImgAlt: previewImage?.fields.description ?? `Preview image of ${work.fields.title}`,
             stack: techStack.fields.stack,
             status: work.fields.status,
         };

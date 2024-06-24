@@ -18,6 +18,8 @@ import {
     TypeAboutFields,
     TypeAboutSkeleton,
     TypeCertfication,
+    TypeCertficationFields,
+    TypeCertficationWithoutUnresolvableLinksResponse,
     TypeEducation,
     TypeEducationSkeleton,
     TypeEducationWithoutLinkResolutionResponse,
@@ -29,7 +31,7 @@ import { getTechDisplayTitle, getTechIcon } from '~/utils/techStackIcons';
 
 // Types
 export interface AboutProps {
-    content: Entry<TypeAboutSkeleton, undefined, string>;
+    content: Entry<TypeAboutSkeleton, 'WITHOUT_UNRESOLVABLE_LINKS', string>;
 }
 
 export default function About({ content }: AboutProps) {
@@ -112,9 +114,18 @@ export default function About({ content }: AboutProps) {
                         </Text>
 
                         {content.fields.certifications.map((cert) => {
-                            const item = cert as TypeCertfication<'WITHOUT_LINK_RESOLUTION'>;
+                            if (cert) {
+                                return (
+                                    <Text fontSize="16px">
+                                        {
+                                            (cert as TypeCertficationWithoutUnresolvableLinksResponse).fields
+                                                .certificateAwarded
+                                        }
+                                    </Text>
+                                );
+                            }
 
-                            return <Text fontSize="16px">{item.fields.certificateAwarded}</Text>;
+                            return null;
                         })}
                     </Flex>
 
@@ -197,54 +208,38 @@ export default function About({ content }: AboutProps) {
                         </Heading>
 
                         <Flex flexDir="column" gap="40px">
-                            <AboutTechStackCard
-                                title={
-                                    (content.fields.specializationStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>)
-                                        .fields.title
-                                }
-                                subtitle={
-                                    (content.fields.specializationStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>)
-                                        .fields.description ?? ''
-                                }
-                                techStack={(
-                                    content.fields.specializationStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>
-                                ).fields.stack.map((item) => ({
-                                    icon: getTechIcon({ icon: item }),
-                                    title: getTechDisplayTitle(item),
-                                }))}
-                            />
-                            <AboutTechStackCard
-                                title={
-                                    (content.fields.familiarStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>).fields
-                                        .title
-                                }
-                                subtitle={
-                                    (content.fields.familiarStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>).fields
-                                        .description ?? ''
-                                }
-                                techStack={(
-                                    content.fields.familiarStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>
-                                ).fields.stack.map((item) => ({
-                                    icon: getTechIcon({ icon: item }),
-                                    title: getTechDisplayTitle(item),
-                                }))}
-                            />
-                            <AboutTechStackCard
-                                title={
-                                    (content.fields.experimentalStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>)
-                                        .fields.title
-                                }
-                                subtitle={
-                                    (content.fields.experimentalStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>)
-                                        .fields.description ?? ''
-                                }
-                                techStack={(
-                                    content.fields.experimentalStack as TypeTechStack<'WITHOUT_LINK_RESOLUTION'>
-                                ).fields.stack.map((item) => ({
-                                    icon: getTechIcon({ icon: item }),
-                                    title: getTechDisplayTitle(item),
-                                }))}
-                            />
+                            {content.fields.specializationStack ? (
+                                <AboutTechStackCard
+                                    title={content.fields.specializationStack.fields.title}
+                                    subtitle={content.fields.specializationStack.fields.description ?? ''}
+                                    techStack={content.fields.specializationStack.fields.stack.map((item) => ({
+                                        icon: getTechIcon({ icon: item }),
+                                        title: getTechDisplayTitle(item),
+                                    }))}
+                                />
+                            ) : null}
+
+                            {content.fields.familiarStack ? (
+                                <AboutTechStackCard
+                                    title={content.fields.familiarStack.fields.title}
+                                    subtitle={content.fields.familiarStack.fields.description ?? ''}
+                                    techStack={content.fields.familiarStack.fields.stack.map((item) => ({
+                                        icon: getTechIcon({ icon: item }),
+                                        title: getTechDisplayTitle(item),
+                                    }))}
+                                />
+                            ) : null}
+
+                            {content.fields.experimentalStack ? (
+                                <AboutTechStackCard
+                                    title={content.fields.experimentalStack.fields.title}
+                                    subtitle={content.fields.experimentalStack.fields.description ?? ''}
+                                    techStack={content.fields.experimentalStack.fields.stack.map((item) => ({
+                                        icon: getTechIcon({ icon: item }),
+                                        title: getTechDisplayTitle(item),
+                                    }))}
+                                />
+                            ) : null}
                         </Flex>
                     </Flex>
                 </Flex>
@@ -254,7 +249,7 @@ export default function About({ content }: AboutProps) {
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<AboutProps>> {
-    const data = await contentfulClient.getEntry<TypeAboutSkeleton>('3fkKjBYsCa2lfPcyBuW0mV');
+    const data = await contentfulClient.withoutUnresolvableLinks.getEntry<TypeAboutSkeleton>('3fkKjBYsCa2lfPcyBuW0mV');
 
     return {
         props: {
