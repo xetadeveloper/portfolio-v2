@@ -43,7 +43,7 @@ export default function ThoughtsSection({ articles, articleDateGroup, isDefaultO
                         <Button
                             key={index}
                             as={motion.a}
-                            href={item.url}
+                            href={`thoughts/${item.url}`}
                             flexDir="column"
                             bg="#fff"
                             borderRadius="5px"

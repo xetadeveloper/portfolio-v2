@@ -1,6 +1,7 @@
 // Modules
 import {
     Button,
+    Center,
     Flex,
     Heading,
     Link,
@@ -10,18 +11,20 @@ import {
     PopoverCloseButton,
     PopoverContent,
     PopoverTrigger,
+    Spinner,
     Stack,
 } from '@chakra-ui/react';
-import { Asset } from 'contentful';
 import { motion } from 'framer-motion';
 import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import Image from 'next/image';
 import NextLink from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { RiMenuFold3Fill } from 'react-icons/ri';
 import Markdown from 'react-markdown';
 import { TypeArticleSkeleton, TypeArticleWithoutUnresolvableLinksResponse } from '~/contentful/__generated__';
 import { contentfulClient } from '~/contentful/client';
+import NotFound from '../404';
 
 // Components
 
@@ -32,6 +35,27 @@ export interface ArticleProps {
 }
 
 export default function Article({ content, recentArticles }: ArticleProps) {
+    const router = useRouter();
+    const [notFound, setNotFound] = useState(false);
+
+    useEffect(() => {
+        if (router.isReady && !content) {
+            setNotFound(true);
+        }
+    }, [router.isReady]);
+
+    if (notFound) {
+        return <NotFound />;
+    }
+
+    if (!content) {
+        return (
+            <Center  height="100vh">
+                <Spinner />
+            </Center>
+        );
+    }
+
     return (
         <Stack bg="brand.bg" height="100%" gap="20px" padding="20px 0">
             <Flex padding=" 0 20px" justifyContent="space-between" gap="18px">
@@ -43,7 +67,7 @@ export default function Article({ content, recentArticles }: ArticleProps) {
                     <Heading fontWeight="400" display={{ base: 'none', md: 'initial' }}>
                         More Articles
                     </Heading>
-                    <Popover placement="left-start">
+                    <Popover placement="left-start" autoFocus>
                         <PopoverTrigger>
                             <Button
                                 as={motion.button}
@@ -59,12 +83,14 @@ export default function Article({ content, recentArticles }: ArticleProps) {
                             </Button>
                         </PopoverTrigger>
 
-                        <PopoverContent padding="20px 20px 20px" width="auto">
+                        <PopoverContent padding="20px 20px 20px" width="auto" minWidth="250px">
                             <PopoverArrow />
                             <PopoverCloseButton border="none" as={Button} height="30px" width="30px" minWidth="auto" />
 
                             <PopoverBody as={Stack} bg="#fff" gap="20px" padding="0">
-                                <Heading fontWeight="400">More Articles</Heading>
+                                <Heading as={Link} href="/thoughts" fontWeight="400" width="fit-content">
+                                    More Articles
+                                </Heading>
 
                                 <Stack gap="20px" height="450px" overflow="auto">
                                     {recentArticles.map((article, index) => (
@@ -82,7 +108,8 @@ export default function Article({ content, recentArticles }: ArticleProps) {
                                                 width={200}
                                                 src={
                                                     article.fields.previewImageUrl ??
-                                                    article.fields.previewImage?.fields.file?.url ??
+                                                    (article.fields.previewImage?.fields.file?.url &&
+                                                        `https://${article.fields.previewImage.fields.file.url}`) ??
                                                     '/default-article-thumbnail.jpg'
                                                 }
                                                 alt="image for article"
@@ -144,6 +171,12 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
         content_type: 'article',
     });
 
-    // return { fallback: false, paths: data.items.map((item) => item.fields.url) };
-    return { fallback: false, paths: [] };
+    return {
+        fallback: true,
+        paths: data.items.map((item) => ({
+            params: {
+                article: item.fields.url,
+            },
+        })),
+    };
 }
