@@ -7,62 +7,68 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 import { MdEmail } from 'react-icons/md';
 import { RiTwitterXLine } from 'react-icons/ri';
 import { motion } from 'framer-motion';
+import { GetStaticPropsResult } from 'next';
+import { contentfulClient } from '~/contentful/client';
+import {
+    TypeContactSkeleton,
+    TypeContactWithoutUnresolvableLinksResponse,
+    TypeSocialWithoutUnresolvableLinksResponse,
+} from '~/contentful/__generated__';
+import { getSocialIcon } from '~/utils/socialsIcons';
 
 // Components
 
 // Types
-export interface ContactProps {}
+export interface ContactProps {
+    data: TypeContactWithoutUnresolvableLinksResponse;
+}
 
-const contactItems = [
-    {
-        icon: <FaGithub style={{ height: '100%', width: '100%' }} />,
-        description: 'You can find my personal projects here, I’ll love to collaborate too!',
-        url: 'https://github.com/xetadeveloper',
-    },
-    {
-        icon: <FaLinkedin style={{ height: '100%', width: '100%' }} />,
-        description: 'Let’s connect, and grow our professional network.',
-        url: 'https://www.linkedin.com/in/fego-etese-b9136a76/',
-    },
-    {
-        icon: <MdEmail style={{ height: '100%', width: '100%' }} />,
-        description: 'Any inquiries, feel free to email me, I’ll respond as soon as I get it!',
-        url: 'mailto:jazelogin@hotmail.com',
-    },
-    {
-        icon: <RiTwitterXLine style={{ height: '100%', width: '100%' }} />,
-        description: "Let's exchange ideas.",
-        url: 'https://twitter.com/theXOSound',
-    },
-];
-
-export default function Contact(props: ContactProps) {
+export default function Contact({ data }: ContactProps) {
     return (
         <Center bg="brand.bg" minHeight="100%" flexDir="column" gap={{ base: '40px', md: '60px' }} padding="30px">
             <Heading fontWeight="500" fontSize={{ base: '30px', md: '34px' }} textAlign="center">
-                Hey I'd love to get in touch!
+                {data.fields.headerText}
             </Heading>
 
             <VStack gap="30px">
-                {contactItems.map(({ icon, description, url }, index) => (
-                    <a href={url} key={index} target="_blank">
-                        <SimpleGrid
-                            as={motion.div}
-                            borderRadius="5px"
-                            gridTemplateColumns="minmax(auto, 300px) auto"
-                            alignItems="center"
-                            gap={{ base: '20px', md: '30px' }}
-                            padding="10px 20px"
-                            whileHover={{ scale: 1.05, backgroundColor: '#434343', color: 'white' }}
-                        >
-                            <Text>{description}</Text>
-                            <Box height="60px" width="60px">
-                                {icon}
-                            </Box>
-                        </SimpleGrid>
-                    </a>
-                ))}
+                {data.fields.socials.map((social, index) => {
+                    const socialT = social as TypeSocialWithoutUnresolvableLinksResponse;
+
+                    return (
+                        <a href={socialT.fields.url} key={index} target="_blank">
+                            <SimpleGrid
+                                as={motion.div}
+                                borderRadius="5px"
+                                gridTemplateColumns="minmax(auto, 300px) auto"
+                                alignItems="center"
+                                gap={{ base: '20px', md: '30px' }}
+                                padding="10px 20px"
+                                whileHover={{ scale: 1.05, backgroundColor: '#434343', color: 'white' }}
+                            >
+                                <Text>{socialT.fields.description}</Text>
+                                <Box height="60px" width="60px">
+                                    {getSocialIcon({ icon: socialT.fields.type })}
+                                </Box>
+                            </SimpleGrid>
+                        </a>
+                    );
+                })}
             </VStack>
         </Center>
     );
+}
+
+export async function getStaticProps(): Promise<GetStaticPropsResult<ContactProps>> {
+    const data =
+        await contentfulClient.withoutUnresolvableLinks.getEntry<TypeContactSkeleton>('4UCEdrKim3TAxmE8JTXDg4');
+
+    if (!data) {
+        return { notFound: true };
+    }
+
+    return {
+        props: {
+            data,
+        },
+    };
 }
