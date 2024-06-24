@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import './globals.css';
 import { fonts } from '../assets/fonts';
 import { Providers } from './providers';
+import './globals.css';
 
 export const metadata: Metadata = {
     title: 'Fego Etese',

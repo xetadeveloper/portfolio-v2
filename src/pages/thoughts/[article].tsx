@@ -25,6 +25,8 @@ import Markdown from 'react-markdown';
 import { TypeArticleSkeleton, TypeArticleWithoutUnresolvableLinksResponse } from '~/contentful/__generated__';
 import { contentfulClient } from '~/contentful/client';
 import NotFound from '../404';
+import dayjs from 'dayjs';
+import '.'
 
 // Components
 
@@ -50,7 +52,7 @@ export default function Article({ content, recentArticles }: ArticleProps) {
 
     if (!content) {
         return (
-            <Center  height="100vh">
+            <Center height="100vh">
                 <Spinner />
             </Center>
         );
@@ -59,9 +61,17 @@ export default function Article({ content, recentArticles }: ArticleProps) {
     return (
         <Stack bg="brand.bg" height="100%" gap="20px" padding="20px 0">
             <Flex padding=" 0 20px" justifyContent="space-between" gap="18px">
-                <Heading fontSize={{ base: '18px', md: '24px', lg: '28px' }} fontWeight="400">
-                    {content.fields.title}
-                </Heading>
+                <Stack>
+                    <Heading fontSize={{ base: '18px', md: '24px', lg: '28px' }} fontWeight="400">
+                        {content.fields.title}
+                    </Heading>
+
+                    <Flex alignItems="center">
+                        <Heading fontWeight="400">{content.fields.author}</Heading>
+                        <Heading>&nbsp;-&nbsp;</Heading>
+                        <Heading fontSize="14px"> {dayjs(content.sys.createdAt).format('DD MMM, YYYY')}</Heading>
+                    </Flex>
+                </Stack>
 
                 <Flex alignItems="center" gap="10px">
                     <Heading fontWeight="400" display={{ base: 'none', md: 'initial' }}>
@@ -134,8 +144,10 @@ export default function Article({ content, recentArticles }: ArticleProps) {
                 maxW={{ base: '100%', md: '90%' }}
                 borderRadius="5px"
                 boxShadow="0 2px 4px 0px #C6C6C6"
+                // className="markdown-container"
+                gap="10px"
             >
-                <Markdown>{content.fields.content}</Markdown>
+                <Markdown className="markdown-container">{content.fields.content}</Markdown>
             </Stack>
         </Stack>
     );
