@@ -1,11 +1,7 @@
 export type ArticleItem = {
     title: string;
-    imageUrl: string;
+    previewImageUrl: string;
     author: string;
     createdOn: string;
-    articleUrl: string;
+    url: string;
 };
-
-export interface AboutPageData{
-
-}

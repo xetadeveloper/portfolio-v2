@@ -11,37 +11,32 @@ import {
     PopoverContent,
     PopoverTrigger,
     Stack,
-    Text,
 } from '@chakra-ui/react';
+import { Asset } from 'contentful';
 import { motion } from 'framer-motion';
+import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import React from 'react';
 import { RiMenuFold3Fill } from 'react-icons/ri';
 import Markdown from 'react-markdown';
-import { articlesList } from '~/utils/dummyArticles';
+import { TypeArticleSkeleton, TypeArticleWithoutUnresolvableLinksResponse } from '~/contentful/__generated__';
+import { contentfulClient } from '~/contentful/client';
 
 // Components
 
 // Types
 export interface ArticleProps {
-    data: any;
+    content: TypeArticleWithoutUnresolvableLinksResponse;
+    recentArticles: TypeArticleWithoutUnresolvableLinksResponse[];
 }
 
-const article = {
-    title: 'How to create a portfolio that stands out',
-    imageUrl: '/article-demo.jpg',
-    author: 'Fego Etese',
-    createdOn: '2024-05-06',
-    articleUrl: '/thoughts/create-portfolio',
-};
-
-export default function Article({ data }: ArticleProps) {
+export default function Article({ content, recentArticles }: ArticleProps) {
     return (
         <Stack bg="brand.bg" height="100%" gap="20px" padding="20px 0">
             <Flex padding=" 0 20px" justifyContent="space-between" gap="18px">
                 <Heading fontSize={{ base: '18px', md: '24px', lg: '28px' }} fontWeight="400">
-                    {article.title}
+                    {content.fields.title}
                 </Heading>
 
                 <Flex alignItems="center" gap="10px">
@@ -72,11 +67,11 @@ export default function Article({ data }: ArticleProps) {
                                 <Heading fontWeight="400">More Articles</Heading>
 
                                 <Stack gap="20px" height="450px" overflow="auto">
-                                    {articlesList.slice(0, 5).map((article, index) => (
+                                    {recentArticles.map((article, index) => (
                                         <Link
                                             as={NextLink}
                                             key={index}
-                                            href={article.articleUrl}
+                                            href={article.fields.url}
                                             width="200px"
                                             gap="10px"
                                             display="flex"
@@ -85,11 +80,15 @@ export default function Article({ data }: ArticleProps) {
                                             <Image
                                                 height={200}
                                                 width={200}
-                                                src={article.imageUrl}
+                                                src={
+                                                    article.fields.previewImageUrl ??
+                                                    article.fields.previewImage?.fields.file?.url ??
+                                                    '/default-article-thumbnail.jpg'
+                                                }
                                                 alt="image for article"
                                                 style={{ borderRadius: '5px' }}
                                             />
-                                            <Heading fontWeight="400">{article.title}</Heading>
+                                            <Heading fontWeight="400">{article.fields.title}</Heading>
                                         </Link>
                                     ))}
                                 </Stack>
@@ -109,175 +108,42 @@ export default function Article({ data }: ArticleProps) {
                 borderRadius="5px"
                 boxShadow="0 2px 4px 0px #C6C6C6"
             >
-                <Markdown>
-                    __Whether__ you’re an individual showcasing your work or a design agency, a well-crafted portfolio
-                    site can make a significant impact. Here’s a concise guide to get you started: What is a Portfolio
-                    Website? A portfolio website serves as a professional platform to present information about an
-                    individual or a company and showcase their work. Whether you’re a freelance designer, photographer,
-                    developer, or part of a creative agency, your portfolio website is your digital business card.
-                    Primary Purpose of a Portfolio Website: The primary purpose of a portfolio website is to: Display
-                    Compelling Content: Your portfolio should feature your best work, demonstrating your skills and
-                    expertise. Provide Basic Information: It should offer essential details about you or your company.
-                    Lead to Client Acquisition: Ultimately, it should attract potential clients and encourage them to
-                    hire you. Essential Sections of a Portfolio Website: Work Showcase: Use slideshows, thumbnail
-                    galleries, or video presentations to display your projects. Showcasing your work helps visitors
-                    understand your capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery.
-                    About Section: Summarize your experience, credentials, and professional background. Include relevant
-                    details about yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials:
-                    Feature testimonials from satisfied clients. Testimonials build trust and credibility. Take a look
-                    at Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to
-                    you. Include a contact form or provide direct contact details. Additional Components to Consider:
-                    Blog: Share insights, case studies, or industry-related content. Services Offered: Describe the
-                    services you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain
-                    your creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀 galleries, or video
-                    presentations to display your projects. Showcasing your work helps visitors understand your
-                    capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery. About Section:
-                    Summarize your experience, credentials, and professional background. Include relevant details about
-                    yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials: Feature
-                    testimonials from satisfied clients. Testimonials build trust and credibility. Take a look at
-                    Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to you.
-                    Include a contact form or provide direct contact details. Additional Components to Consider: Blog:
-                    Share insights, case studies, or industry-related content. Services Offered: Describe the services
-                    you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain your
-                    creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀 galleries, or video
-                    presentations to display your projects. Showcasing your work helps visitors understand your
-                    capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery. About Section:
-                    Summarize your experience, credentials, and professional background. Include relevant details about
-                    yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials: Feature
-                    testimonials from satisfied clients. Testimonials build trust and credibility. Take a look at
-                    Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to you.
-                    Include a contact form or provide direct contact details. Additional Components to Consider: Blog:
-                    Share insights, case studies, or industry-related content. Services Offered: Describe the services
-                    you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain your
-                    creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀 galleries, or video
-                    presentations to display your projects. Showcasing your work helps visitors understand your
-                    capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery. About Section:
-                    Summarize your experience, credentials, and professional background. Include relevant details about
-                    yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials: Feature
-                    testimonials from satisfied clients. Testimonials build trust and credibility. Take a look at
-                    Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to you.
-                    Include a contact form or provide direct contact details. Additional Components to Consider: Blog:
-                    Share insights, case studies, or industry-related content. Services Offered: Describe the services
-                    you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain your
-                    creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀 galleries, or video
-                    presentations to display your projects. Showcasing your work helps visitors understand your
-                    capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery. About Section:
-                    Summarize your experience, credentials, and professional background. Include relevant details about
-                    yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials: Feature
-                    testimonials from satisfied clients. Testimonials build trust and credibility. Take a look at
-                    Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to you.
-                    Include a contact form or provide direct contact details. Additional Components to Consider: Blog:
-                    Share insights, case studies, or industry-related content. Services Offered: Describe the services
-                    you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain your
-                    creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀 galleries, or video
-                    presentations to display your projects. Showcasing your work helps visitors understand your
-                    capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery. About Section:
-                    Summarize your experience, credentials, and professional background. Include relevant details about
-                    yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials: Feature
-                    testimonials from satisfied clients. Testimonials build trust and credibility. Take a look at
-                    Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to you.
-                    Include a contact form or provide direct contact details. Additional Components to Consider: Blog:
-                    Share insights, case studies, or industry-related content. Services Offered: Describe the services
-                    you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain your
-                    creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀 galleries, or video
-                    presentations to display your projects. Showcasing your work helps visitors understand your
-                    capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery. About Section:
-                    Summarize your experience, credentials, and professional background. Include relevant details about
-                    yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials: Feature
-                    testimonials from satisfied clients. Testimonials build trust and credibility. Take a look at
-                    Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to you.
-                    Include a contact form or provide direct contact details. Additional Components to Consider: Blog:
-                    Share insights, case studies, or industry-related content. Services Offered: Describe the services
-                    you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain your
-                    creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀 galleries, or video
-                    presentations to display your projects. Showcasing your work helps visitors understand your
-                    capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery. About Section:
-                    Summarize your experience, credentials, and professional background. Include relevant details about
-                    yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials: Feature
-                    testimonials from satisfied clients. Testimonials build trust and credibility. Take a look at
-                    Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to you.
-                    Include a contact form or provide direct contact details. Additional Components to Consider: Blog:
-                    Share insights, case studies, or industry-related content. Services Offered: Describe the services
-                    you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain your
-                    creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀 galleries, or video
-                    presentations to display your projects. Showcasing your work helps visitors understand your
-                    capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery. About Section:
-                    Summarize your experience, credentials, and professional background. Include relevant details about
-                    yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials: Feature
-                    testimonials from satisfied clients. Testimonials build trust and credibility. Take a look at
-                    Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to you.
-                    Include a contact form or provide direct contact details. Additional Components to Consider: Blog:
-                    Share insights, case studies, or industry-related content. Services Offered: Describe the services
-                    you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain your
-                    creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀 galleries, or video
-                    presentations to display your projects. Showcasing your work helps visitors understand your
-                    capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery. About Section:
-                    Summarize your experience, credentials, and professional background. Include relevant details about
-                    yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials: Feature
-                    testimonials from satisfied clients. Testimonials build trust and credibility. Take a look at
-                    Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to you.
-                    Include a contact form or provide direct contact details. Additional Components to Consider: Blog:
-                    Share insights, case studies, or industry-related content. Services Offered: Describe the services
-                    you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain your
-                    creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀 galleries, or video
-                    presentations to display your projects. Showcasing your work helps visitors understand your
-                    capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery. About Section:
-                    Summarize your experience, credentials, and professional background. Include relevant details about
-                    yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials: Feature
-                    testimonials from satisfied clients. Testimonials build trust and credibility. Take a look at
-                    Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to you.
-                    Include a contact form or provide direct contact details. Additional Components to Consider: Blog:
-                    Share insights, case studies, or industry-related content. Services Offered: Describe the services
-                    you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain your
-                    creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀 galleries, or video
-                    presentations to display your projects. Showcasing your work helps visitors understand your
-                    capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery. About Section:
-                    Summarize your experience, credentials, and professional background. Include relevant details about
-                    yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials: Feature
-                    testimonials from satisfied clients. Testimonials build trust and credibility. Take a look at
-                    Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to you.
-                    Include a contact form or provide direct contact details. Additional Components to Consider: Blog:
-                    Share insights, case studies, or industry-related content. Services Offered: Describe the services
-                    you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain your
-                    creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀 galleries, or video
-                    presentations to display your projects. Showcasing your work helps visitors understand your
-                    capabilities. For example, check out Ed Yau’s portfolio with its thumbnail gallery. About Section:
-                    Summarize your experience, credentials, and professional background. Include relevant details about
-                    yourself or your team. For instance, see Pablo Dominguez’s “About” page. Testimonials: Feature
-                    testimonials from satisfied clients. Testimonials build trust and credibility. Take a look at
-                    Theory’s testimonials. Contact Information: Make it easy for potential clients to reach out to you.
-                    Include a contact form or provide direct contact details. Additional Components to Consider: Blog:
-                    Share insights, case studies, or industry-related content. Services Offered: Describe the services
-                    you provide. Client List: Highlight notable clients you’ve worked with. Process: Explain your
-                    creative process or workflow. Awards and Recognition: Showcase any awards or recognition you’ve
-                    received. Remember, your portfolio website is a reflection of your brand and expertise. Keep it
-                    clean, visually appealing, and easy to navigate. Happy designing! 🚀
-                </Markdown>
+                <Markdown>{content.fields.content}</Markdown>
             </Stack>
         </Stack>
     );
+}
+
+export async function getStaticProps(context: GetStaticPropsContext): Promise<GetStaticPropsResult<ArticleProps>> {
+    const { article } = context.params ?? {};
+
+    const data = await contentfulClient.withoutUnresolvableLinks.getEntries<TypeArticleSkeleton>({
+        content_type: 'article',
+    });
+
+    const articleData = data.items.find((item) => item.fields.url === article);
+
+    if (!articleData) {
+        return { notFound: true };
+    }
+
+    const sortedArticlesList = data.items
+        .sort((a, b) => Date.parse(b.sys.createdAt) - Date.parse(a.sys.createdAt))
+        .filter((item) => item.fields.url !== article);
+
+    return {
+        props: {
+            content: articleData,
+            recentArticles: sortedArticlesList.slice(0, 10),
+        },
+    };
+}
+
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+    const data = await contentfulClient.withoutUnresolvableLinks.getEntries<TypeArticleSkeleton>({
+        content_type: 'article',
+    });
+
+    // return { fallback: false, paths: data.items.map((item) => item.fields.url) };
+    return { fallback: false, paths: [] };
 }

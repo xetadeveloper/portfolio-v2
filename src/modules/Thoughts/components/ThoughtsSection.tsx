@@ -39,11 +39,11 @@ export default function ThoughtsSection({ articles, articleDateGroup, isDefaultO
 
             <Collapse in={isOpen}>
                 <Flex gap="20px" flexWrap="wrap" padding="10px 10px">
-                    {[...articles, ...articles, ...articles, ...articles].map((item, index) => (
+                    {articles.map((item, index) => (
                         <Button
                             key={index}
                             as={motion.a}
-                            href={item.articleUrl}
+                            href={item.url}
                             flexDir="column"
                             bg="#fff"
                             borderRadius="5px"
@@ -59,7 +59,7 @@ export default function ThoughtsSection({ articles, articleDateGroup, isDefaultO
                             <img
                                 width="200px"
                                 height="200px"
-                                src={item.imageUrl}
+                                src={item.previewImageUrl}
                                 style={{ width: '100%', borderRadius: '5px' }}
                             ></img>
                             <Heading

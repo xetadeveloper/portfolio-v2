@@ -6,8 +6,9 @@ import { Divider, Flex, Heading, Input, Stack, Text } from '@chakra-ui/react';
 import TitleLayout from '~/layouts/TitleLayout';
 import ThoughtsSection from '~/modules/Thoughts/components/ThoughtsSection';
 import { ArticleItem } from '~/types';
-import { articlesList } from '~/utils/dummyArticles';
 import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { TypeArticleSkeleton } from '~/contentful/__generated__';
+import { contentfulClient } from '~/contentful/client';
 
 // Components
 
@@ -100,11 +101,25 @@ export default function Thoughts({ articles }: ThoughtsProps) {
         </TitleLayout>
     );
 }
-
 export async function getStaticProps(): Promise<GetStaticPropsResult<ThoughtsProps>> {
+    const data = await contentfulClient.withoutUnresolvableLinks.getEntries<TypeArticleSkeleton>({
+        content_type: 'article',
+    });
+
+    const articles: ArticleItem[] = data.items.map((item) => ({
+        url: item.fields.url,
+        author: item.fields.author,
+        createdOn: item.sys.createdAt,
+        title: item.fields.title,
+        previewImageUrl:
+            item.fields.previewImageUrl ??
+            item.fields.previewImage?.fields.file?.url ??
+            '/default-article-thumbnail.jpg',
+    }));
+
     return {
         props: {
-            articles: articlesList,
+            articles,
         },
     };
 }
