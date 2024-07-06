@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import { Avatar, Button, Divider, Flex, Heading, Slide, Stack, Text, useTheme } from '@chakra-ui/react';
 import AboutTitle from '~/modules/About/components/AboutTitle';
 import AboutBody from '~/modules/About/components/AboutBody';
-import { specializeTechStack } from '~/modules/About/constants';
 import AboutTechStackCard from '~/modules/About/components/AboutTechStackCard';
 import { GetStaticPropsResult } from 'next';
 import { RiMenuFold3Fill } from 'react-icons/ri';
@@ -14,19 +13,13 @@ import { useMediaQuery } from 'usehooks-ts';
 import styles from '~/modules/About/about.module.css';
 import { contentfulClient } from '~/contentful/client';
 import {
-    TypeAbout,
-    TypeAboutFields,
     TypeAboutSkeleton,
-    TypeCertfication,
-    TypeCertficationFields,
     TypeCertficationWithoutUnresolvableLinksResponse,
     TypeEducation,
-    TypeEducationSkeleton,
-    TypeEducationWithoutLinkResolutionResponse,
-    TypeTechStack,
 } from '~/contentful/__generated__';
 import { Entry } from 'contentful';
 import { getTechDisplayTitle, getTechIcon } from '~/utils/techStackIcons';
+
 // Components
 
 // Types
@@ -199,6 +192,7 @@ export default function About({ content }: AboutProps) {
 
                     <Flex as="section" flexDir="column" gap="20px">
                         <AboutTitle>User Interaction and Experience</AboutTitle>
+
                         <AboutBody>{content.fields.uxDescription}</AboutBody>
                     </Flex>
 

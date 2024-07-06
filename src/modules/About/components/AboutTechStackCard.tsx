@@ -1,5 +1,7 @@
 import { Box, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { ReactElement } from 'react';
+import Markdown from 'react-markdown';
+import MarkdownDisplay from '~/components/MarkdownDisplay';
 
 interface AboutTechStackCardProps {
     title: string;
@@ -25,9 +27,10 @@ export default function AboutTechStackCard({ title, subtitle, techStack }: About
                 <Heading fontSize="20px" fontWeight="400" mb="15px">
                     {title}
                 </Heading>
-                <Text maxWidth="300px" fontWeight="400">
+
+                <MarkdownDisplay maxWidth="300px" fontWeight="400">
                     {subtitle}
-                </Text>
+                </MarkdownDisplay>
             </Box>
 
             <SimpleGrid
