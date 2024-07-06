@@ -14,7 +14,7 @@ export default function MainLayout({ children, key }: { children: ReactElement; 
                 damping: 20,
                 duration: 0.4,
             }}
-            style={{ height: '100svh', position: 'relative', width: 'auto', overflow: 'hidden' }}
+            style={{ height: '100dvh', position: 'relative', width: 'auto', overflow: 'hidden' }}
         >
             {children}
             <NavSide key={key} />
