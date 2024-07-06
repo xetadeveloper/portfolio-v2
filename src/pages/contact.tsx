@@ -70,5 +70,6 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<ContactProp
         props: {
             data,
         },
+        revalidate: 30,
     };
 }

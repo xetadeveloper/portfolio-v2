@@ -171,5 +171,5 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<Wor
         return converted;
     });
 
-    return { props: { works } };
+    return { props: { works }, revalidate: 30 };
 }

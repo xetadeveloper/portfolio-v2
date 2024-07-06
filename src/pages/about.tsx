@@ -255,5 +255,6 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<AboutProps>
         props: {
             content: data,
         },
+        revalidate: 30,
     };
 }

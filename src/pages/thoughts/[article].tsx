@@ -26,7 +26,7 @@ import { TypeArticleSkeleton, TypeArticleWithoutUnresolvableLinksResponse } from
 import { contentfulClient } from '~/contentful/client';
 import NotFound from '../404';
 import dayjs from 'dayjs';
-import '.'
+import '.';
 
 // Components
 
@@ -175,6 +175,7 @@ export async function getStaticProps(context: GetStaticPropsContext): Promise<Ge
             content: articleData,
             recentArticles: sortedArticlesList.slice(0, 10),
         },
+        revalidate: 30,
     };
 }
 

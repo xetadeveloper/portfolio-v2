@@ -121,5 +121,6 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<ThoughtsPro
         props: {
             articles,
         },
+        revalidate: 30,
     };
 }
