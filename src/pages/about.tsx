@@ -7,7 +7,7 @@ import AboutTitle from '~/modules/About/components/AboutTitle';
 import AboutBody from '~/modules/About/components/AboutBody';
 import AboutTechStackCard from '~/modules/About/components/AboutTechStackCard';
 import { GetStaticPropsResult } from 'next';
-import { RiMenuFold3Fill } from 'react-icons/ri';
+import { RiDoubleQuotesL, RiDoubleQuotesR, RiMenuFold3Fill } from 'react-icons/ri';
 import { BiX } from 'react-icons/bi';
 import { useMediaQuery } from 'usehooks-ts';
 import styles from '~/modules/About/about.module.css';
@@ -165,9 +165,31 @@ export default function About({ content }: AboutProps) {
                             Hey, nice to e-meet you!
                         </Heading>
                     </Flex>
-                    <Text fontWeight="300" fontSize={{ base: '14px', md: '16px' }} maxWidth={{ md: '400px' }}>
-                        {content.fields.personalQuote}
-                    </Text>
+                    <Stack gap="5px" alignItems="flex-end">
+                        <Flex gap="5px">
+                            <RiDoubleQuotesL
+                                style={{
+                                    color: '#7a7a7a',
+                                    width: '13px',
+                                    height: '13px',
+                                }}
+                            />
+                            <Text fontWeight="300" fontSize={{ base: '14px', md: '16px' }} maxWidth={{ md: '400px' }}>
+                                {content.fields.personalQuote}
+                            </Text>
+                            <RiDoubleQuotesR
+                                style={{
+                                    color: '#7a7a7a',
+                                    width: '13px',
+                                    height: '13px',
+                                }}
+                            />
+                        </Flex>
+
+                        <Heading fontWeight="300" fontSize={{ base: '12px', md: '14px' }} mr="13px">
+                            Fego E.
+                        </Heading>
+                    </Stack>
                 </Flex>
 
                 <Divider margin="20px 0 20px" />
