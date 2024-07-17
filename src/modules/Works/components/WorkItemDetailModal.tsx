@@ -24,6 +24,7 @@ import { TWorkItem } from '../types';
 import Markdown from 'react-markdown';
 import { getTechDisplayTitle, getTechIcon } from '~/utils/techStackIcons';
 import { getStatusIcon } from '~/utils';
+import { IoMdLock } from 'react-icons/io';
 
 // Types
 export interface WorkItemDetailModalProps {
@@ -87,8 +88,16 @@ export default function WorkItemDetailModal({
                             >
                                 Exit gallery
                             </Button>
+                        ) : props.isPrivateRepository ? (
+                            <Flex gap="5px">
+                                <IoMdLock />
+                                <Heading fontSize="14px" fontWeight="500">
+                                    This repository is private
+                                </Heading>
+                            </Flex>
                         ) : (
                             <Button
+                                hidden={!props.repoLink}
                                 as="a"
                                 href={props.repoLink}
                                 target="_blank"

@@ -11,6 +11,7 @@ export type TWorkItem = {
     previewImageUrl: string;
     previewImgAlt: string;
     galleryImagesUrl: string[];
-    repoLink: string;
+    repoLink?: string;
     stack: string[];
+    isPrivateRepository: boolean;
 };

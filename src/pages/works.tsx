@@ -160,13 +160,17 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<Wor
             longDescription: work.fields.details,
             galleryImagesUrl: galleryImagesUrls,
             liveLink: work.fields.liveLink,
-            repoLink: work.fields.repositoryLink,
             previewDescription: work.fields.previewDescription,
             previewImageUrl: previewImage ? 'https:' + previewImage.fields.file?.url : '',
             previewImgAlt: previewImage?.fields.description ?? `Preview image of ${work.fields.title}`,
             stack: techStack.fields.stack,
             status: work.fields.status,
+            isPrivateRepository: work.fields.isPrivateRepository ?? false,
         };
+
+        if (work.fields.repositoryLink) {
+            converted.repoLink = work.fields.repositoryLink;
+        }
 
         return converted;
     });
