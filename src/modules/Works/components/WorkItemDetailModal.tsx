@@ -19,6 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { TWorkItem } from '../types';
 import Markdown from 'react-markdown';
 import { getTechDisplayTitle, getTechIcon } from '~/utils/techStackIcons';
@@ -122,30 +123,31 @@ export default function WorkItemDetailModal({
                                 animate={{
                                     width: isGalleryMode ? '100%' : '',
                                 }}
+                                boxShadow="0 0 1px 1px #d6d6d6"
                             />
 
                             {/* Next and Prev buttons */}
                             {isGalleryMode ? (
                                 <Flex justifyContent="center" gap="20px">
                                     <Button
-                                        minWidth="100px"
+                                        minWidth="50px"
                                         justifyContent="center"
                                         borderRadius="5px"
                                         onClick={() => setSelectedGalleryPic(selectedGalleryPic - 1)}
                                         isDisabled={selectedGalleryPic === 0}
                                         hidden={selectedGalleryPic === 0}
                                     >
-                                        Previous
+                                        <GrFormPrevious style={{ height: '20px', width: '20px' }} />
                                     </Button>
                                     <Button
-                                        minWidth="100px"
+                                        minWidth="50px"
                                         justifyContent="center"
                                         borderRadius="5px"
                                         onClick={() => setSelectedGalleryPic(selectedGalleryPic + 1)}
                                         isDisabled={selectedGalleryPic === props.galleryImagesUrl.length - 1}
                                         hidden={selectedGalleryPic === props.galleryImagesUrl.length - 1}
                                     >
-                                        Next
+                                        <GrFormNext style={{ height: '20px', width: '20px' }} />
                                     </Button>
                                 </Flex>
                             ) : null}
@@ -250,10 +252,7 @@ export default function WorkItemDetailModal({
 
                     {!isGalleryMode ? (
                         <Box mt="20px">
-                            <Markdown>
-                                {/* <Text mt={{ base: '30px', md: '10px' }}>{props.longDescription}</Text> */}
-                                {props.longDescription}
-                            </Markdown>
+                            <Markdown>{props.longDescription}</Markdown>
                         </Box>
                     ) : null}
                 </ModalBody>
