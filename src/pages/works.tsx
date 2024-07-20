@@ -11,14 +11,15 @@ import Products from '~/modules/Works/Products';
 import PersonalProjects from '~/modules/Works/PersonalProjects';
 import Testimonials from '~/modules/Works/Testimonials';
 import { TWorkItem } from '~/modules/Works/types';
-import { TypeProjectSkeleton, TypeTechStack, TypeTechStackSkeleton } from '~/contentful/__generated__';
-import { Asset, Entry } from 'contentful';
+import { TypeProjectSkeleton, TypeResumeSkeleton, TypeTechStack } from '~/contentful/__generated__';
+import { Asset } from 'contentful';
 
 // Components
 
 // Types
 export interface WorksProps {
     works: TWorkItem[];
+    resumeUrl: string;
 }
 
 export interface WorkTab {
@@ -26,17 +27,17 @@ export interface WorkTab {
     component: ReactElement;
 }
 
-export default function Works({ works }: WorksProps) {
+export default function Works({ works, resumeUrl }: WorksProps) {
     const [selectedTab, setSelectedTab] = useState(0);
 
     const tabs: WorkTab[] = [
         {
-            title: "Products I've worked on",
-            component: <Products works={works.filter((project) => project.type.includes('commercial'))} />,
-        },
-        {
             title: 'Personal projects',
             component: <PersonalProjects works={works.filter((project) => project.type.includes('personal'))} />,
+        },
+        {
+            title: "Products I've worked on",
+            component: <Products works={works.filter((project) => project.type.includes('commercial'))} />,
         },
         {
             title: 'Testimonials',
@@ -54,17 +55,24 @@ export default function Works({ works }: WorksProps) {
                     </Text>
                 </Flex>
 
-                <Button
-                    as={motion.button}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 1 }}
-                    mt="30px"
-                    width="fit-content"
-                    gap={{ base: '0px', sm_large: '10px' }}
-                    leftIcon={<BiDownload />}
-                >
-                    Download a copy of my resume
-                </Button>
+                {resumeUrl ? (
+                    <Button
+                        as={motion.button}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 1 }}
+                        mt="30px"
+                        width="fit-content"
+                        gap={{ base: '0px', sm_large: '10px' }}
+                        leftIcon={<BiDownload />}
+                        onClick={() => {
+                            if (resumeUrl) {
+                                window.open(resumeUrl, '_blank');
+                            }
+                        }}
+                    >
+                        Download a copy of my resume
+                    </Button>
+                ) : null}
             </Flex>
 
             <Divider margin="30px 0 20px" />
@@ -132,6 +140,8 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<Wor
     const content = await contentfulClient.withoutUnresolvableLinks.getEntries<TypeProjectSkeleton>({
         content_type: 'project',
     });
+    const resume =
+        await contentfulClient.withoutUnresolvableLinks.getEntry<TypeResumeSkeleton>('7JIhnySL1tV8Y4dNFF4aTN');
 
     const works = content.items.map((work) => {
         const previewImage = work.fields.previewImage;
@@ -175,5 +185,5 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<Wor
         return converted;
     });
 
-    return { props: { works }, revalidate: 30 };
+    return { props: { works, resumeUrl: resume.fields.resume?.fields.file?.url ?? '' }, revalidate: 30 };
 }
