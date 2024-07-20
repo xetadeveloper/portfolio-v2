@@ -14,7 +14,6 @@ export interface ProjectsProps {
 }
 
 export default function PersonalProjects({ works }: ProjectsProps) {
-    console.log('Personal projects : ', works);
     return (
         <Flex flexDir="column" gap="40px" height="100%">
             <Heading>
