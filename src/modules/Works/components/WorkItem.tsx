@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 // Components
 import Image from 'next/image';
-import { Box, Button, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, FlexProps, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import WorkItemDetailModal from './WorkItemDetailModal';
 import { TWorkItem } from '../types';
@@ -14,6 +14,7 @@ import { getStatusIcon } from '~/utils';
 export interface WorkItemProps {
     onClick?: () => void;
     showDetails?: boolean;
+    containerProps?: FlexProps;
 }
 
 export default function WorkItem(props: WorkItemProps & TWorkItem) {
@@ -27,6 +28,7 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
         stack,
         liveLink,
         showDetails = true,
+        containerProps,
     } = props;
 
     return (
@@ -41,6 +43,7 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
             textAlign="start"
             as={motion.div}
             whileHover={{ scale: 1.01 }}
+            {...containerProps}
         >
             <Flex
                 flexShrink="1"

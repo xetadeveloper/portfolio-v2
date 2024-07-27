@@ -14,4 +14,5 @@ export type TWorkItem = {
     repoLink?: string;
     stack: string[];
     isPrivateRepository: boolean;
+    isFeaturedProject: boolean;
 };

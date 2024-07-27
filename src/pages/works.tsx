@@ -25,6 +25,7 @@ export interface WorksProps {
 export interface WorkTab {
     title: string;
     component: ReactElement;
+    hidden?: boolean;
 }
 
 export default function Works({ works, resumeUrl }: WorksProps) {
@@ -42,6 +43,7 @@ export default function Works({ works, resumeUrl }: WorksProps) {
         {
             title: 'Testimonials',
             component: <Testimonials />,
+            hidden: true,
         },
     ];
 
@@ -79,23 +81,25 @@ export default function Works({ works, resumeUrl }: WorksProps) {
 
             <Tabs isLazy padding="0" onChange={(index) => setSelectedTab(index)}>
                 <TabList borderBottom="none" padding="0 20px" gap="20px" overflowX="auto" minHeight="50px">
-                    {tabs.map((tab, index) => (
-                        <Tab
-                            minWidth="fit-content"
-                            padding="10px 10px"
-                            key={index}
-                            borderRadius="5px"
-                            height="100%"
-                            _hover={{
-                                bg: selectedTab === index ? 'black.600' : '#e2e2e2',
-                            }}
-                            border="none"
-                            bg={selectedTab === index ? 'black.600' : 'transparent'}
-                            color={selectedTab === index ? 'white' : 'black.700'}
-                        >
-                            {tab.title}
-                        </Tab>
-                    ))}
+                    {tabs
+                        .filter((tab) => !tab.hidden)
+                        .map((tab, index) => (
+                            <Tab
+                                minWidth="fit-content"
+                                padding="10px 10px"
+                                key={index}
+                                borderRadius="5px"
+                                height="100%"
+                                _hover={{
+                                    bg: selectedTab === index ? 'black.600' : '#e2e2e2',
+                                }}
+                                border="none"
+                                bg={selectedTab === index ? 'black.600' : 'transparent'}
+                                color={selectedTab === index ? 'white' : 'black.700'}
+                            >
+                                {tab.title}
+                            </Tab>
+                        ))}
                 </TabList>
                 <Flex mt="20px" gap="20px" justifyContent="center" display={{ base: 'flex', md: 'none' }}>
                     {tabs.map((_, index) => (
@@ -111,25 +115,27 @@ export default function Works({ works, resumeUrl }: WorksProps) {
                     ))}
                 </Flex>
                 <TabPanels padding="30px 30px">
-                    {tabs.map(({ component }, index) => (
-                        <TabPanel padding="0" key={index}>
-                            <AnimatePresence>
-                                <motion.div
-                                    initial={{ x: -300, opacity: 0 }}
-                                    animate={{ x: 0, opacity: 1 }}
-                                    exit={{ x: -300, opacity: 0 }}
-                                    transition={{
-                                        type: 'tween',
-                                        stiffness: 160,
-                                        damping: 20,
-                                        duration: 0.4,
-                                    }}
-                                >
-                                    {component}
-                                </motion.div>
-                            </AnimatePresence>
-                        </TabPanel>
-                    ))}
+                    {tabs
+                        .filter((tab) => !tab.hidden)
+                        .map(({ component }, index) => (
+                            <TabPanel padding="0" key={index}>
+                                <AnimatePresence>
+                                    <motion.div
+                                        initial={{ x: -300, opacity: 0 }}
+                                        animate={{ x: 0, opacity: 1 }}
+                                        exit={{ x: -300, opacity: 0 }}
+                                        transition={{
+                                            type: 'tween',
+                                            stiffness: 160,
+                                            damping: 20,
+                                            duration: 0.4,
+                                        }}
+                                    >
+                                        {component}
+                                    </motion.div>
+                                </AnimatePresence>
+                            </TabPanel>
+                        ))}
                 </TabPanels>
             </Tabs>
         </Flex>
@@ -176,6 +182,7 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<Partial<Wor
             stack: techStack.fields.stack,
             status: work.fields.status,
             isPrivateRepository: work.fields.isPrivateRepository ?? false,
+            isFeaturedProject: work.fields.isFeaturedProject,
         };
 
         if (work.fields.repositoryLink) {
