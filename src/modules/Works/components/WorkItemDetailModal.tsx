@@ -1,5 +1,5 @@
 // Modules
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Components
 import {
@@ -15,13 +15,11 @@ import {
     ModalOverlay,
     SimpleGrid,
     Stack,
-    Text,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { TWorkItem } from '../types';
-import Markdown from 'react-markdown';
 import { getTechDisplayTitle, getTechIcon } from '~/utils/techStackIcons';
 import { getStatusIcon } from '~/utils';
 import { IoMdLock } from 'react-icons/io';
@@ -39,14 +37,19 @@ export default function WorkItemDetailModal({
     ...props
 }: WorkItemDetailModalProps & TWorkItem) {
     const [isGalleryMode, setIsGalleryMode] = useState(false);
-    const [selectedGalleryPic, setSelectedGalleryPic] = useState(-1);
+    const [selectedGalleryPicIndex, setSelectedGalleryPicIndex] = useState(-1);
+
+    useEffect(() => {
+        const pic = document.getElementById(`picture-${selectedGalleryPicIndex < 0 ? 0 : selectedGalleryPicIndex}`);
+        if (pic) pic.scrollIntoView();
+    }, [selectedGalleryPicIndex]);
 
     return (
         <Modal
             isOpen={isOpen}
             onClose={() => {
                 setIsGalleryMode(false);
-                setSelectedGalleryPic(-1);
+                setSelectedGalleryPicIndex(-1);
             }}
             size="full"
         >
@@ -84,7 +87,7 @@ export default function WorkItemDetailModal({
                                 borderRadius="5px"
                                 onClick={() => {
                                     setIsGalleryMode(false);
-                                    setSelectedGalleryPic(-1);
+                                    setSelectedGalleryPicIndex(-1);
                                 }}
                             >
                                 Exit gallery
@@ -114,7 +117,6 @@ export default function WorkItemDetailModal({
                     </Flex>
 
                     <Flex gap="20px" flexDirection={{ base: 'column', md: 'row' }} alignItems="center">
-                        {/* Image */}
                         <Flex
                             as={motion.div}
                             position="relative"
@@ -122,41 +124,63 @@ export default function WorkItemDetailModal({
                             gap="20px"
                             borderRadius="5px"
                             animate={{ width: isGalleryMode ? '100%' : 'auto' }}
+                            overflow="auto"
+                            height="100%"
                         >
-                            <Image
-                                as={motion.img}
-                                src={isGalleryMode ? props.galleryImagesUrl[selectedGalleryPic] : props.previewImageUrl}
-                                width={300}
-                                alt={`image for ${'journalme'}`}
-                                borderRadius="5px"
-                                aspectRatio={isGalleryMode ? '' : '1/0.6'}
+                            <Flex
+                                as={motion.div}
                                 animate={{
-                                    width: isGalleryMode ? '100%' : '',
+                                    width: isGalleryMode ? '100%' : '300px',
                                 }}
+                                aspectRatio={isGalleryMode ? '' : '1/0.6'}
                                 boxShadow="0 0 1px 1px #d6d6d6"
-                            />
+                                overflow="hidden"
+                                height="fit-content"
+                                borderRadius="5px"
+                                scrollBehavior="smooth"
+                            >
+                                {props.galleryImagesUrl.map((image, index) => {
+                                    return (
+                                        <Image
+                                            id={`picture-${index}`}
+                                            src={image}
+                                            width="100%"
+                                            height="100%"
+                                            alt={`image for ${'gallery'}`}
+                                        />
+                                    );
+                                })}
+                            </Flex>
 
                             {/* Next and Prev buttons */}
                             {isGalleryMode ? (
                                 <Flex justifyContent="center" gap="20px">
                                     <Button
-                                        minWidth="50px"
+                                        // minWidth="30px"
                                         justifyContent="center"
                                         borderRadius="5px"
-                                        onClick={() => setSelectedGalleryPic(selectedGalleryPic - 1)}
-                                        isDisabled={selectedGalleryPic === 0}
-                                        hidden={selectedGalleryPic === 0}
+                                        onClick={() => {
+                                            const newSelection = selectedGalleryPicIndex - 1;
+
+                                            setSelectedGalleryPicIndex(newSelection);
+                                        }}
+                                        isDisabled={selectedGalleryPicIndex === 0}
+                                        hidden={selectedGalleryPicIndex === 0}
                                     >
-                                        <GrFormPrevious style={{ height: '20px', width: '20px' }} />
+                                        <GrFormPrevious style={{ height: '20px', width: '20px' }} /> Previous
                                     </Button>
                                     <Button
                                         minWidth="50px"
                                         justifyContent="center"
                                         borderRadius="5px"
-                                        onClick={() => setSelectedGalleryPic(selectedGalleryPic + 1)}
-                                        isDisabled={selectedGalleryPic === props.galleryImagesUrl.length - 1}
-                                        hidden={selectedGalleryPic === props.galleryImagesUrl.length - 1}
+                                        onClick={() => {
+                                            const newSelection = selectedGalleryPicIndex + 1;
+                                            setSelectedGalleryPicIndex(newSelection);
+                                        }}
+                                        isDisabled={selectedGalleryPicIndex === props.galleryImagesUrl.length - 1}
+                                        hidden={selectedGalleryPicIndex === props.galleryImagesUrl.length - 1}
                                     >
+                                        Next
                                         <GrFormNext style={{ height: '20px', width: '20px' }} />
                                     </Button>
                                 </Flex>
@@ -212,7 +236,7 @@ export default function WorkItemDetailModal({
                                             }}
                                             onClick={() => {
                                                 setIsGalleryMode(true);
-                                                setSelectedGalleryPic(0);
+                                                setSelectedGalleryPicIndex(0);
                                             }}
                                             whileTap={{ scale: 0.96 }}
                                         >
@@ -236,7 +260,7 @@ export default function WorkItemDetailModal({
                                 </Box>
 
                                 <SimpleGrid
-                                    gap="20px"
+                                    gap="20px 40px"
                                     flexWrap="wrap"
                                     maxWidth="400px"
                                     // border="1px solid red"
@@ -247,12 +271,18 @@ export default function WorkItemDetailModal({
                                         const icon = getTechIcon({ icon: item });
 
                                         return (
-                                            <Flex key={index} alignItems="center" gap="10px">
+                                            <SimpleGrid
+                                                gridTemplateColumns="20px 1fr"
+                                                columnGap="20px"
+                                                key={index}
+                                                alignItems="center"
+                                                gap="10px"
+                                            >
                                                 <Box height="30px" width="30px" color="#383838">
                                                     {icon}
                                                 </Box>
                                                 <Heading fontWeight="400">{getTechDisplayTitle(item)}</Heading>
-                                            </Flex>
+                                            </SimpleGrid>
                                         );
                                     })}
                                 </SimpleGrid>
