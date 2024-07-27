@@ -110,6 +110,7 @@ export default function WorkItemDetailModal({
                                 border="1px solid transparent"
                                 borderColor="gray.600"
                                 rightIcon={<FaExternalLinkAlt style={{ width: '13px', height: '13px' }} />}
+                                gap='1px'
                             >
                                 Github
                             </Button>
