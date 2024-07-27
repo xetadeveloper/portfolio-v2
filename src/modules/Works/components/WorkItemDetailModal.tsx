@@ -25,6 +25,7 @@ import Markdown from 'react-markdown';
 import { getTechDisplayTitle, getTechIcon } from '~/utils/techStackIcons';
 import { getStatusIcon } from '~/utils';
 import { IoMdLock } from 'react-icons/io';
+import MarkdownDisplay from '~/components/MarkdownDisplay';
 
 // Types
 export interface WorkItemDetailModalProps {
@@ -261,7 +262,7 @@ export default function WorkItemDetailModal({
 
                     {!isGalleryMode ? (
                         <Box mt="20px">
-                            <Markdown>{props.longDescription}</Markdown>
+                            <MarkdownDisplay>{props.longDescription}</MarkdownDisplay>
                         </Box>
                     ) : null}
                 </ModalBody>

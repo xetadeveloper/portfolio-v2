@@ -109,6 +109,9 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                     alignSelf={{ base: '', md: 'flex-start' }}
                     justifyContent={{ base: 'center', md: 'flex-start' }}
                     onClick={() => setIsModalOpen(showDetails ? true : false)}
+                    height="auto"
+                    whiteSpace='break-spaces'
+                    lineHeight='1.5'
                 >
                     Learn more about {title}
                 </Button>

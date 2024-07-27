@@ -53,7 +53,8 @@ export default function Works({ works, resumeUrl }: WorksProps) {
                 <Flex flexDir="column" gap="20px">
                     <Heading fontSize="34px">My Work</Heading>
                     <Text>
-                        Pixel perfect reproduction, clean design and secure backends amongst other aspects are my focus.
+                        Pixel perfect reproduction, responsiveness, clean design and secure backends amongst other
+                        aspects are my focus.
                     </Text>
                 </Flex>
 
@@ -71,6 +72,7 @@ export default function Works({ works, resumeUrl }: WorksProps) {
                                 window.open(resumeUrl, '_blank');
                             }
                         }}
+                        whiteSpace="break-spaces"
                     >
                         Download a copy of my resume
                     </Button>
@@ -101,7 +103,7 @@ export default function Works({ works, resumeUrl }: WorksProps) {
                             </Tab>
                         ))}
                 </TabList>
-                
+
                 <Flex mt="20px" gap="20px" justifyContent="center" display={{ base: 'flex', md: 'none' }}>
                     {tabs.map((_, index) => (
                         <Box
