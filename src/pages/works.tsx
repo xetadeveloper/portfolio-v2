@@ -105,17 +105,19 @@ export default function Works({ works, resumeUrl }: WorksProps) {
                 </TabList>
 
                 <Flex mt="20px" gap="20px" justifyContent="center" display={{ base: 'flex', md: 'none' }}>
-                    {tabs.map((_, index) => (
-                        <Box
-                            key={index}
-                            borderRadius="50%"
-                            border="1px solid transparent"
-                            borderColor="#929292"
-                            height="10px"
-                            width="10px"
-                            bg={index === selectedTab ? 'black.600' : 'transparent'}
-                        ></Box>
-                    ))}
+                    {tabs
+                        .filter((tab) => !tab.hidden)
+                        .map((_, index) => (
+                            <Box
+                                key={index}
+                                borderRadius="50%"
+                                border="1px solid transparent"
+                                borderColor="#929292"
+                                height="10px"
+                                width="10px"
+                                bg={index === selectedTab ? 'black.600' : 'transparent'}
+                            ></Box>
+                        ))}
                 </Flex>
 
                 <TabPanels padding={{ base: '15px', md: '30px 30px' }}>
