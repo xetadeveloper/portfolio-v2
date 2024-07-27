@@ -25,7 +25,14 @@ export interface ContactProps {
 
 export default function Contact({ data }: ContactProps) {
     return (
-        <Center bg="brand.bg" minHeight="100%" flexDir="column" gap={{ base: '40px', md: '60px' }} padding="30px">
+        <Center
+            bg="brand.bg"
+            minHeight="100%"
+            height="100%"
+            flexDir="column"
+            gap={{ base: '40px', md: '60px' }}
+            padding="30px"
+        >
             <Heading fontWeight="500" fontSize={{ base: '30px', md: '34px' }} textAlign="center">
                 {data.fields.headerText}
             </Heading>

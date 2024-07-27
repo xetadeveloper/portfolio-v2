@@ -31,12 +31,12 @@ export default function Home({ developerName }: HomeProps) {
         <Center
             as="main"
             bg="brand.bg"
-            border="1px solid rd"
-            height="100vh"
+            height="100%"
             position="relative"
             flexDir="column"
             padding="10px"
             overflow="hidden"
+            // justifyContent="space-between"
         >
             <Heading
                 style={{ userSelect: 'none' }}
@@ -107,7 +107,7 @@ export default function Home({ developerName }: HomeProps) {
                 whileHover={{ scale: 1.1, transition: { delay: 0, duration: 0.3, type: 'tween' } }}
                 initial={{ y: 400 }}
                 animate={{ y: 0, transition: { delay: 1, duration: 0.5, type: 'spring' } }}
-                style={{ marginTop: '40px' }}
+                style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}
             >
                 <Button
                     as={Link}
