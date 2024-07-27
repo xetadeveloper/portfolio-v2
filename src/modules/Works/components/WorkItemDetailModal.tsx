@@ -116,7 +116,8 @@ export default function WorkItemDetailModal({
                         )}
                     </Flex>
 
-                    <Flex gap="20px" flexDirection={{ base: 'column', md: 'row' }} alignItems="center">
+                    <Flex gap="40px" flexDirection={{ base: 'column', md: 'row' }} alignItems="center">
+                        {/* Gallery */}
                         <Flex
                             as={motion.div}
                             position="relative"
@@ -249,7 +250,14 @@ export default function WorkItemDetailModal({
 
                         {/* Description */}
                         {!isGalleryMode ? (
-                            <Stack justifyContent="center" alignItems="center" flexGrow="1" gap="40px">
+                            <Stack
+                                justifyContent="center"
+                                alignItems="center"
+                                flexGrow="1"
+                                gap="40px"
+                                // border="1px solid green"
+                                width="100%"
+                            >
                                 <Box margin="0 auto" border="1px solid re">
                                     <Heading fontSize="14px" fontWeight="500" mb="10px">
                                         Description
@@ -263,9 +271,11 @@ export default function WorkItemDetailModal({
                                     gap="20px 40px"
                                     flexWrap="wrap"
                                     maxWidth="400px"
-                                    // border="1px solid red"
+                                    maxHeight="400px"
+                                    width="100%"
                                     margin="0 auto"
                                     gridTemplateColumns="repeat(auto-fill, 100px)"
+                                    overflow="auto"
                                 >
                                     {props.stack.map((item, index) => {
                                         const icon = getTechIcon({ icon: item });
