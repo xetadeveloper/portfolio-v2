@@ -101,6 +101,7 @@ export default function Works({ works, resumeUrl }: WorksProps) {
                             </Tab>
                         ))}
                 </TabList>
+                
                 <Flex mt="20px" gap="20px" justifyContent="center" display={{ base: 'flex', md: 'none' }}>
                     {tabs.map((_, index) => (
                         <Box
@@ -114,7 +115,8 @@ export default function Works({ works, resumeUrl }: WorksProps) {
                         ></Box>
                     ))}
                 </Flex>
-                <TabPanels padding="30px 30px">
+
+                <TabPanels padding={{ base: '15px', md: '30px 30px' }}>
                     {tabs
                         .filter((tab) => !tab.hidden)
                         .map(({ component }, index) => (

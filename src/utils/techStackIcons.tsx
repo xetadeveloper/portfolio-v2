@@ -6,16 +6,19 @@ import { IoLogoPwa } from 'react-icons/io5';
 import { PiPlugsFill } from 'react-icons/pi';
 import { RiJavascriptFill, RiNextjsFill, RiTailwindCssFill } from 'react-icons/ri';
 import {
+    SiAmazons3,
     SiChakraui,
     SiDjango,
     SiExpress,
     SiFramer,
+    SiGraphql,
     SiJekyll,
     SiMongodb,
     SiMui,
     SiMysql,
     SiPostgresql,
     SiTypescript,
+    SiWebpack,
 } from 'react-icons/si';
 
 type stackName = 'react' | 'nodejs' | 'typescript' | 'github' | 'git' | 'expressjs' | 'javascript';
@@ -66,6 +69,12 @@ export function getTechIcon({ icon, styles }: { icon: stackName | string; styles
             return <FaDocker style={{ height: '100%', width: '100%', ...styles }} />;
         case 'materialui':
             return <SiMui style={{ height: '100%', width: '100%', ...styles }} />;
+        case 'webpack':
+            return <SiWebpack style={{ height: '100%', width: '100%', ...styles }} />;
+        case 'graphql':
+            return <SiGraphql style={{ height: '100%', width: '100%', ...styles }} />;
+        case 'aws-s3':
+            return <SiAmazons3 style={{ height: '100%', width: '100%', ...styles }} />;
     }
 
     return <FaQuestionCircle style={{ height: '100%', width: '100%', ...styles }} />;
@@ -114,9 +123,15 @@ export function getTechDisplayTitle(stack: string) {
         case 'jekyll':
             return 'Jekyll';
         case 'websocket':
-            return 'WebSockets';
+            return 'WebSocket';
         case 'docker':
             return 'Docker';
+        case 'webpack':
+            return 'Webpack';
+        case 'graphql':
+            return 'GraphQL';
+        case 'aws-s3':
+            return 'AWS S3';
     }
 
     return stack;

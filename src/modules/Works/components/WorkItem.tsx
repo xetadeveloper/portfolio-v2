@@ -84,7 +84,13 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                     </Text>
                 </Flex>
 
-                <SimpleGrid gap="20px" flexWrap="wrap" gridTemplateColumns="repeat(auto-fill, 100px)">
+                <SimpleGrid
+                    gap="20px"
+                    flexWrap="wrap"
+                    gridTemplateColumns="repeat(auto-fill, 100px)"
+                    maxHeight="300px"
+                    overflow="auto"
+                >
                     {stack.map((item, index) => {
                         const icon = getTechIcon({ icon: item });
 
