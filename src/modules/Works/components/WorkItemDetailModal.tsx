@@ -111,7 +111,7 @@ export default function WorkItemDetailModal({
                                 borderColor="gray.600"
                                 rightIcon={<FaExternalLinkAlt style={{ width: '13px', height: '13px' }} />}
                             >
-                                View Repository
+                                Github
                             </Button>
                         )}
                     </Flex>
