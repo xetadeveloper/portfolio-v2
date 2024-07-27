@@ -38,6 +38,7 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
             padding="30px"
             boxShadow="0 2px 4px 0px #C6C6C6"
             maxWidth={{ md: '85%' }}
+            minHeight="400px"
             columnGap="20px"
             justifyContent="center"
             textAlign="start"
@@ -85,24 +86,18 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                 </Flex>
 
                 <SimpleGrid
-                    columnGap="30px"
-                    rowGap="20px"
-                    flexWrap="wrap"
+                    gap="20px 30px"
                     gridTemplateColumns="repeat(auto-fill, 100px)"
-                    maxHeight="300px"
+                    maxHeight="320px"
                     overflow="auto"
+                    height="auto"
+                    padding="3px"
                 >
                     {stack.map((item, index) => {
                         const icon = getTechIcon({ icon: item });
 
                         return (
-                            <SimpleGrid
-                                gridTemplateColumns="20px 1fr"
-                                columnGap="18px"
-                                key={index}
-                                alignItems="center"
-                                gap="10px"
-                            >
+                            <SimpleGrid gridTemplateColumns="20px 1fr" gap="10px 15px" key={index} alignItems="center">
                                 <Box height="30px" width="30px" color="#383838">
                                     {icon}
                                 </Box>
@@ -126,13 +121,14 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
 
             <Box
                 display={{ base: 'none', md: 'block' }}
-                height="320px"
+                // height="320px"
                 width="600px"
                 border="1px solid #e2e2e2"
                 borderRadius="5px"
                 overflow="hidden"
                 padding="2px"
                 flexGrow="1"
+                alignSelf="center"
             >
                 <Image
                     src={previewImageUrl}
