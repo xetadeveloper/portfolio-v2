@@ -57,9 +57,9 @@ export default function Thoughts({ articles }: ThoughtsProps) {
                 <Stack padding={{ base: '30px 20px 20px', md: '30px 30px 20px' }} gap="20px">
                     <Heading fontSize="34px">My Thoughts</Heading>
                     <Text maxWidth="800px">
-                        Welcome to my world and everything in it. Here I share my opinions on technology, daily life,
-                        tips and tricks of web development from my experience. I always welcome constructive criticism
-                        with wide arms and love a good discussion, best over coffee or a drink!
+                        Here I share my opinions on technology, daily life, tips and tricks of web development from my
+                        experience. I always welcome constructive criticism with open arms and love a good discussion,
+                        best over coffee or a drink!
                     </Text>
                 </Stack>
 
