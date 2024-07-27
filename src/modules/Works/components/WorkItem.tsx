@@ -85,7 +85,8 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                 </Flex>
 
                 <SimpleGrid
-                    gap="20px"
+                    columnGap="30px"
+                    rowGap="20px"
                     flexWrap="wrap"
                     gridTemplateColumns="repeat(auto-fill, 100px)"
                     maxHeight="300px"
@@ -95,12 +96,18 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                         const icon = getTechIcon({ icon: item });
 
                         return (
-                            <Flex key={index} alignItems="center" gap="10px">
+                            <SimpleGrid
+                                gridTemplateColumns="20px 1fr"
+                                columnGap="18px"
+                                key={index}
+                                alignItems="center"
+                                gap="10px"
+                            >
                                 <Box height="30px" width="30px" color="#383838">
                                     {icon}
                                 </Box>
                                 <Heading fontWeight="400">{getTechDisplayTitle(item)}</Heading>
-                            </Flex>
+                            </SimpleGrid>
                         );
                     })}
                 </SimpleGrid>
@@ -110,8 +117,8 @@ export default function WorkItem(props: WorkItemProps & TWorkItem) {
                     justifyContent={{ base: 'center', md: 'flex-start' }}
                     onClick={() => setIsModalOpen(showDetails ? true : false)}
                     height="auto"
-                    whiteSpace='break-spaces'
-                    lineHeight='1.5'
+                    whiteSpace="break-spaces"
+                    lineHeight="1.5"
                 >
                     Learn more about {title}
                 </Button>

@@ -18,6 +18,7 @@ import {
     SiMysql,
     SiPostgresql,
     SiTypescript,
+    SiVite,
     SiWebpack,
 } from 'react-icons/si';
 
@@ -75,6 +76,8 @@ export function getTechIcon({ icon, styles }: { icon: stackName | string; styles
             return <SiGraphql style={{ height: '100%', width: '100%', ...styles }} />;
         case 'aws-s3':
             return <SiAmazons3 style={{ height: '100%', width: '100%', ...styles }} />;
+        case 'vite':
+            return <SiVite style={{ height: '100%', width: '100%', ...styles }} />;
     }
 
     return <FaQuestionCircle style={{ height: '100%', width: '100%', ...styles }} />;
@@ -132,6 +135,8 @@ export function getTechDisplayTitle(stack: string) {
             return 'GraphQL';
         case 'aws-s3':
             return 'AWS S3';
+        case 'vite':
+            return 'Vite';
     }
 
     return stack;
