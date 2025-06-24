@@ -8,25 +8,24 @@ import SlantDivAnimation from '~/components/SlantDivAnimation';
 import { motion } from 'framer-motion';
 import { GoChevronRight } from 'react-icons/go';
 import Link from 'next/link';
-
-const socials = [
-    { icon: <BsTwitterX style={{ height: '100%', width: '100%' }} />, url: 'https://google.com' },
-    { icon: <IoMail style={{ height: '100%', width: '100%' }} />, url: 'https://google.com' },
-    { icon: <BsLinkedin style={{ height: '100%', width: '100%' }} />, url: 'https://google.com' },
-    { icon: <FaGithub style={{ height: '100%', width: '100%' }} />, url: 'https://google.com' },
-];
+import { contentfulClient } from '~/contentful/client';
+import {
+    TypeContactSkeleton,
+    TypeContactWithoutUnresolvableLinksResponse,
+    TypeSocialWithoutUnresolvableLinksResponse,
+} from '~/contentful/__generated__';
+import { GetStaticPropsResult } from 'next';
+import { getSocialIcon } from '~/utils/socialsIcons';
 
 interface HomeProps {
-    developerName: string;
+    contact: TypeContactWithoutUnresolvableLinksResponse;
 }
 
 const delay = 1;
 
 const techStack = ['MongoDB', 'React', 'NextJS', 'NodeJS'];
 
-export default function Home({ developerName }: HomeProps) {
-    console.log('Developer name gotten: ', developerName);
-
+export default function Home({ contact }: HomeProps) {
     return (
         <Center
             as="main"
@@ -133,10 +132,34 @@ export default function Home({ developerName }: HomeProps) {
                 left={{ base: '20px', md: '30px' }}
                 gap="18px"
             >
-                {socials.map(({ icon, url }, index) => (
-                    <SocialLink icon={icon} url={url} key={index} />
-                ))}
+                {contact.fields.socials &&
+                    contact.fields.socials.map((social, index) => {
+                        const socialT = social as TypeSocialWithoutUnresolvableLinksResponse;
+                        return (
+                            <SocialLink
+                                icon={getSocialIcon({ icon: socialT.fields.type })}
+                                url={socialT.fields.url}
+                                key={index}
+                            />
+                        );
+                    })}
             </Flex>
         </Center>
     );
+}
+
+export async function getStaticProps(): Promise<GetStaticPropsResult<HomeProps>> {
+    const data =
+        await contentfulClient.withoutUnresolvableLinks.getEntry<TypeContactSkeleton>('4UCEdrKim3TAxmE8JTXDg4');
+
+    if (!data) {
+        return { notFound: true };
+    }
+
+    return {
+        props: {
+            contact: data,
+        },
+        revalidate: 30,
+    };
 }
